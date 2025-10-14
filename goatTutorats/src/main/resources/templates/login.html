@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GoatTutorats</title>
+    <link th:href="@{/css/base.css}" rel="stylesheet" />
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body>
+
+<header class="header">
+    <h1> GoatTutorats </h1>
+</header>
+
+<main class="main-content">
+    <form th:action="@{/auth/authenticate-tutor}" th:method="POST" th:object="${tutor}">
+        <div class="div-form">
+            <div class="form-title">
+                <span> Page de connexion </span>
+            </div>
+
+            <div class="form-description">
+                <span class="title-2"> Saisissez vos identifiants pour se connecter </span>
+            </div>
+
+            <div class="form-content">
+                <div class="form-input">
+                    <label for="login">
+                        Pseudo
+                    </label>
+                    <input type="text" placeholder="Pseudo" th:field="*{login}"/>
+                </div>
+
+                <div class="form-input">
+                    <label for="password">
+                        Mot de passe
+                    </label>
+                    <input type="password" placeholder="Mot de passe" th:field="*{password}"/>
+                </div>
+            </div>
+
+            <div class="form-submit-button">
+                <button type="submit">Se connecter</button>
+            </div>
+        </div>
+    </form>
+</main>
+
+<footer class="footer">
+    <span>&copy; 2025 GoatTutorats. Tous droits réservés.</span>
+    <span>Créé par <a href="#">Antonin Durand</a> - <a href="#">Matéo Massinond</a> - <a href="#">Valentin Menon</a></span>
+</footer>
+
+</body>
+</html>
