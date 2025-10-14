@@ -1,6 +1,8 @@
 :root {
     --primary-color: #abb8cc;
-    --secondary-color: #BAA19E;
+    --secondary-color: #A88A88;
+    --primary-blue: #485BDB;
+    --primary-yellow: #DBC748;
 
     --primary-border-radius: 10px;
     --secondary-border-radius: 5px;
@@ -27,9 +29,17 @@ html, body {
     border-radius: 0 0 var(--primary-border-radius) var(--primary-border-radius);
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     column-gap: var(--primary-gap);
     background-color: white;
+}
+
+.header .header-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: calc(var(--primary-gap) / 2);
 }
 
 .header h1{
@@ -42,9 +52,35 @@ html, body {
     background-color: transparent;
 }
 
+.link{
+    text-decoration: none;
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: var(--font-size-1);
+    padding: calc(var(--primary-gap) / 2);
+    border-radius: var(--secondary-border-radius);
+}
+
+.link:hover{
+    background-color: var(--primary-color);
+}
+
 .main-content{
     width: 100%;
     height: 90%;
+}
+
+.button button{
+    padding: 10px;
+    border-radius: var(--secondary-border-radius);
+    font-size: var(--font-size-1);
+    font-weight: bold;
+    opacity: 1;
+}
+
+.button button:hover{
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .footer {
@@ -59,4 +95,8 @@ html, body {
     align-items: center;
     background-color: white;
     column-gap: var(--primary-gap);
+}
+
+.footer a{
+    font-size: var(--font-size-2);
 }

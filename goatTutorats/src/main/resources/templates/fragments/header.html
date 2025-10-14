@@ -1,0 +1,35 @@
+<header class="header" th:fragment="header-user-not-connected">
+    <div class="header-actions">
+        <h1> GoatTutorats </h1>
+    </div>
+
+    <div class="header-actions">
+        <div class="button">
+            <form th:action="@{/auth/get-login-page}" th:method="GET">
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<header class="header" th:fragment="header-user-connected">
+    <div class="header-actions">
+        <h1> GoatTutorats </h1>
+
+        <a class="link" th:href="@{/test/temp}"> Dashboard </a>
+    </div>
+
+    <div class="header-actions">
+        <div class="button">
+            <form th:action="@{/auth/get-login-page}" th:method="GET">
+                <button type="submit" disabled>Bonjour [Prénom]</button>
+            </form>
+        </div>
+
+        <div class="button">
+            <form th:action="@{/auth/get-login-page}" th:method="GET">
+                <button type="submit">Se déconnecter</button>
+            </form>
+        </div>
+    </div>
+</header>
