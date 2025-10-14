@@ -1,0 +1,90 @@
+@startuml modelisation
+' Définition des classes principales
+class Apprenti {
+    +id: Long
+    +nom: String
+    +prenom: String
+    +email: String
+    +telephone: String
+    +anneeAcademique: String
+}
+
+class Entreprise {
+    +id: Long
+    +raisonSociale: String
+    +adresse: String
+    +infosAcces: String
+}
+
+class AcademicYear {
+    +id: Long
+    +year: dateTime
+}
+
+class MaitreApprentissage {
+    +id: Long
+    +nom: String
+    +prenom: String
+    +poste: String
+    +email: String
+    +telephone: String
+    +remarques: String
+}
+
+class Mission {
+    +id: Long
+    +motsCles: String
+    +metierCible: String
+    +commentaires: String
+}
+
+class Visite {
+    +id: Long
+    +date: Date
+    +format: String
+    +commentaires: String
+}
+
+class EvaluationEcole {
+    +id: Long
+    +memoire: String
+    +themeSujet: String
+    +noteFinale: Float
+    +commentaires: String
+}
+
+class Soutenance {
+    +id: Long
+    +date: Date
+    +noteFinale: Float
+    +commentaires: String
+}
+
+class Remarque {
+    +id: Long
+    +commentaires: String
+}
+
+class TuteurEnseignant {
+    +id: Long
+    +login: String
+    +password: String
+    +prenom: String
+}
+
+
+' Relations
+Apprenti "1" --> "*" AcademicYear: suivre
+AcademicYear "1" --> "1" Entreprise : travailleChez
+AcademicYear "1" --> "1" MaitreApprentissage : suiviPar
+AcademicYear "1" --> "*" Mission : effectue
+AcademicYear "1" --> "*" Visite : participe
+AcademicYear "1" --> "*" EvaluationEcole : soumisPour
+AcademicYear "1" --> "1" Soutenance : passe
+AcademicYear "1" --> "*" Remarque : recoit
+TuteurEnseignant "1" --> "*" Apprenti : suit
+TuteurEnseignant "*" ... "*" Remarque : emet
+MaitreApprentissage "*" ... "*" Remarque : emet
+MaitreApprentissage "1" --> "1" Entreprise : TravailleChez
+
+@enduml
