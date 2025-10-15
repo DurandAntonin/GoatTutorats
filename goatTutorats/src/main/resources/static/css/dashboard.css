@@ -120,6 +120,6 @@
 }
 
 .table .table-empty{
-    color: rgba(255, 0, 0, 0.77);
+    color: var(--primary-red);
     font-weight: bold;
 }

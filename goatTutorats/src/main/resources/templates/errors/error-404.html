@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GoatTutorats</title>
+    <link th:href="@{/css/base.css}" rel="stylesheet" />
+    <link th:href="@{/css/error.css}" rel="stylesheet" />
+</head>
+<body>
+
+<!-- import header section for not connected user -->
+<header th:replace="fragments/header :: header-user-not-connected">
+</header>
+
+<main class="main-content">
+
+    <div class="error-container">
+        <div class="error-section">
+
+            <img th:src="@{'/img/404.png'}" alt="Icône image représentant l'erreur 404" />
+
+            <h1> Erreur 404 page introuvable ! </h1>
+
+            <span>
+                Cliquez <a th:href="@{'/auth/get-login-page'}" class="link">ici</a> pour revenir à la page d'accueil.
+        </span>
+
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="fragments/footer :: footer">
+</footer>
+
+</body>
+</html>
