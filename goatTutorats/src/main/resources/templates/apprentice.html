@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GoatTutorats</title>
+    <link th:href="@{/css/base.css}" rel="stylesheet" />
+    <link th:href="@{/css/apprentice.css}" rel="stylesheet" />
+    <script th:src="@{/js/apprentice.js}"></script>
+</head>
+<body>
+
+<!-- import header section for connected user -->
+<header th:replace="fragments/header :: header-user-connected">
+</header>
+
+<main class="main-content">
+
+    <div class="apprentice">
+        <div class="div-apprentice">
+
+            <div class="apprentice-section-selector">
+                <span>[Prénom]</span>
+                <button data-section="apprentice-personal-information">Informations générales</button>
+                <button data-section="section2">Entreprise</button>
+                <button data-section="section3">Maître d'apprentissage</button>
+                <button data-section="section4">Mission</button>
+                <button data-section="section5">Visite</button>
+                <button data-section="section6">Evaluation-école</button>
+                <button data-section="section7">Remarques</button>
+            </div>
+
+            <div class="apprentice-information-section">
+                <div class="sections">
+                    <div id="apprentice-personal-information" class="section">
+                        <form th:action="@{'/'}" th:method="PATCH" th:object="${apprentice}" >
+                            <div class="row-information">
+                                <div class="column-information">
+                                    <label for="firstName">
+                                        Prénom
+                                    </label>
+                                    <input type="text" placeholder="Prénom" th:field="*{firstName}"/>
+                                </div>
+
+                                <div class="column-information">
+                                    <label for="lastName">
+                                        Nom
+                                    </label>
+                                    <input type="text" placeholder="Nom" th:field="*{lastName}"/>
+                                </div>
+                            </div>
+
+                            <div class="row-information">
+                                <div class="column-information">
+                                    <label for="academicYear">
+                                        Année académique
+                                    </label>
+                                    <input type="text" placeholder="Année académique" th:field="*{academicYears}"/>
+                                </div>
+
+                                <div class="column-information">
+                                    <label for="Major">
+                                        Majeure
+                                    </label>
+                                    <input type="text" placeholder="Majeure" th:field="*{firstName}"/>
+                                </div>
+                            </div>
+
+                            <div class="row-information">
+                                <div class="column-information">
+                                    <label for="email">
+                                        Adresse mail
+                                    </label>
+                                    <input type="text" placeholder="Adresse mail" th:field="*{email}"/>
+                                </div>
+
+                                <div class="column-information">
+                                    <label for="phone">
+                                        Téléphone
+                                    </label>
+                                    <input type="text" placeholder="Numéro de téléphone" th:field="*{phone}"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="form-submit-button button">
+                    <button type="submit">Mettre à jour</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer">
+</footer>
+
+</body>
+</html>

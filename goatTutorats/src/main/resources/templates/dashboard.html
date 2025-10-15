@@ -50,8 +50,12 @@
                         <td>Développement d'une application interne</td>
                         <td>
                             <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
+                                <form th:action="@{'/'}" th:method="GET">
+                                    <div class="button"><button type="submit">Modifier</button></div>
+                                </form>
+                                <form th:action="@{'/'}" th:method="DELETE">
+                                    <div class="button"><button>Supprimer</button></div>
+                                </form>
                             </div>
                         </td>
                     </tr>
