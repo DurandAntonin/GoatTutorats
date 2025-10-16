@@ -21,72 +21,306 @@
             <div class="apprentice-section-selector">
                 <span>[Prénom]</span>
                 <button data-section="apprentice-personal-information">Informations générales</button>
-                <button data-section="section2">Entreprise</button>
-                <button data-section="section3">Maître d'apprentissage</button>
-                <button data-section="section4">Mission</button>
-                <button data-section="section5">Visite</button>
-                <button data-section="section6">Evaluation-école</button>
-                <button data-section="section7">Remarques</button>
+                <button data-section="company-information-section">Entreprise</button>
+                <button data-section="mentor-information-section">Maître d'apprentissage</button>
+                <button data-section="mission-information-section">Mission</button>
+                <button data-section="visit-information-section">Visite</button>
+                <button data-section="school-evaluation-information-section">Evaluation-école</button>
+                <button data-section="note-information-section">Remarques</button>
             </div>
 
             <div class="apprentice-information-section">
-                <div class="sections">
-                    <div id="apprentice-personal-information" class="section">
-                        <form th:action="@{'/'}" th:method="PATCH" th:object="${apprentice}" >
-                            <div class="row-information">
-                                <div class="column-information">
-                                    <label for="firstName">
-                                        Prénom
-                                    </label>
-                                    <input type="text" placeholder="Prénom" th:field="*{firstName}"/>
+                <form th:action="@{'/'}" th:method="PATCH" th:object="${apprentice}" >
+                    <div class="apprentice-information-section-form">
+                        <div class="sections">
+                            <div id="apprentice-personal-information" class="section">
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="firstName">
+                                            Prénom
+                                        </label>
+                                        <input type="text" placeholder="Prénom" th:field="*{firstName}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="lastName">
+                                            Nom
+                                        </label>
+                                        <input type="text" placeholder="Nom" th:field="*{lastName}"/>
+                                    </div>
                                 </div>
 
-                                <div class="column-information">
-                                    <label for="lastName">
-                                        Nom
-                                    </label>
-                                    <input type="text" placeholder="Nom" th:field="*{lastName}"/>
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="academicYear">
+                                            Année académique
+                                        </label>
+                                        <input type="text" placeholder="Année académique" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="Major">
+                                            Majeure
+                                        </label>
+                                        <input type="text" placeholder="Majeure" th:field="*{firstName}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="email">
+                                            Adresse mail
+                                        </label>
+                                        <input type="text" placeholder="Adresse mail" th:field="*{email}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="phone">
+                                            Téléphone
+                                        </label>
+                                        <input type="text" placeholder="Numéro de téléphone" th:field="*{phone}"/>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row-information">
-                                <div class="column-information">
-                                    <label for="academicYear">
-                                        Année académique
-                                    </label>
-                                    <input type="text" placeholder="Année académique" th:field="*{academicYears}"/>
+                            <div id="company-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="companyName">
+                                            Raison sociale
+                                        </label>
+                                        <input type="text" placeholder="Raison sociale" th:field="*{firstName}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="address">
+                                            Addresse
+                                        </label>
+                                        <input type="text" placeholder="Addresse" th:field="*{lastName}"/>
+                                    </div>
                                 </div>
 
-                                <div class="column-information">
-                                    <label for="Major">
-                                        Majeure
-                                    </label>
-                                    <input type="text" placeholder="Majeure" th:field="*{firstName}"/>
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="accessInfo">
+                                            Informations utiles pour accéder aux locaux
+                                        </label>
+                                        <textarea rows="8" th:field="*{academicYears}"></textarea>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row-information">
-                                <div class="column-information">
-                                    <label for="email">
-                                        Adresse mail
-                                    </label>
-                                    <input type="text" placeholder="Adresse mail" th:field="*{email}"/>
+                            <div id="mentor-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="firstName">
+                                            Prénom
+                                        </label>
+                                        <input type="text" placeholder="Prénom" th:field="*{firstName}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="lastName">
+                                            Nom
+                                        </label>
+                                        <input type="text" placeholder="Nom" th:field="*{lastName}"/>
+                                    </div>
                                 </div>
 
-                                <div class="column-information">
-                                    <label for="phone">
-                                        Téléphone
-                                    </label>
-                                    <input type="text" placeholder="Numéro de téléphone" th:field="*{phone}"/>
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="position">
+                                            Poste
+                                        </label>
+                                        <input type="text" placeholder="Position" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="email">
+                                            Adresse mail
+                                        </label>
+                                        <input type="text" placeholder="Adresse mail" th:field="*{firstName}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="phone">
+                                            Téléphone
+                                        </label>
+                                        <input type="text" placeholder="Téléphone" th:field="*{email}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="remarks">
+                                            Remarques
+                                        </label>
+                                        <textarea rows="8" th:field="*{phone}"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+
+                            <div id="mission-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="targetJob">
+                                            Métier cible (réf. Cigref)
+                                        </label>
+                                        <input type="text" placeholder="Métier cible" th:field="*{academicYears}"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="keywords">
+                                            Mots-clés
+                                        </label>
+                                        <textarea rows="3" placeholder="DevOps, node.js, CI/CD, etc." th:field="*{firstName}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="comments">
+                                            Commentaires
+                                        </label>
+                                        <textarea rows="3" th:field="*{academicYears}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="visit-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="date">
+                                            Date
+                                        </label>
+                                        <input type="date" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="format">
+                                            Format
+                                        </label>
+                                        <input type="text" th:field="*{firstName}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="comments">
+                                            Commentaires
+                                        </label>
+                                        <textarea rows="8" th:field="*{firstName}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="school-evaluation-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <span>
+                                            Mémoire / Rapport
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="thesis">
+                                            Thème
+                                        </label>
+                                        <input type="text" placeholder="Thème" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="topic">
+                                            Sujet
+                                        </label>
+                                        <input type="text" placeholder="Sujet" th:field="*{academicYears}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="finalGrade">
+                                            Note finale
+                                        </label>
+                                        <input type="number" th:field="*{academicYears}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="comments">
+                                            Commentaires
+                                        </label>
+                                        <textarea rows="5" th:field="*{academicYears}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <span >
+                                            Soutenance
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="date">
+                                            Date
+                                        </label>
+                                        <input type="date" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="finalGrade">
+                                            Note finale
+                                        </label>
+                                        <input type="number" th:field="*{academicYears}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <label for="comments">
+                                            Commentaires
+                                        </label>
+                                        <textarea rows="5" th:field="*{academicYears}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="note-information-section" class="section">
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="author">
+                                            Auteur
+                                        </label>
+                                        <input type="text" th:field="*{academicYears}"/>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="comment">
+                                            Commentaire
+                                        </label>
+                                        <input type="text" th:field="*{academicYears}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-submit-button button">
+                            <button type="submit">Mettre à jour</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-submit-button button">
-                    <button type="submit">Mettre à jour</button>
-                </div>
+                </form>
             </div>
 
         </div>

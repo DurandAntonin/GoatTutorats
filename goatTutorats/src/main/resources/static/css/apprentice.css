@@ -23,10 +23,15 @@
     .div-apprentice {
         width: 100%;
     }
+
+    .div-apprentice .apprentice-section-selector button{
+        font-size: var(--font-size-2);
+    }
 }
 
 .div-apprentice .apprentice-section-selector{
-    width: 20%;
+    width: 23%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -47,6 +52,7 @@
     padding: calc(var(--primary-gap) / 2);
     font-weight: bold;
     font-size: var(--font-size-1);
+    word-break: break-all;
 }
 
 .apprentice-section-selector button:hover{
@@ -55,19 +61,28 @@
 }
 
 .div-apprentice .apprentice-information-section{
-    width: 80%;
+    width: 77%;
+    height: auto;
+}
+
+.apprentice-information-section form{
+    width: 100%;
+    height: 100%;
+}
+
+.apprentice-information-section-form{
+    width: inherit;
+    height: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     row-gap: var(--primary-gap);
 }
 
-.apprentice-information-section .sections{
-    width: 100%;
-}
-
-.sections section{
+.sections .section{
     width: inherit;
+    flex-direction: column;
+    row-gap: var(--primary-gap);
 }
 
 .section-hidden{
@@ -75,7 +90,7 @@
 }
 
 .section-visible{
-    display: block;
+    display: flex;
 }
 
 .section-clicked{
@@ -84,13 +99,6 @@
 
 .section-not-clicked{
     background: none;
-}
-
-.section form{
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--primary-gap);
 }
 
 .section .row-information{
@@ -110,12 +118,32 @@
     gap: calc(var(--primary-gap) / 4);
 }
 
-.section label, .section label{
+.section .full-row-length{
+    width: 100%;
+}
+
+.column-information label, .column-information label{
     font-weight: bold;
     font-size: var(--font-size-2);
 }
 
-.section input{
+.column-information span{
+    font-weight: bold;
+    font-size: var(--font-size-1);
+    padding-bottom: 3px;
+    border-bottom: 2px solid black;
+}
+
+.column-information input{
+    padding: calc(var(--primary-gap) / 4);
+    border-radius: var(--secondary-border-radius);
+}
+
+.column-information textarea{
+    resize: none;
+    width: auto;
+    min-width: 200px;
+    min-height: 100px;
     padding: calc(var(--primary-gap) / 4);
     border-radius: var(--secondary-border-radius);
 }
