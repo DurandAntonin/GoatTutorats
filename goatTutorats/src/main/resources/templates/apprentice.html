@@ -10,7 +10,7 @@
 <body>
 
 <!-- import header section for connected user -->
-<header th:replace="fragments/header :: header-user-connected">
+<header th:replace="~{fragments/header :: header-user-connected}">
 </header>
 
 <main class="main-content">
@@ -327,7 +327,7 @@
     </div>
 </main>
 
-<footer th:replace="fragments/footer :: footer">
+<footer th:replace="~{fragments/footer :: footer}">
 </footer>
 
 </body>

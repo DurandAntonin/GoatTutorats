@@ -13,32 +13,60 @@ form{
     padding: var(--primary-gap);
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: var(--light-white);
     border-radius: var(--primary-border-radius);
+    row-gap: var(--primary-gap);
 }
 
 .div-form .form-title{
     width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(var(--primary-gap) / 2);
+}
+
+.form-title .main-title{
     font-weight: bold;
     font-size: var(--sub-title-font-size);
     text-align: left;
     color: var(--secondary-color);
-    margin-bottom: calc(var(--primary-gap) / 2);
 }
 
-.div-form .form-description{
-    width: 100%;
-    height: 100%;
+.form-title .sub-title{
+    width: inherit;
     font-size: var(--font-size-1);
     font-style: italic;
     text-align: left;
-    margin-bottom: var(--primary-gap);
+}
+
+.div-form .form-error{
+    width: fit-content;
+    font-size: var(--font-size-2);
+    font-weight: bold;
+    padding: calc(var(--primary-gap) / 2);
+    background-color: var(--primary-red);
+    border-radius: calc(var(--primary-border-radius) / 2);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: calc(var(--primary-gap) / 4);
+}
+
+.form-error button{
+    background-color: transparent;
+    border: none;
+}
+
+.form-error button:hover{
+    cursor: pointer;
+    background: grey;
 }
 
 .div-form .form-content{
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     row-gap: calc(var(--primary-gap) / 2);
@@ -60,6 +88,8 @@ form{
     border-radius: var(--secondary-border-radius);
 }
 
-.div-form .form-submit-button button{
-    margin-top: var(--primary-gap);
+.icon{
+    width: 2.5vw;
+    min-width: 30px;
+    min-height: 30px;
 }

@@ -23,4 +23,9 @@ public class Mentor {
     private String email;
     private String phone;
     private String remarks;
+
+    // Each tutor works at exactly one company
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 }

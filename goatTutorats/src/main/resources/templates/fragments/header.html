@@ -23,12 +23,12 @@
     <div class="header-actions">
         <div class="button">
             <form th:action="@{/auth/get-login-page}" th:method="GET">
-                <button type="submit" disabled>Bonjour [Prénom]</button>
+                <button type="submit" disabled>Bonjour <span th:text="${#authentication.username}"> </span></button>
             </form>
         </div>
 
         <div class="button">
-            <form th:action="@{/auth/get-login-page}" th:method="GET">
+            <form th:action="@{'/auth/logout'}" th:method="POST">
                 <button type="submit">Se déconnecter</button>
             </form>
         </div>

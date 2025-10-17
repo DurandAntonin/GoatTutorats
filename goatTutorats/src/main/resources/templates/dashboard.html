@@ -9,7 +9,7 @@
 <body>
 
 <!-- import header section for connected user -->
-<header th:replace="fragments/header :: header-user-connected">
+<header th:replace="~{fragments/header :: header-user-connected}">
 </header>
 
 <main class="main-content">
@@ -35,7 +35,7 @@
                         <th>Programme</th>
                         <th>Majeure</th>
                         <th>Entreprise</th>
-                        <th>Mission</th>
+                        <th>Métier cible</th>
                         <th>Actions</th>
                     </thead>
 
@@ -341,7 +341,7 @@
     </div>
 </main>
 
-<footer th:replace="fragments/footer :: footer">
+<footer th:replace="~{fragments/footer :: footer}">
 </footer>
 
 </body>

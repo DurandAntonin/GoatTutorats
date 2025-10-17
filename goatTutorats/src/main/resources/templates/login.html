@@ -5,30 +5,32 @@
     <title>GoatTutorats</title>
     <link th:href="@{/css/base.css}" rel="stylesheet" />
     <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <script th:src="@{/js/login.js}"></script>
 </head>
 <body>
 
 <!-- import header section for not connected user -->
-<header th:replace="fragments/header :: header-user-not-connected">
+<header th:replace="~{fragments/header :: header-user-not-connected}">
 </header>
 
 <main class="main-content">
-    <form th:action="@{/auth/authenticate-tutor}" th:method="POST" th:object="${tutor}">
+    <div th:if="${param.logout}">
+        You have been logged out.</div>
+
+    <form th:action="@{/auth/login}" th:method="POST" th:object="${tutor}">
         <div class="div-form">
             <div class="form-title">
-                <span> Page de connexion </span>
-            </div>
+                <span class="main-title"> Page de connexion </span>
 
-            <div class="form-description">
-                <span> Saisissez vos identifiants pour se connecter </span>
+                <span class="sub-title"> Saisissez vos identifiants pour se connecter </span>
             </div>
 
             <div class="form-content">
                 <div class="form-input">
-                    <label for="login">
-                        Pseudo
+                    <label for="username">
+                        Nom d'utilisateur
                     </label>
-                    <input type="text" placeholder="Pseudo" th:field="*{login}"/>
+                    <input type="text" placeholder="Nom d'utilisateur" th:field="*{username}"/>
                 </div>
 
                 <div class="form-input">
@@ -39,6 +41,13 @@
                 </div>
             </div>
 
+            <div class="form-error" th:if="${param.error}">
+                <span>Nom d'utilisateur / mot de passe invalide(s).</span>
+                <button id="button-reload-page" onclick="reloadPage(event)">
+                    <img class="icon" src="/img/arrow.png" alt="Croix pour supprimer le message" >
+                </button>
+            </div>
+
             <div class="form-submit-button button">
                 <button type="submit">Se connecter</button>
             </div>
@@ -46,7 +55,7 @@
     </form>
 </main>
 
-<footer th:replace="fragments/footer :: footer">
+<footer th:replace="~{fragments/footer :: footer}">
 </footer>
 
 </body>

@@ -2,32 +2,44 @@ package com.example.goatTutorats.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "tutors")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Tutor {
+public class Tutor implements UserDetails {
+
+    private final Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
     @Id
     @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id; // UUID generated natively by Hibernate 6.5+
+    private UUID id;
 
-    private String login;
+    @Column(unique = true)
+    private String username;
     private String password;
-    private String firstName;
 
     // One tutor can have multiple apprentices
-    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Apprentice> apprentices;
 
-    // Each tutor works at exactly one company
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    public Tutor() {
+        this.grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.grantedAuthorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
 }
