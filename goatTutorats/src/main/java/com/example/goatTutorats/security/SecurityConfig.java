@@ -22,15 +22,6 @@ public class SecurityConfig {
         this.customUserDetailsService = customUserDetailsService;
     }
 
-    /**@Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password("{noop}ourpassword")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-    }*/
-
     /**
      * Specify encoder used to encode and decode passwords.
      * @return Password encoder to use.
@@ -70,7 +61,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/test/temp", true)
+                        .defaultSuccessUrl("/apprentice/get-dashboard", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -80,7 +71,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                        .requestMatchers("/test/**").authenticated()
+                        .requestMatchers("/apprentice/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
