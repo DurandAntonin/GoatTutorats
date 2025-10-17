@@ -6,6 +6,8 @@ class Apprenti {
     +prenom: String
     +email: String
     +telephone: String
+    +programme: String
+    +majeure: String
     +anneeAcademique: String
 }
 
