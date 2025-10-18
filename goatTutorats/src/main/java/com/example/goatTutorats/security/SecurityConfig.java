@@ -71,7 +71,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                        .requestMatchers("/apprentice/**").authenticated()
+                        .requestMatchers("/apprenthice/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

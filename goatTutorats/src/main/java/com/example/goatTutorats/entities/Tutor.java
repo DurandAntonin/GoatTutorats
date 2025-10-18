@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 @Entity
-@Table(name = "tutors")
+@Table(name = "tutor")
 @Data
 @AllArgsConstructor
 public class Tutor implements UserDetails {

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "academic_years")
+@Table(name = "academic_year")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,10 +40,10 @@ public class AcademicYear {
     private List<Visit> visits;
 
     @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SchoolEvaluation> schoolEvaluations;
+    private List<ReportEvaluation> reportEvaluations;
 
     @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Defense defense;
+    private OralExam oralExam;
 
     @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes;

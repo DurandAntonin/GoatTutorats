@@ -6,11 +6,11 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "school_evaluations")
+@Table(name = "report_evaluation")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolEvaluation {
+public class ReportEvaluation {
 
     @Id
     @GeneratedValue

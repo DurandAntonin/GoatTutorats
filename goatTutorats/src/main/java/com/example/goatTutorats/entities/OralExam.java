@@ -7,11 +7,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "defenses")
+@Table(name = "oral_exam")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Defense {
+public class OralExam {
 
     @Id
     @GeneratedValue
