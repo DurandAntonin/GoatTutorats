@@ -12,6 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+/**
+ * Spring security class configuration.
+ * Configure password encoder to encode and decode user password during authentication.
+ * Configure login page url, urls that need authentication and other not.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -47,8 +52,9 @@ public class SecurityConfig {
     }
 
     /**
-     * Filter chain that disable authentication system for http queries to /error, and activate authentications for other endpoints.
-     * Configure login page and credential keys to use.
+     * Configure login form such as login url, url when user is connected.
+     * Configure logout format such as logout url and url when user is not connected.
+     * Configure url access depending on user authenticated.
      * @param http Incoming http query.
      * @return
      * @throws Exception
@@ -71,7 +77,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                        .requestMatchers("/apprenthice/**").authenticated()
+                        .requestMatchers("/apprentice/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
