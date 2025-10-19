@@ -1,5 +1,6 @@
 package com.example.goatTutorats.controlers;
 
+import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.services.ApprenticeService;
 import org.springframework.security.core.Authentication;
@@ -92,8 +93,15 @@ public class ApprenticeController {
         return apprenticeService.getApprenticesByTutorForThisYear(idT);
     }
 
+    @PatchMapping("/{id}")
+    public Apprentice updateApprentice(@PathVariable("id") UUID id,
+                                       @RequestBody ApprenticeUpdateDTO dto) {
+        return apprenticeService.updateApprentice(id, dto);
+    }
+
+
     @PatchMapping("updateApprentice/{id}")
-    public String updateApprentice(@PathVariable("id") UUID id, @ModelAttribute Apprentice apprentice)
+    public String updateApprenticeT(@PathVariable("id") UUID id, @ModelAttribute Apprentice apprentice)
     {
         return "apprentice";
     }
