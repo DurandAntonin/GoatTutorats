@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GoatTutorats</title>
+    <link th:href="@{/css/base.css}" rel="stylesheet" />
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+</head>
+<body>
+
+<!-- import header section for connected user -->
+<header th:replace="~{fragments/header :: header-user-connected}">
+</header>
+
+<main class="main-content">
+    <div class="row-information">
+        <div class="column-information">
+            <label for="lastName">
+                Nom de l'apprenti
+            </label>
+            <input type="text" placeholder="Nom"/>
+        </div>
+
+        <div class="column-information">
+            <label for="company">
+                Entreprise
+            </label>
+            <input type="text" placeholder="Entreprise"/>
+        </div>
+    </div>
+
+    <div class="row-information">
+        <div class="column-information">
+            <label for="lastName">
+                Mot clé de la mission
+            </label>
+            <input type="text" placeholder="Mot clé"/>
+        </div>
+
+        <div class="column-information">
+            <label for="academicYear">
+                Année académique
+            </label>
+            <input type="number"/>
+        </div>
+    </div>
+
+    <div class="form-submit-button button">
+        <button type="submit">Mettre à jour</button>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}">
+</footer>
+
+</body>
+</html>

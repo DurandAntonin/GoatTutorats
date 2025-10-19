@@ -1,38 +1,29 @@
 package com.example.goatTutorats.controlers;
 
-import com.example.goatTutorats.entities.Tutor;
-import com.example.goatTutorats.services.AuthService;
+import com.example.goatTutorats.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
-    @RequestMapping("auth")
+@RequestMapping("auth")
 public class AuthController {
 
-    private final AuthService authService;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @GetMapping("/get-login-page")
-    public String getLoginPage(Model model) {
-        // create empty tutor to store credential information
-        Tutor tutor = new Tutor();
+    public String getLoginPage(Principal principal, Model model) {
+        // redirect user if connected
+        if (principal != null){
+            return "redirect:/apprentice/get-dashboard";
+        }
 
-        model.addAttribute("tutor", tutor);
+        // create empty object to store user credentials
+        User user = new User();
+        model.addAttribute("user", user);
+
         return "login";
-    }
-
-
-        @PostMapping("/authenticate-tutor")
-    public String authenticateTutor(@ModelAttribute Tutor tutor) {
-        // check tutor exists in db and password is correct
-
-        return "redirect:/dashboard";
     }
 }

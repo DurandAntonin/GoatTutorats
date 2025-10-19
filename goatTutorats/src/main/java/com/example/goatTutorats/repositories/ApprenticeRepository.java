@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
-public interface ApprenticeRepository extends JpaRepository<Apprentice, Integer> {
+public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
 
     @Query("SELECT DISTINCT new com.example.goatTutorats.dtos.ApprenticeRecordDTO(" +
             "a.lastName, " +

@@ -5,6 +5,7 @@
     <title>GoatTutorats</title>
     <link th:href="@{/css/base.css}" rel="stylesheet" />
     <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <link th:href="@{/css/confirmation-popup.css}" rel="stylesheet" />
     <script th:src="@{/js/login.js}"></script>
 </head>
 <body>
@@ -13,11 +14,17 @@
 <header th:replace="~{fragments/header :: header-user-not-connected}">
 </header>
 
-<main class="main-content">
+<button type="button" onclick="openPopup('popup-delete-apprentice')">Ouvrir</button>
+
+<div th:replace="~{fragments/confirmation-popup :: confirmation-popup(popupId='popup-delete-apprentice', title='Supprimer l\'apprenti 1', content='Etes-vous sur de vouloir supprimer cet apprenti. L\'action sera irréversible.', confirmAction='apprentice/deleteApprentice/1', confirmMethod='DELETE')}">
+</div>
+
+<main class="main-content background">
+
     <div th:if="${param.logout}">
         You have been logged out.</div>
 
-    <form th:action="@{/auth/login}" th:method="POST" th:object="${tutor}">
+    <form th:action="@{/auth/login}" th:method="POST" th:object="${user}">
         <div class="div-form">
             <div class="form-title">
                 <span class="main-title"> Page de connexion </span>
@@ -41,9 +48,9 @@
                 </div>
             </div>
 
-            <div class="form-error" th:if="${param.error}">
+            <div class="div-error" th:if="${param.error}">
                 <span>Nom d'utilisateur / mot de passe invalide(s).</span>
-                <button id="button-reload-page" onclick="reloadPage(event)">
+                <button type="button" id="button-reload-page" onclick="reloadPage(event)">
                     <img class="icon" src="/img/arrow.png" alt="Croix pour supprimer le message" >
                 </button>
             </div>

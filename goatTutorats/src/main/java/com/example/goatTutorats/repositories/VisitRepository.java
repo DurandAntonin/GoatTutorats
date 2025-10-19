@@ -1,7 +1,9 @@
 package com.example.goatTutorats.repositories;
-import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.entities.Visit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface VisitRepository extends JpaRepository<Tutor,Integer> {
+import java.util.UUID;
+
+public interface VisitRepository extends JpaRepository<Visit, UUID> {
 
 }

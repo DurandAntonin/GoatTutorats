@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/")
-    public String handleError(HttpServletRequest request) {
+    public String handleError(HttpServletRequest request, Model model) {
         // get response status code
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
@@ -24,6 +25,9 @@ public class CustomErrorController implements ErrorController {
                     return "errors/error-404";
 
                 default:
+                    // store error message in model to display it in html template
+                    model.addAttribute("errorMessage", request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
+
                     return "errors/default-error";
             }
         }

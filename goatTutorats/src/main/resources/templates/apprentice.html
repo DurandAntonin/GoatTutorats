@@ -5,6 +5,7 @@
     <title>GoatTutorats</title>
     <link th:href="@{/css/base.css}" rel="stylesheet" />
     <link th:href="@{/css/apprentice.css}" rel="stylesheet" />
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet" />
     <script th:src="@{/js/apprentice.js}"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
         <div class="div-apprentice">
 
             <div class="apprentice-section-selector">
-                <span>[Prénom]</span>
+                <span th:text="${formName}"></span>
                 <button data-section="apprentice-personal-information">Informations générales</button>
                 <button data-section="company-information-section">Entreprise</button>
                 <button data-section="mentor-information-section">Maître d'apprentissage</button>
@@ -30,7 +31,7 @@
             </div>
 
             <div class="apprentice-information-section">
-                <form th:action="@{'/'}" th:method="PATCH" th:object="${apprentice}" >
+                <form th:action="${formAction}" th:method="${formMethod}" th:object="${apprentice}" >
                     <div class="apprentice-information-section-form">
                         <div class="sections">
                             <div id="apprentice-personal-information" class="section">
@@ -296,21 +297,48 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div id="note-information-section" class="section">
                                 <div class="row-information">
-                                    <div class="column-information">
-                                        <label for="author">
-                                            Auteur
-                                        </label>
-                                        <input type="text" th:field="*{academicYears}"/>
+                                    <div class="column-information full-row-length">
+                                        <div class="button-actions">
+                                            <div class="button"><button onclick="addNewRemarkEntry(event)">Ajouter une nouvelle remarque</button></div>
+                                        </div>
                                     </div>
+                                </div>
 
-                                    <div class="column-information">
-                                        <label for="comment">
-                                            Commentaire
-                                        </label>
-                                        <input type="text" th:field="*{academicYears}"/>
+                                <div class="row-information">
+                                    <div class="column-information full-row-length">
+                                        <table id="table-remark" class="table">
+                                            <thead>
+                                            <th>Auteur</th>
+                                            <th>Type de l'auteur</th>
+                                            <th>Remarque</th>
+                                            </thead>
+
+                                            <tbody>
+
+                                            <tr>
+                                                <td>
+                                                    <input class="row-length-95" type="text" th:field="*{academicYears}"/>
+                                                </td>
+                                                <td>
+                                                    <input class="row-length-95" type="text" disabled th:field="*{academicYears}"/>
+                                                </td>
+                                                <td>
+                                                    <input class="row-length-95" type="text" th:field="*{academicYears}"/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="7">10 remarques(s) au total.</td>
+                                            </tr>
+                                            <tr class="table-empty">
+                                                <td colspan="7">La liste est vide.</td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
