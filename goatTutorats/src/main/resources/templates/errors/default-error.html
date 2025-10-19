@@ -21,6 +21,9 @@
 
             <h1> Erreur interne ! </h1>
 
+            <span class="color-red" th:if="${errorMessage}" th:text="${errorMessage}">
+            </span>
+
             <span>
                 Cliquez <a th:href="@{'/auth/get-login-page'}" class="link">ici</a> pour revenir à la page d'accueil.
         </span>

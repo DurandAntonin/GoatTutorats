@@ -18,7 +18,7 @@
     border-radius: var(--primary-border-radius);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
     .div-dashboard {
         width: 100%;
     }
@@ -59,7 +59,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: calc(var(--primary-gap) / 2);
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: calc(var(--primary-gap) / 2);
 }
 
 .button-actions button{

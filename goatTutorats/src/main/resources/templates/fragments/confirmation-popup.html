@@ -1,0 +1,22 @@
+<div class="confirmation-popup section-hidden" th:id="${popupId}" th:fragment="confirmation-popup (popupId, title, content, confirmAction, confirmMethod)">
+    <div class="popup-title">
+        <span th:text="${title}">
+        </span>
+    </div>
+
+    <div class="popup-content">
+        <span th:text="${content}">Etes-vous sur de vouloir supprimer cet apprenti. L'action sera irréversible.</span>
+    </div>
+
+    <div class="popup-buttons">
+        <div class="button">
+                <button type="button" th:data-popup-id="${popupId}" onclick="closePopup(this)">Annuler</button>
+        </div>
+
+        <div class="button confirm-button">
+            <form th:action="${confirmAction}" th:method="${confirmMethod}">
+                <button type="submit">Confirmer</button>
+            </form>
+        </div>
+    </div>
+</div>
