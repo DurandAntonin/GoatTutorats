@@ -13,6 +13,7 @@ import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.Year;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.List;
@@ -42,9 +43,11 @@ public class ApprenticeController {
 
         // retrieve all apprentices for this tutor
         Tutor tutor = this.tutorService.getTutorByUsername(userName);
+        int currentYear = Year.now().getValue();
 
-        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(tutor.getId());
+        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(tutor.getId(), currentYear);
         model.addAttribute("apprentices", apprentices);
+        model.addAttribute("currentYear", currentYear);
 
         return "dashboard";
     }

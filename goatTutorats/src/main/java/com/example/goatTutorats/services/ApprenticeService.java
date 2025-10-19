@@ -21,8 +21,7 @@ public class ApprenticeService {
         this.apprenticeRepository = apprenticeRepository;
     }
 
-    public List<ApprenticeRecordDTO> getApprenticesByTutorForThisYear(UUID tutorId) {
-        int currentYear = Year.now().getValue();
+    public List<ApprenticeRecordDTO> getApprenticesByTutorForThisYear(UUID tutorId, int currentYear) {
         return apprenticeRepository.findByTutorAndYear(tutorId, currentYear);
     }
 
