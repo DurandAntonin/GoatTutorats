@@ -1,9 +1,14 @@
 -- ============================================
 -- INSERT TUTORS
 -- ============================================
-INSERT INTO tutor (id, username, password) VALUES
+INSERT INTO user (id, username, password) VALUES
                                                (0x8601E490E414435AB6CC0BCF8C811035, 'antonin', '$2a$12$KGyJjUaI4luzFPP23owztOzIDHfTI37HCRsJozcKTjfNFZDt4C/Uq'),
                                                (0x92A7B451C9D34437B5AA7E2D53B011A2, 'dupont', '$2a$12$KGyJjUaI4luzFPP23owztOzIDHfTI37HCRsJozcKTjfNFZDt4C/Uq');
+
+INSERT INTO tutor (user_id) VALUE
+                                (0x8601E490E414435AB6CC0BCF8C811035),
+                                (0x92A7B451C9D34437B5AA7E2D53B011A2);
+
 
 -- ============================================
 -- INSERT APPRENTICES
