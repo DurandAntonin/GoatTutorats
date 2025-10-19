@@ -41,16 +41,16 @@
 
                     <tbody>
 
-                    <tr>
-                        <td>Jean Dupont</td>
-                        <td>jean.dupont@example.com</td>
-                        <td>Informatique</td>
-                        <td>Développement Web</td>
-                        <td>TechCorp</td>
-                        <td>Développement d'une application interne</td>
+                    <tr th:each="apprentice : ${apprentices}">
+                        <td th:text="${apprentice.firstName} + ' ' + ${apprentice.lastName}"></td>
+                        <td th:text="${apprentice.email}"></td>
+                        <td th:text="${apprentice.program}"></td>
+                        <td th:text="${apprentice.major}"></td>
+                        <td th:text="${apprentice.companyName}"></td>
+                        <td th:text="${apprentice.targetJob}"></td>
                         <td>
                             <div class="button-actions">
-                                <form th:action="@{/apprentice/get-apprentice/8601e490-e414-435a-b6cc-0bcf8c811035}" th:method="GET">
+                                <form th:action="@{/apprentice/get-apprentice/{apprenticeAcademicYearId}(apprenticeAcademicYearId=${apprentice.apprenticeAcademicYearId})}" th:method="GET">
                                     <div class="button"><button type="submit">Modifier</button></div>
                                 </form>
                                 <form th:action="@{'/'}" th:method="DELETE">
@@ -59,280 +59,15 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Marie Lefevre</td>
-                        <td>marie.lefevre@example.com</td>
-                        <td>Marketing</td>
-                        <td>Stratégie Digitale</td>
-                        <td>MarketGenius</td>
-                        <td>Analyse de campagnes marketing</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Luc Martin</td>
-                        <td>luc.martin@example.com</td>
-                        <td>Finance</td>
-                        <td>Audit Financier</td>
-                        <td>FinSolve</td>
-                        <td>Évaluation des bilans financiers</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Claire Dupuis</td>
-                        <td>claire.dupuis@example.com</td>
-                        <td>Ressources Humaines</td>
-                        <td>Recrutement</td>
-                        <td>HRPartners</td>
-                        <td>Gestion du recrutement pour de nouveaux projets</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Thomas Lefevre</td>
-                        <td>thomas.lefevre@example.com</td>
-                        <td>Informatique</td>
-                        <td>Data Science</td>
-                        <td>DataTech</td>
-                        <td>Analyse des données clients</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sophie Martin</td>
-                        <td>sophie.martin@example.com</td>
-                        <td>Marketing</td>
-                        <td>Publicité en ligne</td>
-                        <td>AdVisor</td>
-                        <td>Création de campagnes publicitaires</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Paul Durand</td>
-                        <td>paul.durand@example.com</td>
-                        <td>Informatique</td>
-                        <td>Développement Mobile</td>
-                        <td>AppFactory</td>
-                        <td>Développement d'applications mobiles</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Isabelle Marchand</td>
-                        <td>isabelle.marchand@example.com</td>
-                        <td>Design</td>
-                        <td>UI/UX</td>
-                        <td>DesignLab</td>
-                        <td>Amélioration de l'interface utilisateur</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Bernard Robert</td>
-                        <td>bernard.robert@example.com</td>
-                        <td>Finance</td>
-                        <td>Comptabilité</td>
-                        <td>AccountPro</td>
-                        <td>Gestion des états financiers</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Elise Dufresne</td>
-                        <td>elise.dufresne@example.com</td>
-                        <td>Informatique</td>
-                        <td>Cybersécurité</td>
-                        <td>SecureTech</td>
-                        <td>Protection des données et systèmes</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Victor Lefevre</td>
-                        <td>victor.lefevre@example.com</td>
-                        <td>Informatique</td>
-                        <td>Machine Learning</td>
-                        <td>MLCorp</td>
-                        <td>Développement de modèles d'IA</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Emma Gauthier</td>
-                        <td>emma.gauthier@example.com</td>
-                        <td>Design</td>
-                        <td>Graphisme</td>
-                        <td>CreativeWorks</td>
-                        <td>Création de visuels et logos</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Antoine Durand</td>
-                        <td>antoine.durand@example.com</td>
-                        <td>Marketing</td>
-                        <td>SEO</td>
-                        <td>SEOExperts</td>
-                        <td>Optimisation du référencement naturel</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Julie Faure</td>
-                        <td>julie.faure@example.com</td>
-                        <td>Ressources Humaines</td>
-                        <td>Formation</td>
-                        <td>HRAcademy</td>
-                        <td>Formation des employés aux nouvelles compétences</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>David Moreau</td>
-                        <td>david.moreau@example.com</td>
-                        <td>Informatique</td>
-                        <td>Développement Backend</td>
-                        <td>CodeLab</td>
-                        <td>Création de serveurs et API</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Marie Dubois</td>
-                        <td>marie.dubois@example.com</td>
-                        <td>Finance</td>
-                        <td>Gestion des investissements</td>
-                        <td>InvestPro</td>
-                        <td>Analyse des portefeuilles d'investissement</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Louis Lefevre</td>
-                        <td>louis.lefevre@example.com</td>
-                        <td>Design</td>
-                        <td>Illustration</td>
-                        <td>ArtFactory</td>
-                        <td>Création de visuels artistiques</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Camille Vincent</td>
-                        <td>camille.vincent@example.com</td>
-                        <td>Informatique</td>
-                        <td>Cloud Computing</td>
-                        <td>CloudWorld</td>
-                        <td>Gestion de serveurs cloud</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Anne Leclerc</td>
-                        <td>anne.leclerc@example.com</td>
-                        <td>Marketing</td>
-                        <td>Publicité Social Media</td>
-                        <td>SocialMinds</td>
-                        <td>Gestion des campagnes publicitaires sur les réseaux sociaux</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Michel Leroux</td>
-                        <td>michel.leroux@example.com</td>
-                        <td>Informatique</td>
-                        <td>Développement Frontend</td>
-                        <td>WebDev</td>
-                        <td>Création de l'interface utilisateur</td>
-                        <td>
-                            <div class="button-actions">
-                                <div class="button"><button>Modifier</button></div>
-                                <div class="button"><button>Supprimer</button></div>
-                            </div>
-                        </td>
-                    </tr>
+
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <td colspan="7">10 apprenti(s) au total.</td>
+                            <td th:if="${apprentices.size() > 0}"  colspan="7"> <span th:text="${apprentices.size()}"></span> apprenti(s) au total.</td>
                         </tr>
                         <tr class="table-empty">
-                            <td colspan="7">La liste est vide. Ajoutez au moins un apprenti</td>
+                            <td th:if="${apprentices.size() == 0}" colspan="7">La liste est vide. Ajoutez au moins un apprenti</td>
                         </tr>
                     </tfoot>
                 </table>

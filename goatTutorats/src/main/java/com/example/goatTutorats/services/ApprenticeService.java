@@ -39,8 +39,8 @@ public class ApprenticeService {
         if (dto.getLastName() != null) apprentice.setLastName(dto.getLastName());
         if (dto.getEmail() != null) apprentice.setEmail(dto.getEmail());
         if (dto.getPhone() != null) apprentice.setPhone(dto.getPhone());
-        if (dto.getProgramme() != null) apprentice.setProgramme(dto.getProgramme());
-        if (dto.getMajeure() != null) apprentice.setMajeure(dto.getMajeure());
+        if (dto.getProgramme() != null) apprentice.setProgram(dto.getProgramme());
+        if (dto.getMajeure() != null) apprentice.setMajor(dto.getMajeure());
         if (dto.getNewAcademicYear() != null) apprentice.getAcademicYears().add(dto.getNewAcademicYear());
 
         return apprenticeRepository.save(apprentice);

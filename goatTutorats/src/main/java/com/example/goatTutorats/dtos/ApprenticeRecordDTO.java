@@ -1,3 +1,5 @@
 package com.example.goatTutorats.dtos;
 
-public record ApprenticeRecordDTO(String lastName, String firstName, String email, String programme, String majeure, String name, String targetJob){}
+import java.util.UUID;
+
+public record ApprenticeRecordDTO(UUID apprenticeAcademicYearId, String lastName, String firstName, String email, String program, String major, String companyName, String targetJob){}

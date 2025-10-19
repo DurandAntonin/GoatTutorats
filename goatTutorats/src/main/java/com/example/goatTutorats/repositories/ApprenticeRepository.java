@@ -12,19 +12,20 @@ import java.util.UUID;
 public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
 
     @Query("SELECT DISTINCT new com.example.goatTutorats.dtos.ApprenticeRecordDTO(" +
+            "ay.id, " +
             "a.lastName, " +
             "a.firstName, " +
             "a.email, " +
-            "a.programme, " +
-            "a.majeure, " +
+            "a.program, " +
+            "a.major, " +
             "c.name, " +
             "m.targetJob) " +
             "FROM Apprentice a " +
             "JOIN a.academicYears ay " +
             "JOIN ay.company c " +
             "JOIN ay.missions m " +
-            "WHERE a.tutor.id = :tuteurId " +
-            "AND FUNCTION('YEAR', ay.year) = :annee")
-    List<ApprenticeRecordDTO> findByTutorAndYear(@Param("tuteurId") UUID tuteurId,
-                                                 @Param("annee") int annee);
+            "WHERE a.tutor.id = :tutorId " +
+            "AND FUNCTION('YEAR', ay.year) = :year")
+    List<ApprenticeRecordDTO> findByTutorAndYear(@Param("tutorId") UUID tutorId,
+                                                 @Param("year") int year);
 }

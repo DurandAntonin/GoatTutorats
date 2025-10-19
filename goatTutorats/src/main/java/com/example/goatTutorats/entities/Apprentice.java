@@ -24,8 +24,8 @@ public class Apprentice {
     private String lastName;
     private String email;
     private String phone;
-    private String programme;
-    private String majeure;
+    private String program;
+    private String major;
 
     // Each apprentice is assigned to one tutor
     @ManyToOne(fetch = FetchType.EAGER)
