@@ -25,7 +25,7 @@ public class Company {
     private String address;
     private String accessInfo;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Mentor> mentors;
+    private Mentor mentor;
 }

@@ -26,8 +26,7 @@ public class Mentor {
     private String remarks;
 
     // Each tutor works at exactly one company
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JsonManagedReference
     private Company company;
 }

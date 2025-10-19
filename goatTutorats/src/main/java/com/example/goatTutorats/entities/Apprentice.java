@@ -40,6 +40,11 @@ public class Apprentice {
 
     @Override
     public String toString() {
-        return "";
+        return "Apprentice{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

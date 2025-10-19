@@ -2,7 +2,9 @@ package com.example.goatTutorats.controlers;
 
 import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
 import com.example.goatTutorats.entities.Apprentice;
+import com.example.goatTutorats.entities.Tutor;
 import com.example.goatTutorats.services.ApprenticeService;
+import com.example.goatTutorats.services.TutorService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,13 @@ import java.util.List;
 @RequestMapping("apprentice")
 public class ApprenticeController {
 
+    private final TutorService tutorService;
+
     private final ApprenticeService apprenticeService;
 
-    public ApprenticeController(ApprenticeService apprenticeService) {
+    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService) {
         this.apprenticeService = apprenticeService;
+        this.tutorService = tutorService;
     }
 
     @GetMapping("/get-dashboard")
@@ -34,6 +39,12 @@ public class ApprenticeController {
         // store those information in model to access in html templates
         model.addAttribute("username", userName);
         model.addAttribute("authorities", authorities);
+
+        // retrieve all apprentices for this tutor
+        Tutor tutor = this.tutorService.getTutorByUsername(userName);
+
+        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(tutor.getId());
+        model.addAttribute("apprentices", apprentices);
 
         return "dashboard";
     }
@@ -84,13 +95,7 @@ public class ApprenticeController {
         model.addAttribute("formMethod", "POST");
 
         model.addAttribute("apprentice", new Apprentice());
-        return "apprentice";
-    }
-
-    @GetMapping("getApprenticeByTutorAndCurrentYear/{idTutor}")
-    public List<ApprenticeRecordDTO> getApprenticeByTutorAndCurrentYear(@PathVariable("idTutor") UUID idT)
-    {
-        return apprenticeService.getApprenticesByTutorForThisYear(idT);
+        return "redirect:/apprentice/get-apprentice/";
     }
 
     @PatchMapping("/{id}")
