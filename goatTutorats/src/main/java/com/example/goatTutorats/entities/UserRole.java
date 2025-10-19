@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,5 +20,6 @@ public class UserRole {
     private String roleName;
 
     @ManyToMany
+    @JsonBackReference
     Set<User> users;
 }

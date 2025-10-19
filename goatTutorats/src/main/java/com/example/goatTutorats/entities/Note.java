@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class Note {
     // Each note belongs to one academic year
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_year_id", nullable = false)
+    @JsonBackReference
     private AcademicYear academicYear;
 }

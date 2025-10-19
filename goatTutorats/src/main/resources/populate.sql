@@ -5,9 +5,19 @@ INSERT INTO user (id, username, password) VALUES
                                                (0x8601E490E414435AB6CC0BCF8C811035, 'antonin', '$2a$12$KGyJjUaI4luzFPP23owztOzIDHfTI37HCRsJozcKTjfNFZDt4C/Uq'),
                                                (0x92A7B451C9D34437B5AA7E2D53B011A2, 'dupont', '$2a$12$KGyJjUaI4luzFPP23owztOzIDHfTI37HCRsJozcKTjfNFZDt4C/Uq');
 
-INSERT INTO tutor (user_id) VALUE
+INSERT INTO tutor (user_id) VALUES
                                 (0x8601E490E414435AB6CC0BCF8C811035),
                                 (0x92A7B451C9D34437B5AA7E2D53B011A2);
+
+INSERT INTO user_role (id, role_name) VALUES
+                                          (0x8601E490E414435AB6CC0BCF8C811011, 'ROLE_TUTOR'),
+                                          (0x92A7B451C9D34437B5AA7E2D53B01112, 'ROLE_USER');
+
+INSERT INTO user_roles (user_id, role_id) VALUES
+                                          (0x8601E490E414435AB6CC0BCF8C811035, 0x8601E490E414435AB6CC0BCF8C811011),
+                                          (0x8601E490E414435AB6CC0BCF8C811035, 0x92A7B451C9D34437B5AA7E2D53B01112),
+                                          (0x92A7B451C9D34437B5AA7E2D53B011A2, 0x8601E490E414435AB6CC0BCF8C811011),
+                                          (0x92A7B451C9D34437B5AA7E2D53B011A2, 0x92A7B451C9D34437B5AA7E2D53B01112);
 
 
 -- ============================================

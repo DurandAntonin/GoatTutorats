@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +32,7 @@ public class User implements UserDetails {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonManagedReference
     Set<UserRole> roles;
 
     @Override

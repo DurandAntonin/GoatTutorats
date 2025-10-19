@@ -1,10 +1,12 @@
 package com.example.goatTutorats.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +25,7 @@ public class Company {
     private String address;
     private String accessInfo;
 
-    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
-    private Mentor mentor;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Mentor> mentors;
 }

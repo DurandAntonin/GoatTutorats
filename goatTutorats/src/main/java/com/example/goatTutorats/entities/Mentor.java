@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,8 @@ public class Mentor {
     private String remarks;
 
     // Each tutor works at exactly one company
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
+    @JsonManagedReference
     private Company company;
 }
