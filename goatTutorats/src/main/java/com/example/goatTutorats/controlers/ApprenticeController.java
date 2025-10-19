@@ -1,5 +1,6 @@
 package com.example.goatTutorats.controlers;
 
+import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.services.ApprenticeService;
 import org.springframework.security.core.Authentication;
@@ -7,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -59,6 +57,14 @@ public class ApprenticeController {
     {
         return apprenticeService.getApprenticesByTutorForThisYear(idT);
     }
+
+    @PatchMapping("/{id}")
+    public Apprentice updateApprentice(@PathVariable("id") UUID id,
+                                       @RequestBody ApprenticeUpdateDTO dto) {
+        return apprenticeService.updateApprentice(id, dto);
+    }
+
+
 }
 
 

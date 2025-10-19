@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "company")
 @Data
@@ -13,14 +15,14 @@ import lombok.NoArgsConstructor;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     private String name;
     private String address;
     private String accessInfo;
 
-    // Optional: if you want bi-directional, you can map back to mentor
     @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
     private Mentor mentor;
 }
