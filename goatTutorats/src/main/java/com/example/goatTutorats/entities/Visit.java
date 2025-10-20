@@ -24,7 +24,7 @@ public class Visit {
     private String comments;
 
     // Each visit belongs to one academic year
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_year_id", nullable = false)
     @JsonBackReference
     private AcademicYear academicYear;

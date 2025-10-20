@@ -24,7 +24,7 @@ public class ReportEvaluation {
     private String comments;
 
     // Each school evaluation is submitted for one academic year
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_year_id", nullable = false)
     @JsonBackReference
     private AcademicYear academicYear;

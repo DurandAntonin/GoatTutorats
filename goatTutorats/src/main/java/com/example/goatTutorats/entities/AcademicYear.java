@@ -30,23 +30,25 @@ public class AcademicYear {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
+    @JsonManagedReference
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentor_id")
+    @JsonManagedReference
     private Mentor mentor;
 
     @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Mission> missions;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Visit> visits;
+    private Visit visit;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<ReportEvaluation> reportEvaluations;
+    private ReportEvaluation reportEvaluation;
 
     @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

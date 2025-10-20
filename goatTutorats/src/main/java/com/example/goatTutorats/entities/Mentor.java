@@ -1,6 +1,6 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +27,6 @@ public class Mentor {
 
     // Each tutor works at exactly one company
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     private Company company;
 }

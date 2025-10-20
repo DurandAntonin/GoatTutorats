@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,7 +24,7 @@ public class Company {
     private String address;
     private String accessInfo;
 
-    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "company")
     @JsonManagedReference
     private Mentor mentor;
 }
