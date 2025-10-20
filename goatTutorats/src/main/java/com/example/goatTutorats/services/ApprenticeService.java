@@ -21,6 +21,11 @@ public class ApprenticeService {
         this.apprenticeRepository = apprenticeRepository;
     }
 
+    public Optional<Apprentice> findById(UUID id)
+    {
+        return this.apprenticeRepository.findById(id);
+    }
+
     public List<ApprenticeRecordDTO> getApprenticesByTutorForThisYear(UUID tutorId, int currentYear) {
         return apprenticeRepository.findByTutorAndYear(tutorId, currentYear);
     }

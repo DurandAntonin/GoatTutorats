@@ -1,8 +1,10 @@
 package com.example.goatTutorats.controlers;
 
 import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
+import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.services.AcademicYearService;
 import com.example.goatTutorats.services.ApprenticeService;
 import com.example.goatTutorats.services.TutorService;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.Year;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
@@ -26,9 +29,12 @@ public class ApprenticeController {
 
     private final ApprenticeService apprenticeService;
 
-    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService) {
+    private final AcademicYearService academicYearService;
+
+    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService, AcademicYearService academicYearService) {
         this.apprenticeService = apprenticeService;
         this.tutorService = tutorService;
+        this.academicYearService = academicYearService;
     }
 
     @GetMapping("/get-dashboard")
@@ -74,12 +80,23 @@ public class ApprenticeController {
         model.addAttribute("username", principal.getName());
         model.addAttribute("authorities", authorities);
 
+        // retrieve academic year to get all info on the apprentice
+        Optional<AcademicYear> accademicYearForThisApprentice = this.academicYearService.findById(id);
+
+        if (accademicYearForThisApprentice.isEmpty()) {
+            return "errors/error-404";
+        }
+
+        Apprentice apprentice = accademicYearForThisApprentice.get().getApprentice();
+
+        model.addAttribute("accademicYearForThisApprentice",accademicYearForThisApprentice);
+
         // store form name, action and method
-        model.addAttribute("formName", "nom apprenti");
+        model.addAttribute("formName", apprentice.getFirstName()+" "+ apprentice.getLastName());
         model.addAttribute("formAction", "/apprentice/updateApprentice/" + id);
         model.addAttribute("formMethod", "PATCH");
 
-        model.addAttribute("apprentice", new Apprentice());
+        model.addAttribute("apprentice", apprentice);
         return "apprentice";
     }
 
