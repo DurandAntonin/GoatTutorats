@@ -14,8 +14,4 @@ public class UserRoleService {
     public UserRoleService(UserRoleRepository userRoleRepository) {
         this.userRoleRepository = userRoleRepository;
     }
-
-    public Optional<UserRole> findRoleByName(String roleName){
-        return this.userRoleRepository.findUserRoleByRoleName(roleName);
-    }
 }

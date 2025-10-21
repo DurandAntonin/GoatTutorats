@@ -50,11 +50,8 @@
                         <td th:text="${apprentice.targetJob}"></td>
                         <td>
                             <div class="button-actions">
-                                <form th:action="@{/apprentice/get-apprentice/{apprenticeAcademicYearId}(apprenticeAcademicYearId=${apprentice.apprenticeAcademicYearId})}" th:method="GET">
+                                <form th:action="@{/academicYear/get-apprentice-academic-year/{apprenticeAcademicYearId}(apprenticeAcademicYearId=${apprentice.apprenticeAcademicYearId})}" th:method="GET">
                                     <div class="button"><button type="submit">Modifier</button></div>
-                                </form>
-                                <form th:action="@{'/'}" th:method="DELETE">
-                                    <div class="button"><button>Supprimer</button></div>
                                 </form>
                             </div>
                         </td>

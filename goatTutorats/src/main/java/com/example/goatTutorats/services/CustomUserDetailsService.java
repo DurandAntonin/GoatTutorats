@@ -1,4 +1,4 @@
-package com.example.goatTutorats.security;
+package com.example.goatTutorats.services;
 
 import com.example.goatTutorats.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

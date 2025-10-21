@@ -18,6 +18,8 @@ public class Note {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    private String author;
+
     private String comments;
 
     // Each note belongs to one academic year

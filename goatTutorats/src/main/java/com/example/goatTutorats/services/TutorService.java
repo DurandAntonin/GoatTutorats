@@ -1,6 +1,7 @@
 package com.example.goatTutorats.services;
 
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.repositories.TutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class TutorService {
     }
 
     public Tutor getTutorByUsername(String username) {
-        return this.tutorRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("No tutor found with username: " + username));
+        return this.tutorRepository.findByUsername(username).orElseThrow(() -> new CustomEntityNotFoundException(username));
     }
 
 }

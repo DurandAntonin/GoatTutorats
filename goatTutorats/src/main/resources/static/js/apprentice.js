@@ -1,8 +1,12 @@
-window.onload = init
+document.addEventListener("DOMContentLoaded", function() {
+    init();  // Appeler init dès que le DOM est prêt
+});
+
 
 let buttons;
 let apprenticeInformationSection;
 let apprenticeRemarkTable;
+let apprenticeMissionTable;
 
 /**
  * Initialize components.
@@ -14,7 +18,8 @@ function init(){
     // retrieve all apprentice information section
     apprenticeInformationSection = document.querySelectorAll('.sections .section');
 
-    apprenticeRemarkTable = document.getElementById('table-remark');
+    apprenticeRemarkTable = document.getElementById('table-remarks');
+    apprenticeMissionTable = document.getElementById('table-missions');
 
     // hide all sections
     for (const section of apprenticeInformationSection) {
@@ -68,26 +73,108 @@ function changeCurrentSectionDisplayed(event){
 }
 
 /**
- * Add new remark entry to table.
- * @param event
+ * Add new mission entry to table.
  */
-function addNewRemarkEntry(event){
-    event.preventDefault();
+function addNewMissionEntry(){
+
+    // create a new row
+    const row = apprenticeMissionTable.getElementsByTagName("tbody")[0].insertRow(-1);
+    row.classList.add('apprentice-mission');
+
+    // retrieve number of missions already present
+    const numberOfRemarks = document.querySelectorAll('.apprentice-mission');
+
+    // create new inputs for this remark
+    const missionTargetJob = createHtmlElement(
+        'input',
+        ['row-length-95'],
+        [
+            {name: 'name', value: `missions[${numberOfRemarks.length-1}].targetJob`},
+            {name: 'required', value: true},
+        ]
+    );
+    missionTargetJob.type = 'text';
+
+    const missionKeywords = createHtmlElement(
+        'textarea',
+        ['row-length-95', 'textarea-row3'],
+        [
+            {name: 'name', value: `missions[${numberOfRemarks.length-1}].keywords`},
+            {name: 'required', value: true},
+            {name: 'row', value: 5},
+        ]
+    );
+
+    const missionComments = createHtmlElement(
+        'textarea',
+        ['row-length-95', 'textarea-row3'],
+        [
+            {name: 'name', value: `missions[${numberOfRemarks.length-1}].comments`},
+            {name: 'required', value: true},
+            {name: 'row', value: 5},
+        ]
+    );
+
+    // create cells and save row
+    row.insertCell(0).appendChild(missionTargetJob);
+    row.insertCell(1).appendChild(missionKeywords);
+    row.insertCell(1).appendChild(missionComments);
+}
+
+/**
+ * Add new remark entry to table.
+ */
+function addNewRemarkEntry(){
 
     // create a new row
     const row = apprenticeRemarkTable.getElementsByTagName("tbody")[0].insertRow(-1);
+    row.classList.add('apprentice-note');
 
-    // add cells to the row
-    for (let i=0; i<3; i++){
-        const cell = row.insertCell(i);
+    // retrieve number of remarks already present
+    const numberOfRemarks = document.querySelectorAll('.apprentice-note');
 
-        const input = document.createElement("input");
-        input.type = "text";
-        input.classList.add("row-length-95");
-        input.setAttribute('name', 'remarks[' + apprenticeRemarkTable.rows.length + '].comments');
+    // create new inputs for this remark
+    const noteAuthor = createHtmlElement(
+        'input',
+        ['row-length-95'],
+        [
+            {name: 'name', value: `notes[${numberOfRemarks.length-1}].author`},
+            {name: 'required', value: true},
+        ]
+    );
+    noteAuthor.type = 'text';
 
-        cell.appendChild(input);
-        row.appendChild(cell);
+    const noteComments = createHtmlElement(
+        'textarea',
+        ['row-length-95', 'textarea-row3'],
+        [
+            {name: 'name', value: `notes[${numberOfRemarks.length-1}].comments`},
+            {name: 'required', value: true},
+        ]
+    );
+
+    // create cells and save row
+    row.insertCell(0).appendChild(noteAuthor);
+    row.insertCell(1).appendChild(noteComments);
+}
+
+/**
+ * Create html element based on provided configuration.
+ * @param tagName Html tag name.
+ * @param classList List of classes.
+ * @param attributes List of attributes.
+ * @returns {HTMLAnchorElement | HTMLElement | HTMLAreaElement | HTMLAudioElement | HTMLBaseElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLButtonElement | HTMLCanvasElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLEmbedElement | HTMLFieldSetElement | HTMLFormElement | HTMLHeadingElement | HTMLHeadElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLImageElement | HTMLInputElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLLinkElement | HTMLMapElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLObjectElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLProgressElement | HTMLScriptElement | HTMLSelectElement | HTMLSlotElement | HTMLSourceElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTimeElement | HTMLTitleElement | HTMLTableRowElement | HTMLTrackElement | HTMLUListElement | HTMLVideoElement}
+ */
+function createHtmlElement(tagName, classList, attributes) {
+    const element = document.createElement(tagName);
+
+    for (const classElem of classList) {
+        element.classList.add(classElem);
     }
 
+    for (const attribute of attributes) {
+        element.setAttribute(attribute.name, attribute.value);
+    }
+
+    return element;
 }

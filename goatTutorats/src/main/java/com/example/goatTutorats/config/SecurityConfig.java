@@ -1,5 +1,6 @@
-package com.example.goatTutorats.security;
+package com.example.goatTutorats.config;
 
+import com.example.goatTutorats.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -78,6 +79,7 @@ public class SecurityConfig {
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
                         .requestMatchers("/apprentice/**").authenticated()
+                        .requestMatchers("/academicYear/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());

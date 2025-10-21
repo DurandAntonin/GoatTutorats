@@ -15,11 +15,10 @@ import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.Year;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("apprentice")
@@ -29,12 +28,9 @@ public class ApprenticeController {
 
     private final ApprenticeService apprenticeService;
 
-    private final AcademicYearService academicYearService;
-
-    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService, AcademicYearService academicYearService) {
+    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService) {
         this.apprenticeService = apprenticeService;
         this.tutorService = tutorService;
-        this.academicYearService = academicYearService;
     }
 
     @GetMapping("/get-dashboard")
@@ -69,72 +65,6 @@ public class ApprenticeController {
         model.addAttribute("authorities", authorities);
 
         return "apprentice-research";
-    }
-
-    @GetMapping("/get-apprentice/{id}")
-    public String getApprenticeInformation(@PathVariable UUID id, Principal principal, Authentication authentication, Model model) {
-        // retrieve connected tutor information
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
-        // store those information in model to access in html templates
-        model.addAttribute("username", principal.getName());
-        model.addAttribute("authorities", authorities);
-
-        // retrieve academic year to get all info on the apprentice
-        Optional<AcademicYear> accademicYearForThisApprentice = this.academicYearService.findById(id);
-
-        if (accademicYearForThisApprentice.isEmpty()) {
-            return "errors/error-404";
-        }
-
-        Apprentice apprentice = accademicYearForThisApprentice.get().getApprentice();
-
-        model.addAttribute("accademicYearForThisApprentice",accademicYearForThisApprentice);
-
-        // store form name, action and method
-        model.addAttribute("formName", apprentice.getFirstName()+" "+ apprentice.getLastName());
-        model.addAttribute("formAction", "/apprentice/updateApprentice/" + id);
-        model.addAttribute("formMethod", "PATCH");
-
-        model.addAttribute("apprentice", apprentice);
-        return "apprentice";
-    }
-
-    @GetMapping("/get-apprentice-creation")
-    public String getApprenticeCreationPage(Principal principal, Authentication authentication, Model model) {
-        // retrieve connected tutor information
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
-        // store those information in model to access in html templates
-        model.addAttribute("username", principal.getName());
-        model.addAttribute("authorities", authorities);
-
-        // store form name, action and method
-        model.addAttribute("formName", "Ajouter un apprenti");
-        model.addAttribute("formAction", "/apprentice/createApprentice");
-        model.addAttribute("formMethod", "POST");
-
-        model.addAttribute("apprentice", new Apprentice());
-        return "redirect:/apprentice/get-apprentice/";
-    }
-
-    @PatchMapping("/{id}")
-    public Apprentice updateApprentice(@PathVariable("id") UUID id,
-                                       @RequestBody ApprenticeUpdateDTO dto) {
-        return apprenticeService.updateApprentice(id, dto);
-    }
-
-
-    @PatchMapping("updateApprentice/{id}")
-    public String updateApprenticeT(@PathVariable("id") UUID id, @ModelAttribute Apprentice apprentice)
-    {
-        return "apprentice";
-    }
-
-    @PostMapping("createApprentice")
-    public String createApprentice(@ModelAttribute Apprentice apprentice)
-    {
-        return "apprentice";
     }
 }
 
