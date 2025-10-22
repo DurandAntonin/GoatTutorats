@@ -124,7 +124,7 @@
     font-size: var(--font-size-2);
 }
 
-.column-information span{
+.column-information .section-title{
     font-weight: bold;
     font-size: var(--font-size-1);
     padding-bottom: 3px;
@@ -151,4 +151,12 @@ tfoot span{
 
 .textarea-row3{
     min-height: 50px !important;
+}
+
+input:read-only{
+    background-color: var(--primary-color);
+}
+
+input:invalid, textarea:invalid{
+    border: 2px solid var(--primary-red);
 }

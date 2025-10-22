@@ -14,12 +14,7 @@
 <header th:replace="~{fragments/header :: header-user-not-connected}">
 </header>
 
-<button type="button" onclick="openPopup('popup-delete-apprentice')">Ouvrir</button>
-
-<div th:replace="~{fragments/confirmation-popup :: confirmation-popup(popupId='popup-delete-apprentice', title='Supprimer l\'apprenti 1', content='Etes-vous sur de vouloir supprimer cet apprenti. L\'action sera irréversible.', confirmAction='apprentice/deleteApprentice/1', confirmMethod='DELETE')}">
-</div>
-
-<main class="main-content background">
+<main class="main-content">
 
     <div th:if="${param.logout}">
         You have been logged out.</div>

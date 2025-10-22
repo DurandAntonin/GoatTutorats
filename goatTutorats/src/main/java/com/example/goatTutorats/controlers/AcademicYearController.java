@@ -85,4 +85,10 @@ public class AcademicYearController {
     {
         return "redirect:/academicYear/get-apprentice-academic-year/" + apprentice.getId();
     }
+
+    @PostMapping("/create-academic-year")
+    public String createAcademicYear()
+    {
+        return "redirect:/apprentice/get-dashboard";
+    }
 }

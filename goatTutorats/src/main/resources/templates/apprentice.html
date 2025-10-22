@@ -39,14 +39,14 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="apprentice.firstName">
-                                            Prénom
+                                            Prénom <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Prénom" th:required="required" th:field="*{apprentice.firstName}"/>
                                     </div>
 
                                     <div class="column-information">
                                         <label for="apprentice.lastName">
-                                            Nom
+                                            Nom <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Nom" th:required="required" th:field="*{apprentice.lastName}"/>
                                     </div>
@@ -63,7 +63,7 @@
 
                                     <div class="column-information">
                                         <label for="apprentice.major">
-                                            Majeure
+                                            Majeure <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Majeure" th:required="required" th:field="*{apprentice.major}"/>
                                     </div>
@@ -72,14 +72,14 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="apprentice.email">
-                                            Adresse mail
+                                            Adresse mail <span class="color-red">*</span>
                                         </label>
                                         <input type="email" placeholder="Adresse mail" th:required="required" th:field="*{apprentice.email}"/>
                                     </div>
 
                                     <div class="column-information">
                                         <label for="apprentice.phone">
-                                            Téléphone
+                                            Téléphone <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
                                     </div>
@@ -90,14 +90,14 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="company.name">
-                                            Raison sociale
+                                            Raison sociale <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Raison sociale" th:required="required" th:field="*{company.name}"/>
                                     </div>
 
                                     <div class="column-information">
                                         <label for="company.address">
-                                            Addresse
+                                            Addresse <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Addresse" th:required="required" th:field="*{company.address}"/>
                                     </div>
@@ -117,14 +117,14 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="mentor.firstName">
-                                            Prénom
+                                            Prénom <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Prénom" th:required="required" th:field="*{mentor.firstName}"/>
                                     </div>
 
                                     <div class="column-information">
                                         <label for="mentor.lastName">
-                                            Nom
+                                            Nom <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Nom" th:required="required" th:field="*{mentor.lastName}"/>
                                     </div>
@@ -133,14 +133,14 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="mentor.position">
-                                            Poste
+                                            Poste <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Position" th:required="required" th:field="*{mentor.position}"/>
                                     </div>
 
                                     <div class="column-information">
                                         <label for="mentor.email">
-                                            Adresse mail
+                                            Adresse mail <span class="color-red">*</span>
                                         </label>
                                         <input type="email" placeholder="Adresse mail" th:required="required" th:field="*{mentor.email}"/>
                                     </div>
@@ -149,7 +149,7 @@
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="mentor.phone">
-                                            Téléphone
+                                            Téléphone <span class="color-red">*</span>
                                         </label>
                                         <input type="text" placeholder="Téléphone" th:required="required" th:field="*{mentor.phone}"/>
                                     </div>
@@ -166,33 +166,6 @@
                             </div>
 
                             <div id="mission-information-section" class="section">
-                                <!--<div class="row-information">
-                                    <div class="column-information">
-                                        <label for="targetJob">
-                                            Métier cible (réf. Cigref)
-                                        </label>
-                                        <input type="text" placeholder="Métier cible" th:required="required" th:field="*{missions.first.targetJob}"/>
-                                    </div>
-
-                                </div>
-
-                                <div class="row-information">
-                                    <div class="column-information full-row-length">
-                                        <label for="keywords">
-                                            Mots-clés
-                                        </label>
-                                        <textarea rows="3" placeholder="DevOps, node.js, CI/CD, etc." th:required="required" th:field="*{missions.first.keywords}"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="row-information">
-                                    <div class="column-information full-row-length">
-                                        <label for="comments">
-                                            Commentaires
-                                        </label>
-                                        <textarea rows="3" th:field="*{missions.first.comments}"></textarea>
-                                    </div>
-                                </div> -->
                                 <div class="row-information">
                                     <div class="column-information full-row-length">
                                         <div class="button-actions">
@@ -205,9 +178,9 @@
                                     <div class="column-information full-row-length">
                                         <table id="table-missions" class="table">
                                             <thead>
-                                            <th>Métier cible (réf. Cigref) </th>
-                                            <th>Mots-clés</th>
-                                            <th>Commentaires</th>
+                                            <th>Métier cible (réf. Cigref) <span class="color-red">*</span> </th>
+                                            <th>Mots-clés <span class="color-red">*</span></th>
+                                            <th>Commentaires <span class="color-red">*</span></th>
                                             </thead>
 
                                             <tbody>
@@ -270,7 +243,7 @@
                             <div id="school-evaluation-information-section" class="section">
                                 <div class="row-information">
                                     <div class="column-information">
-                                        <span>
+                                        <span class="section-title">
                                             Mémoire / Rapport
                                         </span>
                                     </div>
@@ -312,7 +285,7 @@
 
                                 <div class="row-information">
                                     <div class="column-information">
-                                        <span>
+                                        <span class="section-title">
                                             Soutenance
                                         </span>
                                     </div>
@@ -356,8 +329,8 @@
                                     <div class="column-information full-row-length">
                                         <table id="table-remarks" class="table">
                                             <thead>
-                                            <th>Auteur</th>
-                                            <th>Remarque</th>
+                                            <th>Auteur <span class="color-red">*</span></th>
+                                            <th>Remarque <span class="color-red">*</span></th>
                                             </thead>
 
                                             <tbody>

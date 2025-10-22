@@ -1,6 +1,7 @@
 .confirmation-popup {
     position: absolute;
-    width: 300px;
+    width: 25vw;
+    min-width: 250px;
     z-index: 1000;
     top: 40vh;
     left: 50%;
@@ -43,4 +44,18 @@
 .popup-buttons .confirm-button button {
     background-color: var(--primary-red);
     color: white;
+}
+
+.blurred {
+    filter: blur(3px);
+}
+
+.blurred::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
 }
