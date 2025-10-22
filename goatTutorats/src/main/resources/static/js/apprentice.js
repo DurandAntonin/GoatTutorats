@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    init();  // Appeler init dès que le DOM est prêt
+    init();
 });
 
 
