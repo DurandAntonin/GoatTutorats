@@ -1,11 +1,9 @@
 package com.example.goatTutorats.controlers;
 
-import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
 import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
-import com.example.goatTutorats.services.ApprenticeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -51,6 +49,7 @@ public class AcademicYearController {
         model.addAttribute("formName", apprenticeAcademicYear.getApprentice().getFirstName() +" "+ apprenticeAcademicYear.getApprentice().getLastName());
         model.addAttribute("formAction", "/academicYear/update-apprentice-academic-year/" + id);
         model.addAttribute("formMethod", "PATCH");
+        model.addAttribute("submitFormButtonName", "Mettre à jour");
 
         return "apprentice";
     }
@@ -68,7 +67,9 @@ public class AcademicYearController {
         model.addAttribute("formName", "Ajouter un apprenti");
         model.addAttribute("formAction", "/academicYear/create-apprentice-academic-year");
         model.addAttribute("formMethod", "POST");
+        model.addAttribute("submitFormButtonName", "Ajouter");
 
+        // create empty apprentice academic year
         model.addAttribute("apprenticeAcademicYear", new AcademicYear());
         return "apprentice";
     }
@@ -76,7 +77,7 @@ public class AcademicYearController {
     @PatchMapping("/update-apprentice-academic-year/{id}")
     public String updateApprenticeAcademicYear(@PathVariable("id") UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        System.out.println("ici" + apprenticeAcademicYear.getNotes());
+        System.out.println("ici" + apprenticeAcademicYear.getNotes() + ", " + apprenticeAcademicYear.getVisit().toString());
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 

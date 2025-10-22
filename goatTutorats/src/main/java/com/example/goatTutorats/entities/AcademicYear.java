@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "academic_year")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class AcademicYear {
 
@@ -57,6 +57,11 @@ public class AcademicYear {
     @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Note> notes;
+
+    public AcademicYear() {
+        this.notes = new ArrayList<>();
+        this.setMissions(new ArrayList<>());
+    }
 
     @Override
     public String toString() {

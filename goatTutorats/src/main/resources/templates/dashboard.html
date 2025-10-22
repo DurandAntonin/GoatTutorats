@@ -31,7 +31,11 @@
                     <div class="button">
                         <button type="button" onclick="openPopup('popup-add-academic-year')">Créer une nouvelle année</button>
                     </div>
-                    <div class="button"><button>Ajouter un apprenti</button></div>
+                    <div class="button">
+                        <form th:method="GET" th:action="@{/academicYear/get-apprentice-academic-year-creation}">
+                            <button type="submit">Ajouter un apprenti</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
