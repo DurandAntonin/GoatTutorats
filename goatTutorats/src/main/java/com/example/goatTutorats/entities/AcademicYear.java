@@ -59,7 +59,9 @@ public class AcademicYear {
     private List<Note> notes;
 
     public AcademicYear() {
+        this.id = UUID.randomUUID();
         this.notes = new ArrayList<>();
+        this.year = LocalDate.now();
         this.setMissions(new ArrayList<>());
     }
 

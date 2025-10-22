@@ -82,9 +82,10 @@ public class AcademicYearController {
     }
 
     @PostMapping("/create-apprentice-academic-year")
-    public String createApprenticeAcademicYear(@ModelAttribute Apprentice apprentice)
+    public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        return "redirect:/academicYear/get-apprentice-academic-year/" + apprentice.getId();
+        System.out.println(apprenticeAcademicYear.getMissions());
+        return "redirect:/academicYear/get-apprentice-academic-year/" + apprenticeAcademicYear.getId();
     }
 
     @PostMapping("/create-academic-year")
