@@ -1,13 +1,14 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "userId")
 @Table(name = "tutor")
@@ -15,11 +16,17 @@ public class Tutor extends User {
 
     // One tutor can have multiple apprentices
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<Apprentice> apprentices;
 
     @Override
     public String toString() {
-        return "";
+        String apprenticeIds = apprentices.stream()
+                .map(apprentice -> apprentice.getId().toString())
+                .collect(Collectors.joining(", "));
+
+        return String.format("Tutor{"
+                        + "user=%s, "
+                        + "apprentices=[%s]}",
+                super.toString(), apprenticeIds);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,13 +7,15 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "report_evaluation")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportEvaluation {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
@@ -26,11 +27,17 @@ public class ReportEvaluation {
     // Each school evaluation is submitted for one academic year
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_year_id", nullable = false)
-    @JsonBackReference
     private AcademicYear academicYear;
 
     @Override
     public String toString() {
-        return "";
+        return String.format("ReportEvaluation{"
+                        + "id=%s, "
+                        + "thesis='%s', "
+                        + "topic='%s', "
+                        + "finalGrade=%s, "
+                        + "comments='%s', "
+                        + "academicYear=%s}",
+                id, thesis, topic, finalGrade, comments, academicYear.getId());
     }
 }

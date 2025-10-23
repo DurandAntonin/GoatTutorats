@@ -46,8 +46,6 @@ public class AcademicYearController {
         }
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
 
-        System.out.println(apprenticeAcademicYear.getMissions().getFirst().getAcademicYear().getId());
-
         // store form name, action and method
         model.addAttribute("formName", apprenticeAcademicYear.getApprentice().getFirstName() +" "+ apprenticeAcademicYear.getApprentice().getLastName());
         model.addAttribute("formAction", "/academicYear/update-apprentice-academic-year/" + id);
@@ -78,16 +76,24 @@ public class AcademicYearController {
     }
 
     @PatchMapping("/update-apprentice-academic-year/{id}")
-    public String updateApprenticeAcademicYear(@PathVariable("id") UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
+    public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
+        System.out.println(apprenticeAcademicYear);
+        System.out.println(apprenticeAcademicYear.getApprentice());
+        System.out.println(apprenticeAcademicYear.getNotes());
+        System.out.println(apprenticeAcademicYear.getMentor());
+        System.out.println(apprenticeAcademicYear.getCompany());
+        System.out.println(apprenticeAcademicYear.getVisit());
+        System.out.println(apprenticeAcademicYear.getOralExam());
+        System.out.println(apprenticeAcademicYear.getMissions());
+        System.out.println(apprenticeAcademicYear.getNotes());
+        //this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 
     @PostMapping("/create-apprentice-academic-year")
     public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        System.out.println(apprenticeAcademicYear.getMissions());
         return "redirect:/academicYear/get-apprentice-academic-year/" + apprenticeAcademicYear.getId();
     }
 
