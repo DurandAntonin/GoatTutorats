@@ -17,4 +17,9 @@ public class Tutor extends User {
     @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Apprentice> apprentices;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

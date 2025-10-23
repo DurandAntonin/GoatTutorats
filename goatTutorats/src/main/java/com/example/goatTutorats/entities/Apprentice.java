@@ -28,7 +28,7 @@ public class Apprentice {
     private String major;
 
     // Each apprentice is assigned to one tutor
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "tutor_id", nullable = false)
     @JsonBackReference
     private Tutor tutor;

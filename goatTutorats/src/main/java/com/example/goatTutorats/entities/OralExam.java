@@ -28,4 +28,9 @@ public class OralExam {
     @JoinColumn(name = "academic_year_id", nullable = false)
     @JsonBackReference
     private AcademicYear academicYear;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

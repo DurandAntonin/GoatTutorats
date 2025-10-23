@@ -23,17 +23,17 @@ public class AcademicYear {
 
     private LocalDate year;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "apprentice_id", nullable = false)
     @JsonBackReference
     private Apprentice apprentice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id", nullable = false)
     @JsonManagedReference
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "mentor_id")
     @JsonManagedReference
     private Mentor mentor;

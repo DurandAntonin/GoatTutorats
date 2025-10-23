@@ -27,4 +27,9 @@ public class Company {
     @OneToOne(mappedBy = "company")
     @JsonManagedReference
     private Mentor mentor;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

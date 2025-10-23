@@ -22,4 +22,9 @@ public class UserRole {
     @ManyToMany
     @JsonBackReference
     Set<User> users;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

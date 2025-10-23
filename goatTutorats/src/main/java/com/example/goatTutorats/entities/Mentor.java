@@ -29,4 +29,9 @@ public class Mentor {
     @OneToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Company company;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

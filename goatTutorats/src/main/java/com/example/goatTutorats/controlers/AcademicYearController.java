@@ -35,6 +35,7 @@ public class AcademicYearController {
         model.addAttribute("username", principal.getName());
         model.addAttribute("authorities", authorities);
 
+
         // retrieve academic year information for this apprentice
         AcademicYear apprenticeAcademicYear;
         try{
@@ -44,6 +45,8 @@ public class AcademicYearController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
+
+        System.out.println(apprenticeAcademicYear.getMissions().getFirst().getAcademicYear().getId());
 
         // store form name, action and method
         model.addAttribute("formName", apprenticeAcademicYear.getApprentice().getFirstName() +" "+ apprenticeAcademicYear.getApprentice().getLastName());
@@ -77,7 +80,7 @@ public class AcademicYearController {
     @PatchMapping("/update-apprentice-academic-year/{id}")
     public String updateApprenticeAcademicYear(@PathVariable("id") UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        System.out.println("ici" + apprenticeAcademicYear.getNotes() + ", " + apprenticeAcademicYear.getVisit().toString());
+        this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 

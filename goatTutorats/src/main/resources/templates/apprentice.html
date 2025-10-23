@@ -36,6 +36,8 @@
                         <div class="sections">
                             <div id="apprentice-personal-information" class="section">
                                 <input type="hidden" th:required="required" th:field="*{id}"/>
+                                <input type="hidden" th:field="*{apprentice.tutor.id}" th:value="${apprenticeAcademicYear.apprentice.tutor.id}" />
+
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -83,6 +85,7 @@
                                             Téléphone <span class="color-red">*</span>
                                         </label>
                                         <input type="number" class="no-arrow" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
+
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +170,7 @@
                             </div>
 
                             <div id="mission-information-section" class="section">
+
                                 <div class="row-information">
                                     <div class="column-information full-row-length">
                                         <div class="button-actions">
@@ -187,6 +191,8 @@
                                             <tbody>
 
                                             <tr class="apprentice-mission" th:each="mission, itemStat : *{missions}">
+                                                <input type="hidden" th:field="*{missions[__${itemStat.index}__].academicYear.id}" />
+
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{missions[__${itemStat.index}__].targetJob}"/>
                                                 </td>
@@ -215,6 +221,9 @@
                             </div>
 
                             <div id="visit-information-section" class="section">
+                                <input type="hidden" th:name="visit.academicYear.id"
+                                       th:value="${apprenticeAcademicYear.id}" />
+
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="visit.date">
@@ -242,6 +251,9 @@
                             </div>
 
                             <div id="school-evaluation-information-section" class="section">
+                                <input type="hidden" th:name="reportEvaluation.academicYear.id"
+                                       th:value="${apprenticeAcademicYear.id}" />
+
                                 <div class="row-information">
                                     <div class="column-information">
                                         <span class="section-title">
@@ -293,6 +305,8 @@
                                 </div>
 
                                 <div class="row-information">
+                                    <input type="hidden" th:name="oralExam.academicYear.id"
+                                           th:value="${apprenticeAcademicYear.id}" />
                                     <div class="column-information">
                                         <label for="oralExam.date">
                                             Date
@@ -339,6 +353,7 @@
                                             <tr class="apprentice-note" th:each="note, itemStat : *{notes}">
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{notes[__${itemStat.index}__].author}"/>
+                                                    <input type="hidden" th:field="*{notes[__${itemStat.index}__].academicYear.id}" />
                                                 </td>
                                                 <td>
                                                     <textarea rows="3" class="row-length-95 textarea-row3" th:required="required" th:field="*{notes[__${itemStat.index}__].comments}"></textarea>
