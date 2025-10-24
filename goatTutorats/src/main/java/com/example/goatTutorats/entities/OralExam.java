@@ -24,19 +24,13 @@ public class OralExam {
     private Float finalGrade;
     private String comments;
 
-    // Each defense belongs to exactly one academic year
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    private AcademicYear academicYear;
-
     @Override
     public String toString() {
         return String.format("Defense{"
                         + "id=%s, "
                         + "date=%s, "
                         + "finalGrade=%s, "
-                        + "comments='%s', "
-                        + "academicYear=%s}",
-                id, date, finalGrade, comments, academicYear.getId());
+                        + "comments='%s', ",
+                id, date, finalGrade, comments);
     }
 }

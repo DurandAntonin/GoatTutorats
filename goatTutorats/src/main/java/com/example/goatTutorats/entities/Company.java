@@ -28,17 +28,13 @@ public class Company {
     @Column(name = "accessInfo", nullable = false)
     private String accessInfo;
 
-    @OneToOne(mappedBy = "company")
-    private Mentor mentor;
-
     @Override
     public String toString() {
         return String.format("Company{"
                         + "id=%s, "
                         + "name='%s', "
                         + "address='%s', "
-                        + "accessInfo='%s', "
-                        + "mentor=%s}",
-                id, name, address, accessInfo, mentor.getId());
+                        + "accessInfo='%s', ",
+                id, name, address, accessInfo);
     }
 }

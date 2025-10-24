@@ -24,19 +24,13 @@ public class Visit {
     private String format;
     private String comments;
 
-    // Each visit belongs to one academic year
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    private AcademicYear academicYear;
-
     @Override
     public String toString() {
         return String.format("Visit{"
                         + "id=%s, "
                         + "date=%s, "
                         + "format='%s', "
-                        + "comments='%s', "
-                        + "academicYear=%s}",
-                id, date, format, comments, academicYear.getId());
+                        + "comments='%s', ",
+                id, date, format, comments);
     }
 }

@@ -38,6 +38,7 @@
                         <div class="sections">
                             <div id="apprentice-personal-information" class="section">
                                 <input type="hidden" th:required="required" th:field="*{apprentice.id}"/>
+                                <input type="hidden" th:required="required" th:field="*{apprentice.tutor.id}"/>
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -101,7 +102,6 @@
 
                             <div id="company-information-section" class="section">
                                 <input type="hidden" th:required="required" th:field="*{company.id}"/>
-                                <input type="hidden" th:required="required" th:field="*{company.mentor.id}"/>
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -131,7 +131,6 @@
 
                             <div id="mentor-information-section" class="section">
                                 <input type="hidden" th:required="required" th:field="*{mentor.id}"/>
-                                <input type="hidden" th:required="required" th:field="*{mentor.company.id}"/>
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -207,7 +206,6 @@
 
                                             <tr class="apprentice-mission" th:each="mission, itemStat : *{missions}">
                                                 <input type="hidden" th:field="*{missions[__${itemStat.index}__].id}" />
-                                                <input type="hidden" th:field="*{missions[__${itemStat.index}__].academicYear.id}" />
 
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{missions[__${itemStat.index}__].targetJob}"/>
@@ -238,7 +236,6 @@
 
                             <div id="visit-information-section" class="section">
                                 <input type="hidden" th:field="*{visit.id}" />
-                                <input type="hidden" th:field="*{visit.academicYear.id}" />
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -269,8 +266,6 @@
                             <div id="school-evaluation-information-section" class="section">
                                 <input type="hidden" th:required="required" th:field="*{reportEvaluation.id}"/>
                                 <input type="hidden" th:required="required" th:field="*{oralExam.id}"/>
-                                <input type="hidden" th:field="*{reportEvaluation.academicYear.id}" />
-                                <input type="hidden" th:field="*{oralExam.academicYear.id}" />
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -368,7 +363,6 @@
 
                                             <tr class="apprentice-note" th:each="note, itemStat : *{notes}">
                                                 <input type="hidden" th:required="required" th:field="*{notes[__${itemStat.index}__].id}"/>
-                                                <input type="hidden" th:field="*{notes[__${itemStat.index}__].academicYear.id}" />
 
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{notes[__${itemStat.index}__].author}"/>

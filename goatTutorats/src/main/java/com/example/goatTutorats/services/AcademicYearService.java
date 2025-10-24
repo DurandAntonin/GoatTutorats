@@ -29,11 +29,7 @@ public class AcademicYearService {
     {
         AcademicYear academicYearToModify = this.academicYearRepository.findById(idAcademicYear).orElseThrow(() -> new CustomEntityNotFoundException(idAcademicYear.toString()));
 
-        if(academicYearToModify!=null)
-        {
-            BeanUtils.copyProperties(academicYearModified,academicYearToModify,"id","apprentice.tutor");
-            this.academicYearRepository.save(academicYearToModify);
-        }
-
+        BeanUtils.copyProperties(academicYearModified,academicYearToModify,"id");
+        this.academicYearRepository.save(academicYearToModify);
     }
 }

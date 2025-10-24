@@ -37,10 +37,6 @@ public class Mentor {
     @Column(name = "remarks", nullable = false)
     private String remarks;
 
-    // Each tutor works at exactly one company
-    @OneToOne(fetch = FetchType.LAZY)
-    private Company company;
-
     @Override
     public String toString() {
         return String.format("Mentor{"
@@ -50,10 +46,8 @@ public class Mentor {
                         + "position='%s', "
                         + "email='%s', "
                         + "phone='%s', "
-                        + "remarks='%s', "
-                        + "company=%s}",
+                        + "remarks='%s', ",
                 id, firstName, lastName,
-                position, email, phone, remarks,
-                company.getId());
+                position, email, phone, remarks);
     }
 }

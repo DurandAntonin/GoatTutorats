@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.example.goatTutorats.enums.StudyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,21 +40,17 @@ public class Apprentice {
     @Column(name = "major", nullable = false)
     private String major;
 
+    @Column(name = "study_level")
+    @Enumerated(EnumType.STRING)
+    private StudyLevel studyLevel;
+
     // Each apprentice is assigned to one tutor
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-    // One apprentice can have multiple academic years
-    @OneToMany(mappedBy = "apprentice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AcademicYear> academicYears;
-
     @Override
     public String toString() {
-        String academicYearIds = academicYears == null ? "":  academicYears.stream()
-                .map(academicYear -> academicYear.getId().toString())
-                .collect(Collectors.joining(", "));
-
         return String.format("Apprentice{"
                         + "id=%s, "
                         + "firstName='%s', "
@@ -62,8 +59,7 @@ public class Apprentice {
                         + "phone='%s', "
                         + "program='%s', "
                         + "major='%s', "
-                        + "tutor=%s, "
-                        + "academicYears=[%s]}",
-                id, firstName, lastName, email, phone, program, major, tutor == null ? "" : tutor.getId(), academicYearIds);
+                        + "tutor=%s, ",
+                id, firstName, lastName, email, phone, program, major, tutor.getId());
     }
 }

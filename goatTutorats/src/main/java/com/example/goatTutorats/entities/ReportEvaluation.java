@@ -24,11 +24,6 @@ public class ReportEvaluation {
     private Float finalGrade;
     private String comments;
 
-    // Each school evaluation is submitted for one academic year
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    private AcademicYear academicYear;
-
     @Override
     public String toString() {
         return String.format("ReportEvaluation{"
@@ -36,8 +31,7 @@ public class ReportEvaluation {
                         + "thesis='%s', "
                         + "topic='%s', "
                         + "finalGrade=%s, "
-                        + "comments='%s', "
-                        + "academicYear=%s}",
-                id, thesis, topic, finalGrade, comments, academicYear.getId());
+                        + "comments='%s', ",
+                id, thesis, topic, finalGrade, comments);
     }
 }

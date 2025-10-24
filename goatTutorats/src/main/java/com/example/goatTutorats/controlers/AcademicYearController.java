@@ -35,7 +35,6 @@ public class AcademicYearController {
         model.addAttribute("username", principal.getName());
         model.addAttribute("authorities", authorities);
 
-
         // retrieve academic year information for this apprentice
         AcademicYear apprenticeAcademicYear;
         try{
@@ -87,13 +86,25 @@ public class AcademicYearController {
         System.out.println(apprenticeAcademicYear.getOralExam());
         System.out.println(apprenticeAcademicYear.getMissions());
         System.out.println(apprenticeAcademicYear.getNotes());
-        //this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
+        this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 
     @PostMapping("/create-apprentice-academic-year")
     public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear)
     {
+        System.out.println(apprenticeAcademicYear);
+        System.out.println(apprenticeAcademicYear.getApprentice());
+        System.out.println(apprenticeAcademicYear.getNotes());
+        System.out.println(apprenticeAcademicYear.getMentor());
+        System.out.println(apprenticeAcademicYear.getCompany());
+        System.out.println(apprenticeAcademicYear.getVisit());
+        System.out.println(apprenticeAcademicYear.getOralExam());
+        System.out.println(apprenticeAcademicYear.getMissions());
+        System.out.println(apprenticeAcademicYear.getNotes());
+
+
+
         return "redirect:/academicYear/get-apprentice-academic-year/" + apprenticeAcademicYear.getId();
     }
 

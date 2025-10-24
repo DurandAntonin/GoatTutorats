@@ -36,23 +36,25 @@ public class AcademicYear {
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "academic_year_id")
     private List<Mission> missions;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Visit visit;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private ReportEvaluation reportEvaluation;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private OralExam oralExam;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "academic_year_id")
     private List<Note> notes;
 
     public AcademicYear() {
-        //this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID();
         this.notes = new ArrayList<>();
         this.year = LocalDate.now();
         this.missions = new ArrayList<>();

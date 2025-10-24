@@ -25,18 +25,12 @@ public class Note {
     @Column(name = "comments", nullable = false)
     private String comments;
 
-    // Each note belongs to one academic year
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    private AcademicYear academicYear;
-
     @Override
     public String toString() {
         return String.format("Note{"
                         + "id=%s, "
                         + "author='%s', "
-                        + "comments='%s', "
-                        + "academicYear=%s}",
-                id, author, comments, academicYear.getId());
+                        + "comments='%s', ",
+                id, author, comments);
     }
 }

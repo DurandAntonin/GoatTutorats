@@ -28,19 +28,13 @@ public class Mission {
     @Column(name = "comments", nullable = false)
     private String comments;
 
-    // Each mission belongs to one academic year
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    private AcademicYear academicYear;
-
     @Override
     public String toString() {
         return String.format("Mission{"
                         + "id=%s, "
                         + "keywords='%s', "
                         + "targetJob='%s', "
-                        + "comments='%s', "
-                        + "academicYear=%s}",
-                id, keywords, targetJob, comments, academicYear.getId());
+                        + "comments='%s', ",
+                id, keywords, targetJob, comments);
     }
 }

@@ -19,11 +19,14 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
             "a.program, " +
             "a.major, " +
             "c.name, " +
-            "m.targetJob) " +
-            "FROM Apprentice a " +
-            "JOIN a.academicYears ay " +
+            "me.lastName, " +
+            "me.firstName, " +
+            "a.studyLevel) " +
+            "FROM AcademicYear ay " +
+            "JOIN ay.apprentice a " +
             "JOIN ay.company c " +
             "JOIN ay.missions m " +
+            "JOIN ay.mentor me " +
             "WHERE a.tutor.id = :tutorId " +
             "AND FUNCTION('YEAR', ay.year) = :year")
     List<ApprenticeRecordDTO> findByTutorAndYear(@Param("tutorId") UUID tutorId,
