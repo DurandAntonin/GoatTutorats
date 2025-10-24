@@ -1,6 +1,5 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -32,7 +32,6 @@ public class User implements UserDetails {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonManagedReference
     Set<UserRole> roles;
 
     @Override
@@ -47,5 +46,19 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    @Override
+    public String toString() {
+        String roleIds = roles.stream()
+                .map(role -> role.getId().toString())
+                .collect(Collectors.joining(", "));
+
+        return String.format("User{"
+                        + "id=%s, "
+                        + "username='%s', "
+                        + "password='%s', "
+                        + "roles=[%s]}",
+                id, username, password, roleIds);
     }
 }

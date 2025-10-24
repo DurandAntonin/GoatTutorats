@@ -35,7 +35,6 @@
                     <div class="apprentice-information-section-form">
                         <div class="sections">
                             <div id="apprentice-personal-information" class="section">
-                                <input type="hidden" th:required="required" th:field="*{id}"/>
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -55,11 +54,10 @@
 
                                 <div class="row-information">
                                     <div class="column-information">
-                                        <label for="yearDisplayed">
-                                            Année académique
+                                        <label for="apprentice.program">
+                                            Programme
                                         </label>
-                                        <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
-                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:readonly="readonly" />
+                                        <input type="text" placeholder="Programme" th:required="required" th:field="*{apprentice.program}" />
                                     </div>
 
                                     <div class="column-information">
@@ -83,6 +81,26 @@
                                             Téléphone <span class="color-red">*</span>
                                         </label>
                                         <input type="number" class="no-arrow" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
+
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="studyLevel">
+                                            Niveau d'étude
+                                        </label>
+                                        <select th:field="*{studyLevel}">
+                                            <option th:each="studyLevelOption : ${T(com.example.goatTutorats.enums.StudyLevel).values()}" th:value="${studyLevelOption}" th:text="${studyLevelOption}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="column-information">
+                                        <label for="yearDisplayed">
+                                            Année académique
+                                        </label>
+                                        <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
+                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:readonly="readonly" />
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +185,7 @@
                             </div>
 
                             <div id="mission-information-section" class="section">
+
                                 <div class="row-information">
                                     <div class="column-information full-row-length">
                                         <div class="button-actions">
@@ -363,6 +382,11 @@
                         </div>
 
                         <div class="form-submit-button button">
+                            <div th:if="${#fields.hasAnyErrors()}">
+                                <ul>
+                                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                                </ul>
+                            </div>
                             <button th:text="${submitFormButtonName}" type="submit">Mettre à jour</button>
                         </div>
                     </div>

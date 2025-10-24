@@ -1,31 +1,39 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 @Table(name = "visit")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Visit {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+
     private String format;
     private String comments;
 
-    // Each visit belongs to one academic year
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year_id", nullable = false)
-    @JsonBackReference
-    private AcademicYear academicYear;
+    @Override
+    public String toString() {
+        return String.format("Visit{"
+                        + "id=%s, "
+                        + "date=%s, "
+                        + "format='%s', "
+                        + "comments='%s', ",
+                id, date, format, comments);
+    }
 }

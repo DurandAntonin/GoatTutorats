@@ -1,13 +1,15 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
+@Setter
+@EqualsAndHashCode
 @Table(name = "userRole")
 public class UserRole {
 
@@ -16,10 +18,22 @@ public class UserRole {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(unique = true)
+    @Column(name = "roleName", nullable = false, unique = true)
     private String roleName;
 
     @ManyToMany
-    @JsonBackReference
     Set<User> users;
+
+    @Override
+    public String toString() {
+        String userIds = users.stream()
+                .map(user -> user.getId().toString())
+                .collect(Collectors.joining(", "));
+
+        return String.format("UserRole{"
+                        + "id=%s, "
+                        + "roleName='%s', "
+                        + "users=[%s]}",
+                id, roleName, userIds);
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.goatTutorats.enums.StudyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,64 +8,86 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "academic_year")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class AcademicYear {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     private LocalDate year;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "study_level")
+    @Enumerated(EnumType.STRING)
+    private StudyLevel studyLevel;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "apprentice_id", nullable = false)
-    @JsonBackReference
     private Apprentice apprentice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id", nullable = false)
-    @JsonManagedReference
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "mentor_id")
-    @JsonManagedReference
     private Mentor mentor;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "academic_year_id")
     private List<Mission> missions;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Visit visit;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private ReportEvaluation reportEvaluation;
 
-    @OneToOne(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private OralExam oralExam;
 
-    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "academic_year_id")
     private List<Note> notes;
 
     public AcademicYear() {
-        this.id = UUID.randomUUID();
-        this.notes = new ArrayList<>();
         this.year = LocalDate.now();
-        this.setMissions(new ArrayList<>());
+        this.missions = new ArrayList<>();
+        this.notes = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        return "";
+        String missionIds = missions.stream()
+                .map(mission -> mission.getId().toString())
+                .collect(Collectors.joining(", "));
+
+        String noteIds = notes.stream()
+                .map(note -> note.getId().toString())
+                .collect(Collectors.joining(", "));
+
+        return String.format("AcademicYear{"
+                        + "id=%s, "
+                        + "year=%s, "
+                        + "apprentice=%s, "
+                        + "company=%s, "
+                        + "mentor=%s, "
+                        + "missions=[%s], "
+                        + "visit=%s, "
+                        + "reportEvaluation=%s, "
+                        + "oralExam=%s, "
+                        + "notes=[%s]}",
+                id, year, apprentice.getId(), company.getId(),
+                mentor.getId(), missionIds, visit.getId(),
+                reportEvaluation.getId(), oralExam.getId(),
+                noteIds);
     }
 }

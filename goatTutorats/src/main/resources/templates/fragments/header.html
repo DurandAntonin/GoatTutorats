@@ -21,7 +21,7 @@
         <a class="link" th:href="@{/apprentice/get-dashboard}"> Importer des apprentis </a>
     </div>
 
-    <div class="header-actions">
+    <div class="header-actions justify-end">
         <div class="button">
             <form th:action="@{/auth/get-login-page}" th:method="GET">
                 <button disabled>Bonjour <span th:if="${username}" th:text="${username}"> </span></button>

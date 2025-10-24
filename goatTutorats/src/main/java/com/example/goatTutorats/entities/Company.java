@@ -1,30 +1,40 @@
 package com.example.goatTutorats.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "company")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "accessInfo", nullable = false)
     private String accessInfo;
 
-    @OneToOne(mappedBy = "company")
-    @JsonManagedReference
-    private Mentor mentor;
+    @Override
+    public String toString() {
+        return String.format("Company{"
+                        + "id=%s, "
+                        + "name='%s', "
+                        + "address='%s', "
+                        + "accessInfo='%s', ",
+                id, name, address, accessInfo);
+    }
 }
