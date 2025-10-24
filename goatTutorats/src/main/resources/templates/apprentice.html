@@ -57,11 +57,10 @@
 
                                 <div class="row-information">
                                     <div class="column-information">
-                                        <label for="yearDisplayed">
-                                            Année académique
+                                        <label for="apprentice.program">
+                                            Programme
                                         </label>
-                                        <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
-                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:readonly="readonly" />
+                                        <input type="text" th:required="required" th:field="*{apprentice.program}" />
                                     </div>
 
                                     <div class="column-information">
@@ -86,6 +85,16 @@
                                         </label>
                                         <input type="number" class="no-arrow" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
 
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="yearDisplayed">
+                                            Année académique
+                                        </label>
+                                        <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
+                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:readonly="readonly" />
                                     </div>
                                 </div>
                             </div>
@@ -387,6 +396,11 @@
                         </div>
 
                         <div class="form-submit-button button">
+                            <div th:if="${#fields.hasAnyErrors()}">
+                                <ul>
+                                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                                </ul>
+                            </div>
                             <button th:text="${submitFormButtonName}" type="submit">Mettre à jour</button>
                         </div>
                     </div>
