@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.example.goatTutorats.enums.StudyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,10 @@ public class AcademicYear {
     private UUID id;
 
     private LocalDate year;
+
+    @Column(name = "study_level")
+    @Enumerated(EnumType.STRING)
+    private StudyLevel studyLevel;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "apprentice_id", nullable = false)
@@ -54,8 +59,6 @@ public class AcademicYear {
     private List<Note> notes;
 
     public AcademicYear() {
-        this.id = UUID.randomUUID();
-        this.notes = new ArrayList<>();
         this.year = LocalDate.now();
         this.missions = new ArrayList<>();
         this.notes = new ArrayList<>();

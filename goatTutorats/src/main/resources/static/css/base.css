@@ -69,6 +69,10 @@ html, body {
     background-color: var(--primary-color);
 }
 
+.justify-end {
+    justify-content: flex-end;
+}
+
 .main-content{
     width: 100%;
     height: 90%;

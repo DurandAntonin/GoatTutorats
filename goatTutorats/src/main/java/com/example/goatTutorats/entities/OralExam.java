@@ -2,6 +2,7 @@ package com.example.goatTutorats.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -20,7 +21,9 @@ public class OralExam {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+
     private Float finalGrade;
     private String comments;
 

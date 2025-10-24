@@ -2,8 +2,10 @@ package com.example.goatTutorats.controlers;
 
 import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Apprentice;
+import com.example.goatTutorats.entities.Tutor;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
+import com.example.goatTutorats.services.TutorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,9 +23,11 @@ import java.util.UUID;
 public class AcademicYearController {
 
     private final AcademicYearService academicYearService;
+    private final TutorService tutorService;
 
-    public AcademicYearController(AcademicYearService academicYearService) {
+    public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService) {
         this.academicYearService = academicYearService;
+        this.tutorService = tutorService;
     }
 
     @GetMapping("/get-apprentice-academic-year/{id}")
@@ -77,35 +81,32 @@ public class AcademicYearController {
     @PatchMapping("/update-apprentice-academic-year/{id}")
     public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
     {
-        System.out.println(apprenticeAcademicYear);
-        System.out.println(apprenticeAcademicYear.getApprentice());
-        System.out.println(apprenticeAcademicYear.getNotes());
-        System.out.println(apprenticeAcademicYear.getMentor());
-        System.out.println(apprenticeAcademicYear.getCompany());
-        System.out.println(apprenticeAcademicYear.getVisit());
-        System.out.println(apprenticeAcademicYear.getOralExam());
-        System.out.println(apprenticeAcademicYear.getMissions());
-        System.out.println(apprenticeAcademicYear.getNotes());
-        this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
+        try{
+            this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
+        }
+        catch (CustomEntityNotFoundException exception){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+        }
+
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 
     @PostMapping("/create-apprentice-academic-year")
-    public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear)
+    public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear, Principal principal)
     {
-        System.out.println(apprenticeAcademicYear);
-        System.out.println(apprenticeAcademicYear.getApprentice());
-        System.out.println(apprenticeAcademicYear.getNotes());
-        System.out.println(apprenticeAcademicYear.getMentor());
-        System.out.println(apprenticeAcademicYear.getCompany());
-        System.out.println(apprenticeAcademicYear.getVisit());
-        System.out.println(apprenticeAcademicYear.getOralExam());
-        System.out.println(apprenticeAcademicYear.getMissions());
-        System.out.println(apprenticeAcademicYear.getNotes());
+        // retrieve current tutor of future apprentice
+        Tutor tutor;
+        try{
+            tutor = this.tutorService.getTutorByUsername(principal.getName());
+        }
+        catch (CustomEntityNotFoundException exception){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+        }
 
+        // create new apprentice and return it
+        AcademicYear newApprenticeAcademicYear = this.academicYearService.addApprenticeAcademicYear(apprenticeAcademicYear, tutor);
 
-
-        return "redirect:/academicYear/get-apprentice-academic-year/" + apprenticeAcademicYear.getId();
+        return "redirect:/academicYear/get-apprentice-academic-year/" + newApprenticeAcademicYear.getId();
     }
 
     @PostMapping("/create-academic-year")

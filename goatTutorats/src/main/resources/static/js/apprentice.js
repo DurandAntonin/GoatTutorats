@@ -118,7 +118,7 @@ function addNewMissionEntry(){
     // create cells and save row
     row.insertCell(0).appendChild(missionTargetJob);
     row.insertCell(1).appendChild(missionKeywords);
-    row.insertCell(1).appendChild(missionComments);
+    row.insertCell(2).appendChild(missionComments);
 }
 
 /**

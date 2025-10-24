@@ -32,13 +32,9 @@
 
             <div class="apprentice-information-section">
                 <form th:action="${formAction}" th:method="${formMethod}" th:object="${apprenticeAcademicYear}" >
-                    <input type="hidden" th:required="required" th:field="*{id}"/>
-
                     <div class="apprentice-information-section-form">
                         <div class="sections">
                             <div id="apprentice-personal-information" class="section">
-                                <input type="hidden" th:required="required" th:field="*{apprentice.id}"/>
-                                <input type="hidden" th:required="required" th:field="*{apprentice.tutor.id}"/>
 
                                 <div class="row-information">
                                     <div class="column-information">
@@ -61,7 +57,7 @@
                                         <label for="apprentice.program">
                                             Programme
                                         </label>
-                                        <input type="text" th:required="required" th:field="*{apprentice.program}" />
+                                        <input type="text" placeholder="Programme" th:required="required" th:field="*{apprentice.program}" />
                                     </div>
 
                                     <div class="column-information">
@@ -91,6 +87,15 @@
 
                                 <div class="row-information">
                                     <div class="column-information">
+                                        <label for="studyLevel">
+                                            Niveau d'étude
+                                        </label>
+                                        <select th:field="*{studyLevel}">
+                                            <option th:each="studyLevelOption : ${T(com.example.goatTutorats.enums.StudyLevel).values()}" th:value="${studyLevelOption}" th:text="${studyLevelOption}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="column-information">
                                         <label for="yearDisplayed">
                                             Année académique
                                         </label>
@@ -101,8 +106,6 @@
                             </div>
 
                             <div id="company-information-section" class="section">
-                                <input type="hidden" th:required="required" th:field="*{company.id}"/>
-
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="company.name">
@@ -130,8 +133,6 @@
                             </div>
 
                             <div id="mentor-information-section" class="section">
-                                <input type="hidden" th:required="required" th:field="*{mentor.id}"/>
-
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="mentor.firstName">
@@ -205,8 +206,6 @@
                                             <tbody>
 
                                             <tr class="apprentice-mission" th:each="mission, itemStat : *{missions}">
-                                                <input type="hidden" th:field="*{missions[__${itemStat.index}__].id}" />
-
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{missions[__${itemStat.index}__].targetJob}"/>
                                                 </td>
@@ -235,8 +234,6 @@
                             </div>
 
                             <div id="visit-information-section" class="section">
-                                <input type="hidden" th:field="*{visit.id}" />
-
                                 <div class="row-information">
                                     <div class="column-information">
                                         <label for="visit.date">
@@ -264,9 +261,6 @@
                             </div>
 
                             <div id="school-evaluation-information-section" class="section">
-                                <input type="hidden" th:required="required" th:field="*{reportEvaluation.id}"/>
-                                <input type="hidden" th:required="required" th:field="*{oralExam.id}"/>
-
                                 <div class="row-information">
                                     <div class="column-information">
                                         <span class="section-title">
@@ -362,8 +356,6 @@
                                             <tbody>
 
                                             <tr class="apprentice-note" th:each="note, itemStat : *{notes}">
-                                                <input type="hidden" th:required="required" th:field="*{notes[__${itemStat.index}__].id}"/>
-
                                                 <td>
                                                     <input class="row-length-95" type="text" th:required="required" th:field="*{notes[__${itemStat.index}__].author}"/>
                                                 </td>

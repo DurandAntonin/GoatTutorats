@@ -3,8 +3,6 @@ package com.example.goatTutorats.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter

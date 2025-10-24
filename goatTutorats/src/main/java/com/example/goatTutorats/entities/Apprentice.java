@@ -1,12 +1,10 @@
 package com.example.goatTutorats.entities;
 
-import com.example.goatTutorats.enums.StudyLevel;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "apprentice")
@@ -40,9 +38,9 @@ public class Apprentice {
     @Column(name = "major", nullable = false)
     private String major;
 
-    @Column(name = "study_level")
-    @Enumerated(EnumType.STRING)
-    private StudyLevel studyLevel;
+    @Column(name = "archived", nullable = false)
+    @ColumnDefault("false")
+    private boolean archived;
 
     // Each apprentice is assigned to one tutor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

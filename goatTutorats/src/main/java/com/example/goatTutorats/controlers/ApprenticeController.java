@@ -50,7 +50,6 @@ public class ApprenticeController {
         List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(tutor.getId(), currentYear);
         model.addAttribute("apprentices", apprentices);
         model.addAttribute("currentYear", currentYear);
-        System.out.println(apprentices);
 
         return "dashboard";
     }
