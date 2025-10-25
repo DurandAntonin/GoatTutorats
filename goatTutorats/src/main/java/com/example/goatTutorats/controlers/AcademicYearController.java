@@ -3,6 +3,7 @@ package com.example.goatTutorats.controlers;
 import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
 import com.example.goatTutorats.services.TutorService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -47,6 +49,12 @@ public class AcademicYearController {
         catch (CustomEntityNotFoundException exception){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
+
+        // check apprentice is associated to current tutor
+        if (!apprenticeAcademicYear.getApprentice().getTutor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
 
         // store form name, action and method
@@ -112,6 +120,9 @@ public class AcademicYearController {
     @PostMapping("/create-academic-year")
     public String createAcademicYear()
     {
+        // create new academic year for apprentices
+        this.academicYearService.createAcademicYear(LocalDate.now(), StudyLevel.ING3);
+
         return "redirect:/apprentice/get-dashboard";
     }
 }

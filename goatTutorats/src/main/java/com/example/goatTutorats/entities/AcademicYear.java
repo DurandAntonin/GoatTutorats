@@ -27,7 +27,7 @@ public class AcademicYear {
 
     @Column(name = "study_level")
     @Enumerated(EnumType.STRING)
-    private StudyLevel studyLevel;
+    private StudyLevel studyLevel = StudyLevel.ING1;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "apprentice_id", nullable = false)
@@ -62,6 +62,9 @@ public class AcademicYear {
         this.year = LocalDate.now();
         this.missions = new ArrayList<>();
         this.notes = new ArrayList<>();
+        this.visit = new Visit();
+        this.reportEvaluation = new ReportEvaluation();
+        this.oralExam = new OralExam();
     }
 
     @Override

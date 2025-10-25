@@ -135,7 +135,7 @@ tfoot span{
     all: unset !important;
 }
 
-.column-information input{
+.column-information input, .column-information select, .column-information{
     padding: calc(var(--primary-gap) / 4);
     border-radius: var(--secondary-border-radius);
 }
@@ -153,11 +153,20 @@ tfoot span{
     min-height: 50px !important;
 }
 
-input:read-only{
-    background-color: var(--primary-color);
+.checkbox{
+    width: fit-content;
+    zoom: 1.75;
+    padding: 0;
+    margin: 0;
 }
 
-input:invalid, textarea:invalid{
+input:read-only, select:read-only, input:disabled, select:disabled{
+    background-color: var(--primary-color);
+    opacity: 1;
+    color: black;
+}
+
+input:invalid, textarea:invalid, select:invalid{
     border: 2px solid var(--primary-red);
 }
 

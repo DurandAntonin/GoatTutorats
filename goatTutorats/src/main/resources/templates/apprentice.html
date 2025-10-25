@@ -90,7 +90,7 @@
                                         <label for="studyLevel">
                                             Niveau d'étude
                                         </label>
-                                        <select th:field="*{studyLevel}">
+                                        <select th:field="*{studyLevel}" th:disabled="disabled">
                                             <option th:each="studyLevelOption : ${T(com.example.goatTutorats.enums.StudyLevel).values()}" th:value="${studyLevelOption}" th:text="${studyLevelOption}"></option>
                                         </select>
                                     </div>
@@ -100,7 +100,16 @@
                                             Année académique
                                         </label>
                                         <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
-                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:readonly="readonly" />
+                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:disabled="disabled" />
+                                    </div>
+                                </div>
+
+                                <div class="row-information">
+                                    <div class="column-information">
+                                        <label for="apprentice.archived">
+                                            Archivé(e) ?
+                                        </label>
+                                        <input class="checkbox" type="checkbox" th:id="apprentice.archived" th:name="apprentice.archived" th:required="required" th:checked="${apprenticeAcademicYear.apprentice.archived}" th:disabled="disabled" />
                                     </div>
                                 </div>
                             </div>
