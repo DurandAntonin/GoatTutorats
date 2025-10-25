@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -87,12 +88,14 @@ public class AcademicYearController {
     }
 
     @PatchMapping("/update-apprentice-academic-year/{id}")
-    public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear)
+    public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear, RedirectAttributes redirectAttributes)
     {
         try{
             this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
+            redirectAttributes.addFlashAttribute("successMessage", "Apprenti mis à jour avec succès !");
         }
         catch (CustomEntityNotFoundException exception){
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la mise à jour de l'apprenti.");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
 
@@ -100,7 +103,7 @@ public class AcademicYearController {
     }
 
     @PostMapping("/create-apprentice-academic-year")
-    public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear, Principal principal)
+    public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear, Principal principal,RedirectAttributes redirectAttributes)
     {
         // retrieve current tutor of future apprentice
         Tutor tutor;
@@ -113,6 +116,7 @@ public class AcademicYearController {
 
         // create new apprentice and return it
         AcademicYear newApprenticeAcademicYear = this.academicYearService.addApprenticeAcademicYear(apprenticeAcademicYear, tutor);
+        redirectAttributes.addFlashAttribute("successMessage", "Apprenti créé avec succès !");
 
         return "redirect:/academicYear/get-apprentice-academic-year/" + newApprenticeAcademicYear.getId();
     }
