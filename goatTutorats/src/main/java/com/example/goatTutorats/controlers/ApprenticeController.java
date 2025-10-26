@@ -1,22 +1,14 @@
 package com.example.goatTutorats.controlers;
 
-import com.example.goatTutorats.dtos.ApprenticeUpdateDTO;
-import com.example.goatTutorats.entities.AcademicYear;
-import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.entities.Tutor;
-import com.example.goatTutorats.services.AcademicYearService;
 import com.example.goatTutorats.services.ApprenticeService;
 import com.example.goatTutorats.services.TutorService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.*;
 
@@ -34,14 +26,12 @@ public class ApprenticeController {
     }
 
     @GetMapping("/get-dashboard")
-    public String dashboard(Principal principal, Authentication authentication, Model model) {
+    public String dashboard(Principal principal, Model model) {
         // retrieve connected tutor information
         String userName = principal.getName();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         // store those information in model to access in html templates
         model.addAttribute("username", userName);
-        model.addAttribute("authorities", authorities);
 
         // retrieve all apprentices for this tutor
         Tutor tutor = this.tutorService.getTutorByUsername(userName);
@@ -55,14 +45,12 @@ public class ApprenticeController {
     }
 
     @GetMapping("/get-apprentice-research")
-    public String apprenticeResearch(Principal principal, Authentication authentication, Model model) {
+    public String apprenticeResearch(Principal principal, Model model) {
         // retrieve connected tutor information
         String userName = principal.getName();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         // store those information in model to access in html templates
         model.addAttribute("username", userName);
-        model.addAttribute("authorities", authorities);
 
         return "apprentice-research";
     }

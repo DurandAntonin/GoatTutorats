@@ -21,7 +21,8 @@
 
             <h1> Erreur 404 ! </h1>
 
-            <span>La page que vous essayez d'accéder est introuvable.</span>
+            <span class="color-red" th:if="${errorMessage}" th:text="${errorMessage}"></span>
+            <span th:unless="${errorMessage}">La page que vous essayez d'accéder est introuvable.</span>
 
             <span>
                 Cliquez <a th:href="@{'/auth/get-login-page'}" class="link">ici</a> pour revenir à la page d'accueil.

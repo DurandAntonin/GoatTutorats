@@ -1,15 +1,12 @@
 package com.example.goatTutorats.controlers;
 
 import com.example.goatTutorats.entities.AcademicYear;
-import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.entities.Tutor;
 import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
 import com.example.goatTutorats.services.TutorService;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.UUID;
 
 @Controller
@@ -34,13 +30,9 @@ public class AcademicYearController {
     }
 
     @GetMapping("/get-apprentice-academic-year/{id}")
-    public String getApprenticeAcademicYearInformation(@PathVariable UUID id, Principal principal, Authentication authentication, Model model) {
-        // retrieve connected tutor information
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
+    public String getApprenticeAcademicYearInformation(@PathVariable UUID id, Principal principal, Model model, RedirectAttributes redirectAttributes) {
         // store those information in model to access in html templates
         model.addAttribute("username", principal.getName());
-        model.addAttribute("authorities", authorities);
 
         // retrieve academic year information for this apprentice
         AcademicYear apprenticeAcademicYear;
@@ -48,12 +40,17 @@ public class AcademicYearController {
             apprenticeAcademicYear = this.academicYearService.findById(id);
         }
         catch (CustomEntityNotFoundException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Année académique introuvable pour l'apprenti(e) !");
+            return "redirect:/apprentice/get-dashboard";
+        }
+        catch (Exception exception){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
         }
 
         // check apprentice is associated to current tutor
         if (!apprenticeAcademicYear.getApprentice().getTutor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Apprenti(e) non associé(e) au tuteur école actuel !");
         }
 
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
@@ -68,13 +65,9 @@ public class AcademicYearController {
     }
 
     @GetMapping("/get-apprentice-academic-year-creation")
-    public String getApprenticeAcademicYearCreationPage(Principal principal, Authentication authentication, Model model) {
-        // retrieve connected tutor information
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
+    public String getApprenticeAcademicYearCreationPage(Principal principal, Model model) {
         // store those information in model to access in html templates
         model.addAttribute("username", principal.getName());
-        model.addAttribute("authorities", authorities);
 
         // store form name, action and method
         model.addAttribute("formName", "Ajouter un apprenti");
@@ -91,12 +84,15 @@ public class AcademicYearController {
     public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear, RedirectAttributes redirectAttributes)
     {
         try{
-            this.academicYearService.modifyAcademicYear(id,apprenticeAcademicYear);
-            redirectAttributes.addFlashAttribute("successMessage", "Apprenti mis à jour avec succès !");
+            this.academicYearService.modifyAcademicYear(id, apprenticeAcademicYear);
+            redirectAttributes.addFlashAttribute("successMessage", "Apprenti(e) mis(e) à jour avec succès !");
         }
         catch (CustomEntityNotFoundException exception){
-            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de la mise à jour de l'apprenti.");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Année académique introuvable pour l'apprenti(e) !");
+        }
+        catch (Exception exception){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
         }
 
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
@@ -113,10 +109,14 @@ public class AcademicYearController {
         catch (CustomEntityNotFoundException exception){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
+        catch (Exception exception){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
+        }
 
         // create new apprentice and return it
         AcademicYear newApprenticeAcademicYear = this.academicYearService.addApprenticeAcademicYear(apprenticeAcademicYear, tutor);
-        redirectAttributes.addFlashAttribute("successMessage", "Apprenti créé avec succès !");
+        redirectAttributes.addFlashAttribute("successMessage", "Apprenti(e) créé(e) avec succès !");
 
         return "redirect:/academicYear/get-apprentice-academic-year/" + newApprenticeAcademicYear.getId();
     }
@@ -125,8 +125,13 @@ public class AcademicYearController {
     public String createAcademicYear()
     {
         // create new academic year for apprentices
-        this.academicYearService.createAcademicYear(LocalDate.now(), StudyLevel.ING3);
-
+        try{
+            this.academicYearService.createAcademicYear(LocalDate.now(), StudyLevel.ING3);
+        }
+        catch (Exception exception){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
+    }
         return "redirect:/apprentice/get-dashboard";
     }
 }
