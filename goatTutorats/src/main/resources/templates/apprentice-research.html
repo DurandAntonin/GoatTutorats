@@ -5,6 +5,9 @@
     <title>GoatTutorats</title>
     <link th:href="@{/css/base.css}" rel="stylesheet" />
     <link th:href="@{/css/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/css/apprentice.css}" rel="stylesheet" />
+    <link th:href="@{/css/toast.css}" rel="stylesheet" />
+    <script th:src="@{/js/toast.js}"></script>
 </head>
 <body>
 
@@ -12,41 +15,99 @@
 <header th:replace="~{fragments/header :: header-user-connected}">
 </header>
 
+<!-- section for toast messages -->
+<div th:replace="~{fragments/toast :: toast-messages}"></div>
+
 <main class="main-content">
-    <div class="row-information">
-        <div class="column-information">
-            <label for="lastName">
-                Nom de l'apprenti
-            </label>
-            <input type="text" placeholder="Nom"/>
-        </div>
+    <form th:method="GET" th:action="@{/apprentice/get-apprentice-searched-by-criteria}" th:object="${researchCriteriaDTO}" >
 
-        <div class="column-information">
-            <label for="company">
-                Entreprise
-            </label>
-            <input type="text" placeholder="Entreprise"/>
-        </div>
-    </div>
+        <div class="apprentice-information-section-form">
+            <div class="sections">
+                <div class="section">
+                    <div class="row-information">
+                        <div class="column-information">
+                            <label for="apprenticeName">
+                                Nom de l'apprenti(e)
+                            </label>
+                            <input type="text" placeholder="Nom" th:field="*{apprenticeName}" />
+                        </div>
 
-    <div class="row-information">
-        <div class="column-information">
-            <label for="lastName">
-                Mot clé de la mission
-            </label>
-            <input type="text" placeholder="Mot clé"/>
-        </div>
+                        <div class="column-information">
+                            <label for="companyName">
+                                Entreprise
+                            </label>
+                            <input type="text" placeholder="Entreprise" th:field="*{companyName}"/>
+                        </div>
+                    </div>
 
-        <div class="column-information">
-            <label for="academicYear">
-                Année académique
-            </label>
-            <input type="number"/>
-        </div>
-    </div>
+                    <div class="row-information">
+                        <div class="column-information">
+                            <label for="companyKeywords">
+                                Mot clé de la mission
+                            </label>
+                            <textarea rows="5" placeholder="Mot clé" th:field="*{companyKeywords}"></textarea>
+                        </div>
 
-    <div class="form-submit-button button">
-        <button type="submit">Mettre à jour</button>
+                        <div class="column-information">
+                            <label for="academicYear">
+                                Année académique <span class="color-red">*</span>
+                            </label>
+                            <input type="number" class="no-arrow" th:required="required" th:field="*{academicYear}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-submit-button button">
+                    <button type="submit">Rechercher</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div th:if="${apprenticeSearched}">
+        <table class="table">
+            <thead>
+            <th>Apprenti(e)</th>
+            <th>Adresse électronique</th>
+            <th>Programme</th>
+            <th>Majeure</th>
+            <th>Entreprise</th>
+            <th>Maître d'apprentissage</th>
+            <th>Niveau d'étude</th>
+            <th>Actions</th>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="apprentice : ${apprenticeSearched}">
+                <td th:text="${apprentice.firstName} + ' ' + ${apprentice.lastName}"></td>
+                <td th:text="${apprentice.email}"></td>
+                <td th:text="${apprentice.program}"></td>
+                <td th:text="${apprentice.major}"></td>
+                <td th:text="${apprentice.companyName}"></td>
+                <td th:text="${apprentice.mentorFirstName + ' ' + apprentice.mentorLastName}"></td>
+                <td th:text="${apprentice.studyLevel}"></td>
+                <td>
+                    <div class="button-actions">
+                        <form th:action="@{/academicYear/get-apprentice-academic-year/{apprenticeAcademicYearId}(apprenticeAcademicYearId=${apprentice.apprenticeAcademicYearId})}" th:method="GET">
+                            <div class="button"><button type="submit">Rechercher</button></div>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <td th:if="${apprenticeSearched.size() > 0}"  colspan="8"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total.</td>
+            </tr>
+            <tr class="table-empty">
+                <td th:if="${apprenticeSearched.size() == 0}" colspan="8">La liste est vide. Ajoutez au moins un(e) apprenti(e)</td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </main>
 

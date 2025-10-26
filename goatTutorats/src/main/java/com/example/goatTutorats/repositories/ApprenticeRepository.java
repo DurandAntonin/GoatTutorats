@@ -35,6 +35,36 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
     List<ApprenticeRecordDTO> findByTutorAndYear(@Param("tutorId") UUID tutorId,
                                                  @Param("year") int year);
 
+    @Query("SELECT DISTINCT new com.example.goatTutorats.dtos.ApprenticeRecordDTO(" +
+            "ay.id, " +
+            "a.lastName, " +
+            "a.firstName, " +
+            "a.email, " +
+            "a.program, " +
+            "a.major, " +
+            "c.name, " +
+            "me.lastName, " +
+            "me.firstName, " +
+            "ay.studyLevel) " +
+            "FROM AcademicYear ay " +
+            "LEFT JOIN ay.apprentice a " +
+            "LEFT JOIN ay.company c " +
+            "LEFT JOIN ay.missions m " +
+            "LEFT JOIN ay.mentor me " +
+            "WHERE a.lastName LIKE concat('%', :apprenticeName, '%') " +
+            "AND c.name LIKE concat('%', :companyName, '%') " +
+            "AND FUNCTION('YEAR', ay.year) = :year " +
+            "AND EXISTS (" +
+                "SELECT ay1.id " +
+                "FROM AcademicYear ay1 " +
+                "JOIN ay1.missions m1 " +
+                "WHERE m1.keywords LIKE concat('%', :missionKeywords, '%')" +
+            ")")
+    List<ApprenticeRecordDTO> researchApprentices(@Param("apprenticeName") String apprenticeName,
+                                                 @Param("companyName") String companyName,
+                                                 @Param("missionKeywords") String missionKeywords,
+                                                 @Param("year") int academicYear);
+
     @Query("SELECT DISTINCT a.id " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +

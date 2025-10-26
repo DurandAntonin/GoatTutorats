@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toastEl.addEventListener('hide.bs.toast', function () {
             toastEl.classList.add('fade-out');
-            
+
             setTimeout(() => {
                 toastEl.classList.remove('fade-out');
             }, 500);
