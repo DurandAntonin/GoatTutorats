@@ -13,13 +13,13 @@ import java.time.LocalDate;
 public class ApprenticeResearchCriteriaDTO{
     String apprenticeName;
     String companyName;
-    String companyKeywords;
+    String missionKeywords;
     int academicYear;
 
     public ApprenticeResearchCriteriaDTO(){
         this.apprenticeName = "";
         this.companyName = "";
-        this.companyKeywords = "";
+        this.missionKeywords = "";
         this.academicYear = LocalDate.now().getYear();
     }
 }

@@ -54,11 +54,16 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
             "WHERE a.lastName LIKE concat('%', :apprenticeName, '%') " +
             "AND c.name LIKE concat('%', :companyName, '%') " +
             "AND FUNCTION('YEAR', ay.year) = :year " +
-            "AND EXISTS (" +
+            "AND (" +
+            "( :missionKeywords = '' " +
+                "  OR EXISTS (" +
                 "SELECT ay1.id " +
                 "FROM AcademicYear ay1 " +
-                "JOIN ay1.missions m1 " +
-                "WHERE m1.keywords LIKE concat('%', :missionKeywords, '%')" +
+                "LEFT JOIN ay1.missions m1 " +
+                "WHERE ay1.id = ay.id " +
+                "AND m1.keywords LIKE concat('%', :missionKeywords, '%')" +
+                ")" +
+            ")" +
             ")")
     List<ApprenticeRecordDTO> researchApprentices(@Param("apprenticeName") String apprenticeName,
                                                  @Param("companyName") String companyName,

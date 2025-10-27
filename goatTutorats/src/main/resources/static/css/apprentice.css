@@ -29,6 +29,11 @@
     }
 }
 
+.apprentice-section-selector form{
+    width: 100%;
+    height: fit-content;
+}
+
 .div-apprentice .apprentice-section-selector{
     width: 23%;
     height: fit-content;

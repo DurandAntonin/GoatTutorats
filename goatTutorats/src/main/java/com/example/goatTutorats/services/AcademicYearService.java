@@ -30,6 +30,10 @@ public class AcademicYearService {
         return this.academicYearRepository.findById(id).orElseThrow(() -> new CustomEntityNotFoundException(id.toString()));
     }
 
+    public List<UUID> findAcademicYearByApprenticeYear(UUID apprenticeId, int year){
+        return this.academicYearRepository.findAcademicYearByApprenticeAndYear(apprenticeId, year);
+    }
+
     @Transactional
     public void modifyAcademicYear(UUID idAcademicYear, AcademicYear academicYearModified)
     {
@@ -83,15 +87,23 @@ public class AcademicYearService {
         );
         this.apprenticeRepository.archiveApprenticesById(apprenticeIdsToArchive);
 
+        LocalDate nextYear = currentAcademicYearDate.plusYears(1);
+
         // retrieve all apprentice academic year that are not archived, for the current academic year
         List<AcademicYear> apprenticeAcademicYears = this.academicYearRepository.findApprenticeAcademicYearNotArchivedByYear(currentAcademicYearDate.getYear());
+
 
         // iterate other each apprentice academic year
         for (AcademicYear apprenticeAcademicYear : apprenticeAcademicYears) {
 
+            // check this apprentice doesn't have an academic year for the next year
+            if (!this.findAcademicYearByApprenticeYear(apprenticeAcademicYear.getApprentice().getId(), nextYear.getYear()).isEmpty()){
+                continue;
+            }
+
             // create new academic year for this apprentice and fill it with previous academic year info
             AcademicYear newApprenticeAcademicYear = new AcademicYear();
-            newApprenticeAcademicYear.setYear(currentAcademicYearDate.plusYears(1));
+            newApprenticeAcademicYear.setYear(nextYear);
             newApprenticeAcademicYear.setApprentice(apprenticeAcademicYear.getApprentice());
             newApprenticeAcademicYear.setCompany(apprenticeAcademicYear.getCompany());
             newApprenticeAcademicYear.setMentor(apprenticeAcademicYear.getMentor());

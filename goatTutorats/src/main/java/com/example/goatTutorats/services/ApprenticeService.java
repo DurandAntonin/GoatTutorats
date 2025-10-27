@@ -22,10 +22,11 @@ public class ApprenticeService {
     }
 
     public List<ApprenticeRecordDTO> researchApprentices(ApprenticeResearchCriteriaDTO researchCriteriaDTO) {
+        System.out.println(researchCriteriaDTO.getMissionKeywords());
         return apprenticeRepository.researchApprentices(
                 researchCriteriaDTO.getApprenticeName(),
                 researchCriteriaDTO.getCompanyName(),
-                researchCriteriaDTO.getCompanyKeywords(),
+                researchCriteriaDTO.getMissionKeywords(),
                 researchCriteriaDTO.getAcademicYear()
         );
     }
