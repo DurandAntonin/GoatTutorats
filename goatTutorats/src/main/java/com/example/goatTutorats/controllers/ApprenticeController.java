@@ -53,9 +53,13 @@ public class ApprenticeController {
         // create empty object to store apprentice research criteria
         ApprenticeResearchCriteriaDTO researchCriteriaDTO = new ApprenticeResearchCriteriaDTO();
 
+        // total number of apprentice for all academic years for comparison
+        int total_number = apprenticeService.getTotalNumber();
+
         // store those information in model to access in html templates
         model.addAttribute("username", userName);
         model.addAttribute("researchCriteriaDTO", researchCriteriaDTO);
+        model.addAttribute("totalNumber",total_number);
 
         return "apprentice-research";
     }
@@ -65,10 +69,14 @@ public class ApprenticeController {
         String userName = principal.getName();
         model.addAttribute("username", userName);
 
+        // total number of apprentice for all academic years for comparison
+        int total_number = apprenticeService.getTotalNumber();
+
         // research apprentices and store result in model
         List<ApprenticeRecordDTO> apprenticeSearched = this.apprenticeService.researchApprentices(researchCriteriaDTO);
         model.addAttribute("apprenticeSearched", apprenticeSearched);
         model.addAttribute("researchCriteriaDTO", researchCriteriaDTO);
+        model.addAttribute("totalNumber",total_number);
 
         return "apprentice-research";
     }

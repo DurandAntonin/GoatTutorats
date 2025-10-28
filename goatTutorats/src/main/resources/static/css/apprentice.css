@@ -165,7 +165,7 @@ tfoot span{
     margin: 0;
 }
 
-input:read-only, select:read-only, input:disabled, select:disabled{
+input:read-only, input:disabled, select:disabled{
     background-color: var(--primary-color);
     opacity: 1;
     color: black;
@@ -183,3 +183,9 @@ input:invalid, textarea:invalid, select:invalid{
 .no-arrow[type=number] {
     -moz-appearance: textfield;
 }
+
+.button-error {
+    border: 2px solid red;
+    border-radius: 5px;
+}
+

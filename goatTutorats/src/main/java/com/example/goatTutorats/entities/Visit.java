@@ -1,5 +1,6 @@
 package com.example.goatTutorats.entities;
 
+import com.example.goatTutorats.enums.VisitFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +25,7 @@ public class Visit {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    private String format;
+    private VisitFormat format;
     private String comments;
 
     @Override

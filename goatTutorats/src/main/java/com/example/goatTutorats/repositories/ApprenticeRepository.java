@@ -5,6 +5,7 @@ import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.enums.StudyLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -84,4 +85,8 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
             "SET a.archived = TRUE " +
             "WHERE a.id IN :ids")
     void archiveApprenticesById(@Param("ids")  List<UUID> ids);
+
+    @Query(value = "SELECT COUNT(*) FROM apprentice", nativeQuery = true)
+    int getTotalNumber();
+
 }

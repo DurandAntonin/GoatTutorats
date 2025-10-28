@@ -30,4 +30,11 @@ public class ApprenticeService {
                 researchCriteriaDTO.getAcademicYear()
         );
     }
+
+    public int getTotalNumber()
+    {
+        int total = this.apprenticeRepository.getTotalNumber();
+        System.out.println(">>> TOTAL APPRENTIS EN BASE : " + total);
+        return total;
+    }
 }

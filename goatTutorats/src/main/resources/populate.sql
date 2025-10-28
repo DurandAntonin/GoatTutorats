@@ -43,7 +43,7 @@ INSERT INTO apprentice (id, first_name, last_name, email, phone, program, major,
 
 -- Visit
 INSERT INTO visit (id, date, format, comments) VALUES
-    (0xE601E490E414435AB6CC0BCF8C811001, '2025-06-15', 'Présentiel', 'Bonne intégration');
+    (0xE601E490E414435AB6CC0BCF8C811001, '2025-06-15', 0, 'Bonne intégration');
 
 -- ReportEvaluation
 INSERT INTO report_evaluation (id, thesis, topic, final_grade, comments) VALUES

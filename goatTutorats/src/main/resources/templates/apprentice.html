@@ -260,7 +260,9 @@
                                         <label for="visit.format">
                                             Format
                                         </label>
-                                        <input type="text" th:field="*{visit.format}"/>
+                                        <select th:field="*{visit.format}">
+                                            <option th:each="visitFormatOption : ${T(com.example.goatTutorats.enums.VisitFormat).values()}" th:value="${visitFormatOption}" th:text="${visitFormatOption}"></option>
+                                        </select>
                                     </div>
                                 </div>
 

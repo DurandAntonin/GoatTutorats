@@ -113,7 +113,7 @@
 
                         <tfoot>
                         <tr>
-                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="8"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total.</td>
+                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="8"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total. <span th:if="${totalNumber != null}"> <span th:text="${totalNumber}"> </span> apprenti(es) toutes années confondues. </span>  </td>
                         </tr>
                         <tr class="table-empty">
                             <td th:if="${apprenticeSearched.size() == 0}" colspan="8">La liste est vide.</td>
