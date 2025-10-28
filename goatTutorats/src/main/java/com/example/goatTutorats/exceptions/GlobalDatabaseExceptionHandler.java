@@ -23,6 +23,8 @@ public class GlobalDatabaseExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public String handleGeneric(Exception ex, Model model) {
+        if (ex.getMessage().contains("No static resource")) return "errors/error-404";
+
         model.addAttribute("errorMessage", "Erreur inconnue : " + ex.getMessage());
         return "errors/default-error";
     }

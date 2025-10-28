@@ -77,10 +77,17 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/error/**").permitAll()
-                        .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                        .requestMatchers("/apprentice/**").authenticated()
-                        .requestMatchers("/academicYear/**").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/css/**", "/img/**", "/js/**", "/errors/**").permitAll()
+                        .requestMatchers("/docs/**").permitAll()
+                        .requestMatchers("/user/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .csrf( cr -> cr
+                        .ignoringRequestMatchers("/error/**")
+                        .ignoringRequestMatchers("/user/**")
+                )
+                .exceptionHandling(exc -> exc
+                        .accessDeniedPage("/auth/login")
                 )
                 .httpBasic(Customizer.withDefaults());
 
