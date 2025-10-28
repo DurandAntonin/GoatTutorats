@@ -1,4 +1,4 @@
-package com.example.goatTutorats.controlers;
+package com.example.goatTutorats.controllers;
 
 import com.example.goatTutorats.dtos.ApprenticeResearchCriteriaDTO;
 import com.example.goatTutorats.entities.Tutor;

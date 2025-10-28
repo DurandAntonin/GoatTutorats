@@ -19,7 +19,7 @@ public class Note {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "author", nullable = true)
+    @Column(name = "author", nullable = false)
     private String author;
 
     @Column(name = "comments", nullable = false)

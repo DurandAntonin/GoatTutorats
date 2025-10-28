@@ -1,4 +1,4 @@
-package com.example.goatTutorats.controlers;
+package com.example.goatTutorats.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
