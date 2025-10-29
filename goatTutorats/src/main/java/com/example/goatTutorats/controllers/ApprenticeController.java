@@ -51,9 +51,9 @@ public class ApprenticeController {
         // retrieve all apprentices for this tutor for the last year
         Tutor tutor = this.tutorService.getTutorByUsername(userName);
 
-        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(
+        List<ApprenticeRecordDTO> apprentices = years.isEmpty() ? List.of() : apprenticeService.getApprenticesByTutorForThisYear(
                 tutor.getId(),
-                years.isEmpty() ? UUID.randomUUID() : years.getLast().getId()
+                years.getLast().getId()
         );
         model.addAttribute("apprentices", apprentices);
 

@@ -85,7 +85,7 @@
                                         <label for="apprentice.phone">
                                             Téléphone <span class="color-red">*</span>
                                         </label>
-                                        <input type="number" class="no-arrow" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
+                                        <input type="tel" minlength="10" maxlength="10" pattern="^(\+33|0)[1-9][0-9]{8}$" class="no-arrow" placeholder="Numéro de téléphone" th:required="required" th:field="*{apprentice.phone}"/>
 
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@
                                         <label for="mentor.phone">
                                             Téléphone <span class="color-red">*</span>
                                         </label>
-                                        <input type="number" class="no-arrow" placeholder="Téléphone" th:required="required" th:field="*{mentor.phone}"/>
+                                        <input type="tel" minlength="10" maxlength="10" pattern="^(\+33|0)[1-9][0-9]{8}$" class="no-arrow" placeholder="Téléphone" th:required="required" th:field="*{mentor.phone}"/>
                                     </div>
                                 </div>
 
