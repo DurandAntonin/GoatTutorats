@@ -59,13 +59,24 @@ jobs:
               env:
                   COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
                   COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+                  COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
                   IMAGE_DIGEST: ${{ steps.build-and-push.outputs.digest }}
               run: |
+                  set -e
                   echo "$COSIGN_PRIVATE_KEY" > cosign.key
-                  chmod 600 cosign.key
+                  echo "$COSIGN_PUBLIC_KEY" > cosign.pub
+                  chmod 600 cosign.key cosign.pub
+
                   IMAGE_REF="harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}"
-                  cosign sign --key cosign.key $IMAGE_REF
+
+                  echo "Signing digest-based reference..."
+                  cosign sign --key cosign.key "$IMAGE_REF"
+
+                  echo "Signing tags (optional)..."
                   cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
                   cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
-                  cosign verify --key cosign.key harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}
-                  rm -f cosign.key
+
+                  echo "Verifying signature..."
+                  cosign verify --key cosign.pub "$IMAGE_REF"
+
+                  rm -f cosign.key cosign.pub
