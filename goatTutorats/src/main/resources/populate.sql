@@ -40,6 +40,9 @@ INSERT INTO tutor (user_id) VALUES
 INSERT INTO apprentice (id, first_name, last_name, email, phone, program, major, tutor_id) VALUES
     (0xA101E490E414435AB6CC0BCF8C81100B, 'Laura', 'Simon', 'laura.simon@example.com', '0601020311', 'Informatique', 'IA', 0x8601E490E414435AB6CC0BCF8C811012);
 
+-- Year
+INSERT INTO year (id, year) VALUES
+    (0xE601E490E414435AB6CC0BCF8C811118, '2025-09-01');
 
 -- Visit
 INSERT INTO visit (id, date, format, comments) VALUES
@@ -59,8 +62,8 @@ INSERT INTO company (id, name, address, access_info) VALUES
 INSERT INTO mentor (id, first_name, last_name, position, email, phone, remarks) VALUES
     (0xB201E490E414435AB6CC0BCF8C811001, 'Olivier', 'Girard', 'Chef de projet', 'olivier.girard@techcorp.com', '0602030401', 'Encadre les alternants en dev');
 
-INSERT INTO academic_year (id, year, study_level, apprentice_id, company_id, mentor_id, visit_id, report_evaluation_id, oral_exam_id) VALUES
-    (0xD401E490E414435AB6CC0BCF8C811011, '2025-09-01', 'ING3', 0xA101E490E414435AB6CC0BCF8C81100B, 0xC001E490E414435AB6CC0BCF8C811002, 0xB201E490E414435AB6CC0BCF8C811001, 0xE601E490E414435AB6CC0BCF8C811001, 0xE701E490E414435AB6CC0BCF8C811001, 0xE801E490E414435AB6CC0BCF8C811001);
+INSERT INTO academic_year (id, year_id, study_level, apprentice_id, company_id, mentor_id, visit_id, report_evaluation_id, oral_exam_id) VALUES
+    (0xD401E490E414435AB6CC0BCF8C811011, 0xE601E490E414435AB6CC0BCF8C811118, 'ING3', 0xA101E490E414435AB6CC0BCF8C81100B, 0xC001E490E414435AB6CC0BCF8C811002, 0xB201E490E414435AB6CC0BCF8C811001, 0xE601E490E414435AB6CC0BCF8C811001, 0xE701E490E414435AB6CC0BCF8C811001, 0xE801E490E414435AB6CC0BCF8C811001);
 
 INSERT INTO mission (id, keywords, target_job, comments, academic_year_id) VALUES
                                                                               (0xF101E490E414435AB6CC0BCF8C811001, 'Java, Spring Boot', 'Backend Developer', 'Développer API REST', 0xD401E490E414435AB6CC0BCF8C811011),

@@ -2,10 +2,12 @@ package com.example.goatTutorats.controllers;
 
 import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.entities.Year;
 import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
 import com.example.goatTutorats.services.TutorService;
+import com.example.goatTutorats.services.YearService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Controller
@@ -23,10 +24,12 @@ public class AcademicYearController {
 
     private final AcademicYearService academicYearService;
     private final TutorService tutorService;
+    private final YearService yearService;
 
-    public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService) {
+    public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService,  YearService yearService) {
         this.academicYearService = academicYearService;
         this.tutorService = tutorService;
+        this.yearService = yearService;
     }
 
     @GetMapping("/get-apprentice-academic-year/{id}")
@@ -76,7 +79,12 @@ public class AcademicYearController {
         model.addAttribute("submitFormButtonName", "Ajouter");
 
         // create empty apprentice academic year
-        model.addAttribute("apprenticeAcademicYear", new AcademicYear());
+        AcademicYear apprenticeAcademicYear = new AcademicYear();
+
+        // associate academic year to last year
+        apprenticeAcademicYear.setYear(this.yearService.getLastYearOrCreateOne());
+
+        model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
         return "apprentice";
     }
 
@@ -124,9 +132,13 @@ public class AcademicYearController {
     @PostMapping("/create-academic-year")
     public String createAcademicYear()
     {
-        // create new academic year for apprentices
+        // first step is to retrieve current last year and to create a new year for new apprentice academic year
+        Year currentYear = this.yearService.getLastYearOrCreateOne();
+        Year nextYear = this.yearService.createYear();
+
+        // second step is to create new academic year for apprentices
         try{
-            this.academicYearService.createAcademicYear(LocalDate.now(), StudyLevel.ING3);
+            this.academicYearService.createAcademicYear(currentYear, nextYear, StudyLevel.ING3);
         }
         catch (Exception exception){
             throw new ResponseStatusException(

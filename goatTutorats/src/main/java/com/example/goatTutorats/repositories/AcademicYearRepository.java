@@ -12,15 +12,17 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID
     @Query("SELECT ay " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +
+            "LEFT JOIN ay.year y " +
             "WHERE a.archived = FALSE " +
-            "AND FUNCTION('YEAR', ay.year) = :year")
-    List<AcademicYear> findApprenticeAcademicYearNotArchivedByYear(@Param("year") int year);
+            "AND y.id = :yearId")
+    List<AcademicYear> findApprenticeAcademicYearNotArchivedByYear(@Param("yearId") UUID yearId);
 
     @Query("SELECT DISTINCT ay.id " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +
+            "LEFT JOIN ay.year y " +
             "WHERE a.id = :apprenticeId " +
-            "AND FUNCTION('YEAR', ay.year) = :year")
+            "AND y.id = :yearId")
     List<UUID> findAcademicYearByApprenticeAndYear(@Param("apprenticeId") UUID apprenticeId,
-                                                                  @Param("year") int year);
+                                                                  @Param("yearId") UUID yearId);
 }
