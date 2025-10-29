@@ -9,7 +9,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-COPY ./wait-for-it.sh /wait-for-it.sh
+COPY wait-for-it.sh /wait-for-it.sh
 RUN apk add --no-cache bash \
     && chmod +x /wait-for-it.sh
 EXPOSE 8081

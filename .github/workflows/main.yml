@@ -35,7 +35,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                   builder: remote-buildkit
-                  context: .
+                  context: ./goatTutorats
                   file: ./goatTutorats/Dockerfile
                   platforms: linux/amd64
                   push: true
