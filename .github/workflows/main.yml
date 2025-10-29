@@ -67,5 +67,5 @@ jobs:
                   cosign sign --key cosign.key $IMAGE_REF
                   cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
                   cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
-                  cosign verify harbor.techops.tf/techops/goat-tutorats@sha256:${IMAGE_DIGEST}
+                  cosign verify --key cosign.key harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}
                   rm -f cosign.key
