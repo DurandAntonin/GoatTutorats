@@ -13,4 +13,4 @@ COPY wait-for-it.sh /wait-for-it.sh
 RUN apk add --no-cache bash \
     && chmod +x /wait-for-it.sh
 EXPOSE 8081
-ENTRYPOINT ["/wait-for-it.sh", "mysql:3306", "--timeout=60", "--strict", "--", "java", "-jar", "app.jar"]
+ENTRYPOINT ["/wait-for-it.sh", "mysql-goat-tutorats:3306", "--timeout=60", "--strict", "--", "java", "-jar", "app.jar"]
