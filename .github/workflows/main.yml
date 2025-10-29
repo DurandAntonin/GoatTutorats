@@ -55,31 +55,6 @@ jobs:
             - name: Check Cosign version
               run: cosign version
 
-            - name: Sign Docker image with Cosign
-              env:
-                  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-                  COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-                  COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-                  IMAGE_DIGEST: ${{ steps.build-and-push.outputs.digest }}
-              run: |
-                  set -e
-                  echo "$COSIGN_PRIVATE_KEY" > cosign.key
-                  echo "$COSIGN_PUBLIC_KEY" > cosign.pub
-                  chmod 600 cosign.key cosign.pub
-
-                  IMAGE_REF="harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}"
-
-                  echo "Signing digest-based reference..."
-                  cosign sign --key cosign.key "$IMAGE_REF"
-
-                  echo "Signing tags (optional)..."
-                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
-                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
-
-                  echo "Verifying signature..."
-                  cosign verify --key cosign.pub "$IMAGE_REF"
-
-                  rm -f cosign.key cosign.pub
             - name: Get digest from Harbor
               id: get-digest
               run: |
@@ -88,3 +63,22 @@ jobs:
                   -I "https://harbor.techops.tf/v2/techops/goat-tutorats/manifests/${{ github.sha }}" \
                   | grep Docker-Content-Digest | awk '{print $2}' | tr -d $'\r')
                 echo "IMAGE_DIGEST=$DIGEST" >> $GITHUB_ENV
+            
+            - name: Sign Docker image with Cosign
+              env:
+                  COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+                  COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+                  COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
+                  IMAGE_DIGEST: ${{ env.IMAGE_DIGEST }}
+              run: |
+                  echo "$COSIGN_PRIVATE_KEY" > cosign.key
+                  echo "$COSIGN_PUBLIC_KEY" > cosign.pub
+                  chmod 600 cosign.key cosign.pub
+
+                  IMAGE_REF="harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}"
+
+                  cosign sign --key cosign.key $IMAGE_REF
+                  cosign verify --key cosign.pub $IMAGE_REF
+
+                  rm -f cosign.key cosign.pub
+
