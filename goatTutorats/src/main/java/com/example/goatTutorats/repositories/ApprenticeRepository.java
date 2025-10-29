@@ -1,6 +1,7 @@
 package com.example.goatTutorats.repositories;
 
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
+import com.example.goatTutorats.dtos.ApprenticeRecordResearchDTO;
 import com.example.goatTutorats.entities.Apprentice;
 import com.example.goatTutorats.enums.StudyLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,8 +39,9 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
                                                  @Param("studyLevel") StudyLevel studyLevel,
                                                  @Param("yearId") UUID yearId);
 
-    @Query("SELECT DISTINCT new com.example.goatTutorats.dtos.ApprenticeRecordDTO(" +
+    @Query("SELECT DISTINCT new com.example.goatTutorats.dtos.ApprenticeRecordResearchDTO(" +
             "ay.id, " +
+            "y.year, " +
             "a.lastName, " +
             "a.firstName, " +
             "a.email, " +
@@ -57,7 +59,7 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
             "LEFT JOIN ay.mentor me " +
             "WHERE a.lastName LIKE concat('%', :apprenticeName, '%') " +
             "AND c.name LIKE concat('%', :companyName, '%') " +
-            "AND FUNCTION('YEAR', y.year) = :year " +
+            "AND (:year <= 0 OR FUNCTION('YEAR', y.year) = :year) " +
             "AND (" +
             "( :missionKeywords = '' " +
                 "  OR EXISTS (" +
@@ -68,11 +70,12 @@ public interface ApprenticeRepository extends JpaRepository<Apprentice, UUID> {
                 "AND m1.keywords LIKE concat('%', :missionKeywords, '%')" +
                 ")" +
             ")" +
-            ")")
-    List<ApprenticeRecordDTO> researchApprentices(@Param("apprenticeName") String apprenticeName,
-                                                 @Param("companyName") String companyName,
-                                                 @Param("missionKeywords") String missionKeywords,
-                                                 @Param("year") int academicYear);
+            ") " +
+            "ORDER BY y.year ")
+    List<ApprenticeRecordResearchDTO> researchApprentices(@Param("apprenticeName") String apprenticeName,
+                                                          @Param("companyName") String companyName,
+                                                          @Param("missionKeywords") String missionKeywords,
+                                                          @Param("year") int academicYear);
 
     @Query("SELECT DISTINCT a.id " +
             "FROM AcademicYear ay " +

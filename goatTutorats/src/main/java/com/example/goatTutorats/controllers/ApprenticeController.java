@@ -1,5 +1,6 @@
 package com.example.goatTutorats.controllers;
 
+import com.example.goatTutorats.dtos.ApprenticeRecordResearchDTO;
 import com.example.goatTutorats.dtos.ApprenticeResearchCriteriaDTO;
 import com.example.goatTutorats.dtos.YearDTO;
 import com.example.goatTutorats.entities.Tutor;
@@ -8,9 +9,11 @@ import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.ApprenticeService;
 import com.example.goatTutorats.services.TutorService;
 import com.example.goatTutorats.services.YearService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -111,7 +114,7 @@ public class ApprenticeController {
     }
 
     @GetMapping("/get-apprentice-searched-by-criteria")
-    public String getApprenticeResearch(Principal principal, Model model, @ModelAttribute ApprenticeResearchCriteriaDTO researchCriteriaDTO) {
+    public String getApprenticeResearch(Principal principal, Model model, @Valid @ModelAttribute ApprenticeResearchCriteriaDTO researchCriteriaDTO, BindingResult bindingResult) {
         String userName = principal.getName();
         model.addAttribute("username", userName);
 
@@ -119,7 +122,7 @@ public class ApprenticeController {
         int total_number = apprenticeService.getTotalNumber();
 
         // research apprentices and store result in model
-        List<ApprenticeRecordDTO> apprenticeSearched = this.apprenticeService.researchApprentices(researchCriteriaDTO);
+        List<ApprenticeRecordResearchDTO> apprenticeSearched = this.apprenticeService.researchApprentices(researchCriteriaDTO);
         model.addAttribute("apprenticeSearched", apprenticeSearched);
         model.addAttribute("researchCriteriaDTO", researchCriteriaDTO);
         model.addAttribute("totalNumber",total_number);

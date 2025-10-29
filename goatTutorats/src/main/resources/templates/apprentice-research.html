@@ -61,9 +61,11 @@
                                     <div class="row-information">
                                         <div class="column-information full-row-length">
                                             <label for="academicYear">
-                                                Année académique <span class="color-red">*</span>
+                                                Année académique
                                             </label>
-                                            <input type="number" class="no-arrow" th:required="required" th:field="*{academicYear}"/>
+                                            <input type="number" placeholder="Année académique" class="no-arrow"
+                                                   th:id="academicYear"
+                                                   th:field="*{academicYear}" />
                                         </div>
                                     </div>
                                 </div>
@@ -80,6 +82,7 @@
                 <div th:if="${apprenticeSearched}" class="apprentice-research-results">
                     <table class="table">
                         <thead>
+                        <th>Année académique</th>
                         <th>Apprenti(e)</th>
                         <th>Adresse électronique</th>
                         <th>Programme</th>
@@ -93,6 +96,7 @@
                         <tbody>
 
                         <tr th:each="apprentice : ${apprenticeSearched}">
+                            <td th:text="${#temporals.year(apprentice.year)}"></td>
                             <td th:text="${apprentice.firstName} + ' ' + ${apprentice.lastName}"></td>
                             <td th:text="${apprentice.email}"></td>
                             <td th:text="${apprentice.program}"></td>
@@ -113,10 +117,10 @@
 
                         <tfoot>
                         <tr>
-                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="8"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total. <span th:if="${totalNumber != null}"> <span th:text="${totalNumber}"> </span> apprenti(es) toutes années confondues. </span>  </td>
+                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="9"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total. <span th:if="${totalNumber != null}"> <span th:text="${totalNumber}"> </span> apprenti(es) toutes années confondues. </span>  </td>
                         </tr>
                         <tr class="table-empty">
-                            <td th:if="${apprenticeSearched.size() == 0}" colspan="8">La liste est vide.</td>
+                            <td th:if="${apprenticeSearched.size() == 0}" colspan="9">La liste est vide.</td>
                         </tr>
                         </tfoot>
                     </table>

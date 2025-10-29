@@ -1,25 +1,22 @@
 package com.example.goatTutorats.dtos;
 
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ApprenticeResearchCriteriaDTO{
     String apprenticeName;
     String companyName;
     String missionKeywords;
-    int academicYear;
 
-    public ApprenticeResearchCriteriaDTO(){
-        this.apprenticeName = "";
-        this.companyName = "";
-        this.missionKeywords = "";
-        this.academicYear = LocalDate.now().getYear();
-    }
+    @NotNull
+    int academicYear;
 }
