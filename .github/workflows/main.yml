@@ -61,7 +61,8 @@ jobs:
                   COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
                   IMAGE_DIGEST: ${{ steps.build-and-push.outputs.digest }}
               run: |
-                  echo "$COSIGN_PRIVATE_KEY" | tr -d '\r' > cosign.key
+                  echo "$COSIGN_PRIVATE_KEY" > cosign.key
                   chmod 600 cosign.key
-                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}
+                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
+                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
                   rm -f cosign.key
