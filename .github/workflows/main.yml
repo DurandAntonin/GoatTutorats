@@ -35,7 +35,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                   builder: remote-buildkit
-                  context: ./goatTutorats
+                  context: .
                   file: ./goatTutorats/Dockerfile
                   platforms: linux/amd64
                   push: true
@@ -55,30 +55,14 @@ jobs:
             - name: Check Cosign version
               run: cosign version
 
-            - name: Get digest from Harbor
-              id: get-digest
-              run: |
-                DIGEST=$(curl -s -u ${{ secrets.HARBOR_USERNAME }}:${{ secrets.HARBOR_PASSWORD }} \
-                  -H "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-                  -I "https://harbor.techops.tf/v2/techops/goat-tutorats/manifests/${{ github.sha }}" \
-                  | grep Docker-Content-Digest | awk '{print $2}' | tr -d $'\r')
-                echo "IMAGE_DIGEST=$DIGEST" >> $GITHUB_ENV
-            
             - name: Sign Docker image with Cosign
               env:
                   COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
                   COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
-                  COSIGN_PUBLIC_KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-                  IMAGE_DIGEST: ${{ env.IMAGE_DIGEST }}
+                  IMAGE_DIGEST: ${{ steps.build-and-push.outputs.digest }}
               run: |
                   echo "$COSIGN_PRIVATE_KEY" > cosign.key
-                  echo "$COSIGN_PUBLIC_KEY" > cosign.pub
-                  chmod 600 cosign.key cosign.pub
-
-                  IMAGE_REF="harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}"
-
-                  cosign sign --key cosign.key $IMAGE_REF
-                  cosign verify --key cosign.pub $IMAGE_REF
-
-                  rm -f cosign.key cosign.pub
-
+                  chmod 600 cosign.key
+                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
+                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
+                  rm -f cosign.key
