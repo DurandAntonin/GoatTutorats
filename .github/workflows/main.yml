@@ -80,3 +80,11 @@ jobs:
                   cosign verify --key cosign.pub "$IMAGE_REF"
 
                   rm -f cosign.key cosign.pub
+            - name: Get digest from Harbor
+              id: get-digest
+              run: |
+                DIGEST=$(curl -s -u ${{ secrets.HARBOR_USERNAME }}:${{ secrets.HARBOR_PASSWORD }} \
+                  -H "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+                  -I "https://harbor.techops.tf/v2/techops/goat-tutorats/manifests/${{ github.sha }}" \
+                  | grep Docker-Content-Digest | awk '{print $2}' | tr -d $'\r')
+                echo "IMAGE_DIGEST=$DIGEST" >> $GITHUB_ENV
