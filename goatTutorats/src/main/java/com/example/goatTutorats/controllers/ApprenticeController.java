@@ -1,16 +1,20 @@
 package com.example.goatTutorats.controllers;
 
 import com.example.goatTutorats.dtos.ApprenticeResearchCriteriaDTO;
+import com.example.goatTutorats.dtos.YearDTO;
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.entities.Year;
+import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.ApprenticeService;
 import com.example.goatTutorats.services.TutorService;
+import com.example.goatTutorats.services.YearService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.time.Year;
 import java.util.*;
 
 @Controller
@@ -18,29 +22,71 @@ import java.util.*;
 public class ApprenticeController {
 
     private final TutorService tutorService;
-
     private final ApprenticeService apprenticeService;
+    private final YearService yearService;
 
-    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService) {
+    public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService,  YearService yearService) {
         this.apprenticeService = apprenticeService;
         this.tutorService = tutorService;
+        this.yearService = yearService;
     }
 
     @GetMapping("/get-dashboard")
-    public String dashboard(Principal principal, Model model) {
+    public String dashboardForLastYear(Principal principal, Model model) {
         // retrieve connected tutor information
         String userName = principal.getName();
 
         // store those information in model to access in html templates
         model.addAttribute("username", userName);
 
-        // retrieve all apprentices for this tutor
-        Tutor tutor = this.tutorService.getTutorByUsername(userName);
-        int currentYear = Year.now().getValue();
+        // retrieve all years
+        List<Year> years = this.yearService.getAllYearsByDescendingOrder();
+        model.addAttribute("years", years);
+        model.addAttribute("selectedYearForm", new YearDTO(years.isEmpty() ? null : years.getLast().getId()));
+        model.addAttribute("selectedYear", years.isEmpty() ? null : years.getLast());
 
-        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(tutor.getId(), currentYear);
+        // retrieve all apprentices for this tutor for the last year
+        Tutor tutor = this.tutorService.getTutorByUsername(userName);
+
+        List<ApprenticeRecordDTO> apprentices = apprenticeService.getApprenticesByTutorForThisYear(
+                tutor.getId(),
+                years.isEmpty() ? UUID.randomUUID() : years.getLast().getId()
+        );
         model.addAttribute("apprentices", apprentices);
-        model.addAttribute("currentYear", currentYear);
+
+        return "dashboard";
+    }
+
+    @GetMapping("/get-dashboard-for-particular-year")
+    public String dashboardForParticularYear(@ModelAttribute YearDTO selectedYear, Principal principal, Model model, RedirectAttributes redirectAttributes) {
+        // retrieve connected tutor information
+        String userName = principal.getName();
+
+        // store those information in model to access in html templates
+        model.addAttribute("username", userName);
+
+        // retrieve all years
+        List<Year> years = this.yearService.getAllYearsByDescendingOrder();
+        model.addAttribute("years", years);
+        model.addAttribute("selectedYearForm", selectedYear);
+        model.addAttribute("selectedYear", this.yearService.getYearById(selectedYear.getSelectedYearId()));
+
+        // retrieve all apprentices for this tutor for the selected year
+        Tutor tutor = this.tutorService.getTutorByUsername(userName);
+
+        List<ApprenticeRecordDTO> apprentices;
+        try{
+            apprentices = apprenticeService.getApprenticesByTutorForThisYear(
+                    tutor.getId(),
+                    selectedYear.getSelectedYearId()
+            );
+        }
+        catch (CustomEntityNotFoundException exception){
+            redirectAttributes.addFlashAttribute("errorMessage", "Année introuvable");
+            return "redirect:/apprentice/get-dashboard";
+        }
+
+        model.addAttribute("apprentices", apprentices);
 
         return "dashboard";
     }

@@ -2,6 +2,7 @@ package com.example.goatTutorats.services;
 
 import com.example.goatTutorats.dtos.ApprenticeRecordDTO;
 import com.example.goatTutorats.dtos.ApprenticeResearchCriteriaDTO;
+import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.repositories.ApprenticeRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +12,23 @@ import java.util.*;
 public class ApprenticeService {
 
     private final ApprenticeRepository apprenticeRepository;
+    private final YearService yearService;
 
-    public ApprenticeService(ApprenticeRepository apprenticeRepository)
+    public ApprenticeService(ApprenticeRepository apprenticeRepository,  YearService yearService)
     {
         this.apprenticeRepository = apprenticeRepository;
+        this.yearService = yearService;
     }
 
-    public List<ApprenticeRecordDTO> getApprenticesByTutorForThisYear(UUID tutorId, int currentYear) {
-        return apprenticeRepository.findByTutorAndYear(tutorId, currentYear);
+    public List<ApprenticeRecordDTO> getApprenticesByTutorForThisYear(UUID tutorId, UUID yearId) {
+        // check year exists
+        this.yearService.getYearById(yearId);
+
+        // retrieve all apprentice info for this year
+        return apprenticeRepository.findByTutorAndYear(tutorId, StudyLevel.ING3, yearId);
     }
 
     public List<ApprenticeRecordDTO> researchApprentices(ApprenticeResearchCriteriaDTO researchCriteriaDTO) {
-        System.out.println(researchCriteriaDTO.getMissionKeywords());
         return apprenticeRepository.researchApprentices(
                 researchCriteriaDTO.getApprenticeName(),
                 researchCriteriaDTO.getCompanyName(),
@@ -33,8 +39,6 @@ public class ApprenticeService {
 
     public int getTotalNumber()
     {
-        int total = this.apprenticeRepository.getTotalNumber();
-        System.out.println(">>> TOTAL APPRENTIS EN BASE : " + total);
-        return total;
+        return this.apprenticeRepository.getTotalNumber();
     }
 }

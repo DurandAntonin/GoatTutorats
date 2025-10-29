@@ -4,7 +4,6 @@ import com.example.goatTutorats.enums.StudyLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +22,9 @@ public class AcademicYear {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    private LocalDate year;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "year_id", nullable = false)
+    private Year year;
 
     @Column(name = "study_level")
     @Enumerated(EnumType.STRING)
@@ -59,7 +60,6 @@ public class AcademicYear {
     private List<Note> notes;
 
     public AcademicYear() {
-        this.year = LocalDate.now();
         this.missions = new ArrayList<>();
         this.notes = new ArrayList<>();
         this.visit = new Visit();
@@ -88,7 +88,7 @@ public class AcademicYear {
                         + "reportEvaluation=%s, "
                         + "oralExam=%s, "
                         + "notes=[%s]}",
-                id, year, apprentice.getId(), company.getId(),
+                id, year.toString(), apprentice.getId(), company.getId(),
                 mentor.getId(), missionIds, visit.getId(),
                 reportEvaluation.getId(), oralExam.getId(),
                 noteIds);

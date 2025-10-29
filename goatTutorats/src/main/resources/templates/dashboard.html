@@ -9,6 +9,7 @@
     <link th:href="@{/css/toast.css}" rel="stylesheet" />
     <script th:src="@{/js/toast.js}"></script>
     <script th:src="@{/js/confirmation-popup.js}"></script>
+    <script th:src="@{/js/dashboard.js}"></script>
 </head>
 <body>
 
@@ -28,8 +29,21 @@
         <div class="div-dashboard">
 
             <div class="dashboard-description">
-                <div>
-                    <span> Année académique en cours : <span th:text="${currentYear}" class="color-red text-bold"></span></span>
+                <div class="dashboard-description-content">
+                    <div>
+                        <form th:method="GET" th:action="@{/apprentice/get-dashboard-for-particular-year}" th:object="${selectedYearForm}">
+                            <label for="year">
+                                Sélectionnez l'année académique
+                            </label>
+                            <select th:id="select-year" th:field="*{selectedYearId}">
+                                <option th:each="currentYear : ${years}" th:value="${currentYear.id}" th:text="${#temporals.year(currentYear.year)}"></option>
+                            </select>
+                            <button th:id="btn-select-year" th:hidden="hidden" type="submit"></button>
+                        </form>
+                    </div>
+                    <div>
+                        <span> Année académique en cours : <span th:if="selectedYear != null" th:text="${#temporals.year(selectedYear.year)}" class="color-red text-bold"></span></span>
+                    </div>
                 </div>
 
                 <div class="button-actions">

@@ -2,6 +2,7 @@ package com.example.goatTutorats.services;
 
 import com.example.goatTutorats.entities.AcademicYear;
 import com.example.goatTutorats.entities.Tutor;
+import com.example.goatTutorats.entities.Year;
 import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.repositories.AcademicYearRepository;
@@ -10,7 +11,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,8 +30,8 @@ public class AcademicYearService {
         return this.academicYearRepository.findById(id).orElseThrow(() -> new CustomEntityNotFoundException(id.toString()));
     }
 
-    public List<UUID> findAcademicYearByApprenticeYear(UUID apprenticeId, int year){
-        return this.academicYearRepository.findAcademicYearByApprenticeAndYear(apprenticeId, year);
+    public List<UUID> findAcademicYearByApprenticeYear(UUID apprenticeId, UUID yearId){
+        return this.academicYearRepository.findAcademicYearByApprenticeAndYear(apprenticeId, yearId);
     }
 
     @Transactional
@@ -79,25 +79,22 @@ public class AcademicYearService {
     }
 
     @Transactional
-    public void createAcademicYear(LocalDate currentAcademicYearDate, StudyLevel studyLevel){
+    public void createAcademicYear(Year currentYear, Year nextYear, StudyLevel studyLevel){
         // archive all apprentices that are already in last study level
         List<UUID> apprenticeIdsToArchive = this.apprenticeRepository.findApprenticesToArchive(
                 studyLevel,
-                currentAcademicYearDate.getYear()
+                currentYear.getId()
         );
         this.apprenticeRepository.archiveApprenticesById(apprenticeIdsToArchive);
 
-        LocalDate nextYear = currentAcademicYearDate.plusYears(1);
-
         // retrieve all apprentice academic year that are not archived, for the current academic year
-        List<AcademicYear> apprenticeAcademicYears = this.academicYearRepository.findApprenticeAcademicYearNotArchivedByYear(currentAcademicYearDate.getYear());
-
+        List<AcademicYear> apprenticeAcademicYears = this.academicYearRepository.findApprenticeAcademicYearNotArchivedByYear(currentYear.getId());
 
         // iterate other each apprentice academic year
         for (AcademicYear apprenticeAcademicYear : apprenticeAcademicYears) {
 
             // check this apprentice doesn't have an academic year for the next year
-            if (!this.findAcademicYearByApprenticeYear(apprenticeAcademicYear.getApprentice().getId(), nextYear.getYear()).isEmpty()){
+            if (!this.findAcademicYearByApprenticeYear(apprenticeAcademicYear.getApprentice().getId(), nextYear.getId()).isEmpty()){
                 continue;
             }
 

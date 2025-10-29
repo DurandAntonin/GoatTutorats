@@ -46,6 +46,17 @@
     justify-content: space-between;
 }
 
+.dashboard-description .dashboard-description-content{
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(var(--primary-gap) / 2);
+}
+
+.dashboard-description .dashboard-description-content select{
+    padding: calc(var(--primary-gap) / 4);
+    border-radius: var(--secondary-border-radius);
+}
+
 .div-dashboard .dashboard-content{
     width: 100%;
     flex-direction: column;

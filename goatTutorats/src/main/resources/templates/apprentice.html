@@ -105,7 +105,7 @@
                                             Année académique
                                         </label>
                                         <input type="hidden" th:id="year" th:name="year" th:required="required" th:field="*{year}" th:readonly="readonly" />
-                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year)}" th:disabled="disabled" />
+                                        <input type="text" th:id="yearDisplayed" th:name="yearDisplayed" th:required="required" th:value="${#temporals.year(apprenticeAcademicYear.year.year)}" th:disabled="disabled" />
                                     </div>
                                 </div>
 
