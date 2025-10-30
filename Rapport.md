@@ -9,7 +9,10 @@ MASSINOND Matéo, DURAND Antonin et MENON Valentin
 Pour lancer l'application en local, il faut avoir un client MySQL d'installer, ensuite on peut suivre ces étapes : 
 - Exécuter le script 'prepolutate.sql' dans le client MySQL.
 - Lancer l'application à l'aide de la classe Main 'GoatTutoratsApplication'.
-- Exécuter le script 'populate.sql' dans le client MySQL. 
+- Exécuter le script 'populate.sql' dans le client MySQL.
+- Exécuter le script 'CIGREF.sql' dans le client MySQL.
+
+Les scipts sql sont situés dans le répertoire `ressources` du projet.
 
 L'application est maintenant accessible avec cette URL : 
 
@@ -34,6 +37,10 @@ Et pour Swagger :
 ```
 https://goat-tutorats.techops.tf/docs/ui-doc
 ```
+
+### Documentation
+
+Nous avons généré une documentation de l'application dans sa globalité, accessible en ouvrant le fichier `index.html` situé dans le répertoire `goatTutorats/docs` au même niveau que le répertoire `src`.
 
 ### Connexion 
 
