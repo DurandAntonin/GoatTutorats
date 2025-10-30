@@ -55,6 +55,12 @@ jobs:
             - name: Check Cosign version
               run: cosign version
 
+            - name: Login to Harbor for Cosign
+              run: |
+                  cosign login harbor.techops.tf \
+                    -u "${{ secrets.HARBOR_USERNAME }}" \
+                    -p "${{ secrets.HARBOR_PASSWORD }}"
+
             - name: Sign Docker image with Cosign
               env:
                   COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
@@ -63,6 +69,14 @@ jobs:
               run: |
                   echo "$COSIGN_PRIVATE_KEY" > cosign.key
                   chmod 600 cosign.key
-                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:${{ github.sha }}
-                  cosign sign --key cosign.key harbor.techops.tf/techops/goat-tutorats:latest
+
+                  IMAGE_WITH_DIGEST="harbor.techops.tf/techops/goat-tutorats@${IMAGE_DIGEST}"
+
+                  echo "Signing image: $IMAGE_WITH_DIGEST"
+                  cosign sign \
+                    --yes \
+                    --key cosign.key \
+                    --tlog-upload=false \
+                    "$IMAGE_WITH_DIGEST"
+
                   rm -f cosign.key
