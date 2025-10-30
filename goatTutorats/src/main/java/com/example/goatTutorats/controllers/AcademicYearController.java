@@ -4,6 +4,7 @@ import com.example.goatTutorats.entities.*;
 import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
+import com.example.goatTutorats.services.CigrefNomenclatureService;
 import com.example.goatTutorats.services.TutorService;
 import com.example.goatTutorats.services.YearService;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("academicYear")
@@ -24,11 +26,13 @@ public class AcademicYearController {
     private final AcademicYearService academicYearService;
     private final TutorService tutorService;
     private final YearService yearService;
+    private final CigrefNomenclatureService cigrefNomenclatureService;
 
-    public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService,  YearService yearService) {
+    public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService,  YearService yearService, CigrefNomenclatureService cigrefNomenclatureService) {
         this.academicYearService = academicYearService;
         this.tutorService = tutorService;
         this.yearService = yearService;
+        this.cigrefNomenclatureService = cigrefNomenclatureService;
     }
 
     @GetMapping("/get-apprentice-academic-year/{id}")
@@ -88,6 +92,13 @@ public class AcademicYearController {
         apprenticeAcademicYear.setYear(this.yearService.getLastYearOrCreateOne());
 
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
+
+        // Add cigref jobs list
+        List<String> cigrefJobs = cigrefNomenclatureService.getAllJobNames()
+                .stream()
+                .sorted(String::compareToIgnoreCase)
+                .collect(Collectors.toList());
+        model.addAttribute("cigrefJobs", cigrefJobs);
         return "apprentice";
     }
 

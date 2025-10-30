@@ -178,3 +178,39 @@ function createHtmlElement(tagName, classList, attributes) {
 
     return element;
 }
+
+/**
+ * Initializes Select2 on all elements with the class 'target-job-select'.
+ * <p>
+ * This enhances standard <select> elements with a searchable dropdown, a placeholder,
+ * scrollable options, and allows clearing the selection.
+ * </p>
+ *
+ * Behavior:
+ * - width: 100% (fills the container)
+ * - placeholder: "-- Sélectionner un métier --"
+ * - allowClear: true (user can clear selection)
+ * - maximumSelectionLength: 1 (single selection only)
+ *
+ * Requirements:
+ * - jQuery must be loaded before this script
+ * - Select2 library (JS + CSS) must be included
+ *
+ * Example HTML:
+ * &lt;select class="target-job-select"&gt;
+ *   &lt;option value=""&gt;&lt;/option&gt;
+ *   &lt;option&gt;Consultant&lt;/option&gt;
+ * &lt;/select&gt;
+ *
+ * Dependencies:
+ * - jQuery
+ * - Select2
+ */
+$(document).ready(function() {
+    $(".target-job-select").select2({
+        width: '100%',
+        placeholder: "-- Sélectionner un métier --",
+        allowClear: true,
+        maximumSelectionLength: 1
+    });
+});

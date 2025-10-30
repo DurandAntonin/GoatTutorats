@@ -223,8 +223,13 @@
 
                                             <tr class="apprentice-mission" th:each="mission, itemStat : *{missions}">
                                                 <td>
-                                                    <input class="row-length-95" type="text" th:required="required" th:field="*{missions[__${itemStat.index}__].targetJob}"/>
+                                                    <select class="target-job-select" th:field="*{missions[__${itemStat.index}__].targetJob}">
+                                                        <option value="">-- Sélectionner un métier --</option>
+                                                        <option th:each="job : ${cigrefJobs}" th:value="${job}" th:text="${job}"></option>
+                                                    </select>
                                                 </td>
+
+
                                                 <td>
                                                     <textarea rows="5" class="row-length-95 textarea-row3" th:required="required" th:field="*{missions[__${itemStat.index}__].keywords}"></textarea>
                                                 </td>
