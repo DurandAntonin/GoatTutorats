@@ -62,8 +62,8 @@ INSERT INTO academic_year (id, year_id, study_level, apprentice_id, company_id, 
     (0xD401E490E414435AB6CC0BCF8C811011, 0xE601E490E414435AB6CC0BCF8C811118, 'ING3', 0xA101E490E414435AB6CC0BCF8C81100B, 0xC001E490E414435AB6CC0BCF8C811002, 0xB201E490E414435AB6CC0BCF8C811001, 0xE601E490E414435AB6CC0BCF8C811001, 0xE701E490E414435AB6CC0BCF8C811001, 0xE801E490E414435AB6CC0BCF8C811001);
 
 INSERT INTO mission (id, keywords, target_job, comments, academic_year_id) VALUES
-                                                                              (0xF101E490E414435AB6CC0BCF8C811001, 'Java, Spring Boot', 'Backend Developer', 'Développer API REST', 0xD401E490E414435AB6CC0BCF8C811011),
-                                                                              (0xF101E490E414435AB6CC0BCF8C811002, 'SQL, Hibernate', 'Database Engineer', 'Optimisation des requêtes', 0xD401E490E414435AB6CC0BCF8C811011);
+                                                                              (0xF101E490E414435AB6CC0BCF8C811001, 'Java, Spring Boot', 'Directeur de projets', 'Développer API REST', 0xD401E490E414435AB6CC0BCF8C811011),
+                                                                              (0xF101E490E414435AB6CC0BCF8C811002, 'SQL, Hibernate', 'Chef de projet maîtrise d''ouvrage', 'Optimisation des requêtes', 0xD401E490E414435AB6CC0BCF8C811011);
 
 INSERT INTO note (id, author, comments, academic_year_id) VALUES
                                             (0xE501E490E414435AB6CC0BCF8C811001, 'Dupont', 'Excellent travail', 0xD401E490E414435AB6CC0BCF8C811011);
