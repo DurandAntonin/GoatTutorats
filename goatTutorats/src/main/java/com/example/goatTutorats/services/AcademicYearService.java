@@ -135,18 +135,29 @@ public class AcademicYearService {
             }
 
             // create new academic year for this apprentice and fill it with previous academic year info
-            AcademicYear newApprenticeAcademicYear = new AcademicYear();
-            newApprenticeAcademicYear.setYear(nextYear);
-            newApprenticeAcademicYear.setApprentice(apprenticeAcademicYear.getApprentice());
-            newApprenticeAcademicYear.setCompany(apprenticeAcademicYear.getCompany());
-            newApprenticeAcademicYear.setMentor(apprenticeAcademicYear.getMentor());
-
-            // update study level
-            StudyLevel newStudyLevel = apprenticeAcademicYear.getStudyLevel() == StudyLevel.ING1 ? StudyLevel.ING2 : StudyLevel.ING3;
-            newApprenticeAcademicYear.setStudyLevel(newStudyLevel);
+        AcademicYear newApprenticeAcademicYear = createNewAcademicYearWithPreviousAcademicYear(nextYear, apprenticeAcademicYear);
 
             // save new academic year in db
             this.academicYearRepository.save(newApprenticeAcademicYear);
         }
+    }
+
+    /**
+     * Get new academic year for apprentice.
+     * @param nextYear the next year
+     * @param apprenticeAcademicYear the apprentice academic year
+     * @return the new academic year
+     */
+    private static AcademicYear createNewAcademicYearWithPreviousAcademicYear(Year nextYear, AcademicYear apprenticeAcademicYear) {
+        AcademicYear newApprenticeAcademicYear = new AcademicYear();
+        newApprenticeAcademicYear.setYear(nextYear);
+        newApprenticeAcademicYear.setApprentice(apprenticeAcademicYear.getApprentice());
+        newApprenticeAcademicYear.setCompany(apprenticeAcademicYear.getCompany());
+        newApprenticeAcademicYear.setMentor(apprenticeAcademicYear.getMentor());
+
+        // update study level
+        StudyLevel newStudyLevel = apprenticeAcademicYear.getStudyLevel() == StudyLevel.ING1 ? StudyLevel.ING2 : StudyLevel.ING3;
+        newApprenticeAcademicYear.setStudyLevel(newStudyLevel);
+        return newApprenticeAcademicYear;
     }
 }
