@@ -61,6 +61,13 @@ public class AcademicYearController {
 
         model.addAttribute("apprenticeAcademicYear", apprenticeAcademicYear);
 
+        // Add cigref jobs list
+        List<String> cigrefJobs = cigrefNomenclatureService.getAllJobNames()
+                .stream()
+                .sorted(String::compareToIgnoreCase)
+                .collect(Collectors.toList());
+        model.addAttribute("cigrefJobs", cigrefJobs);
+
         // store form name, action and method
         model.addAttribute("formName", apprenticeAcademicYear.getApprentice().getFirstName() +" "+ apprenticeAcademicYear.getApprentice().getLastName());
         model.addAttribute("formAction", "/academicYear/update-apprentice-academic-year/" + id);

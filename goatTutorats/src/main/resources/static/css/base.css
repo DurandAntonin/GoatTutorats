@@ -157,3 +157,9 @@ html, body {
 .section-visible{
     display: flex;
 }
+
+ul {
+    padding-left: 1rem;
+    max-height: 8vh;
+    overflow-y: auto;
+}

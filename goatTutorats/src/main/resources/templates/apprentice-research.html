@@ -90,6 +90,7 @@
                         <th>Entreprise</th>
                         <th>Maître d'apprentissage</th>
                         <th>Niveau d'étude</th>
+                        <th>Missions</th>
                         <th>Actions</th>
                         </thead>
 
@@ -103,6 +104,13 @@
                             <td th:text="${apprentice.major}"></td>
                             <td th:text="${apprentice.companyName}"></td>
                             <td th:text="${apprentice.mentorFirstName + ' ' + apprentice.mentorLastName}"></td>
+                            <td>
+                                <ul>
+                                    <li th:each="mission: ${apprentice.missions}">
+                                        <span th:text="${mission.keywords}"></span>
+                                    </li>
+                                </ul>
+                            </td>
                             <td th:text="${apprentice.studyLevel}"></td>
                             <td>
                                 <div class="button-actions">
@@ -117,10 +125,10 @@
 
                         <tfoot>
                         <tr>
-                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="9"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total. <span th:if="${totalNumber != null}"> <span th:text="${totalNumber}"> </span> apprenti(es) toutes années confondues. </span>  </td>
+                            <td th:if="${apprenticeSearched.size() > 0}"  colspan="10"> <span th:text="${apprenticeSearched.size()}"></span> apprenti(es) au total. <span th:if="${totalNumber != null}"> <span th:text="${totalNumber}"> </span> apprenti(es) toutes années confondues. </span>  </td>
                         </tr>
                         <tr class="table-empty">
-                            <td th:if="${apprenticeSearched.size() == 0}" colspan="9">La liste est vide.</td>
+                            <td th:if="${apprenticeSearched.size() == 0}" colspan="10">La liste est vide.</td>
                         </tr>
                         </tfoot>
                     </table>

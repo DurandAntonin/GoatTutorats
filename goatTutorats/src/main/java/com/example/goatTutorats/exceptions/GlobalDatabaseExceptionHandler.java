@@ -21,6 +21,12 @@ public class GlobalDatabaseExceptionHandler {
         return "errors/default-error";
     }
 
+    @ExceptionHandler(CustomEntityNotFoundException.class)
+    public String handleCustomEntityNotFound(CustomEntityNotFoundException ex, Model model) {
+        model.addAttribute("errorMessage", "Donnée introuvable en base : " + ex.getMessage());
+        return "errors/default-error";
+    }
+
     @ExceptionHandler(Exception.class)
     public String handleGeneric(Exception ex, Model model) {
         if (ex.getMessage().contains("No static resource")) return "errors/error-404";

@@ -1,6 +1,5 @@
 package com.example.goatTutorats.controllers;
 
-import com.example.goatTutorats.dtos.ApprenticeRecordResearchDTO;
 import com.example.goatTutorats.dtos.ApprenticeResearchCriteriaDTO;
 import com.example.goatTutorats.dtos.YearDTO;
 import com.example.goatTutorats.entities.Tutor;
@@ -122,7 +121,7 @@ public class ApprenticeController {
         int total_number = apprenticeService.getTotalNumber();
 
         // research apprentices and store result in model
-        List<ApprenticeRecordResearchDTO> apprenticeSearched = this.apprenticeService.researchApprentices(researchCriteriaDTO);
+        List<ApprenticeRecordDTO> apprenticeSearched = this.apprenticeService.researchApprentices(researchCriteriaDTO);
         model.addAttribute("apprenticeSearched", apprenticeSearched);
         model.addAttribute("researchCriteriaDTO", researchCriteriaDTO);
         model.addAttribute("totalNumber",total_number);
