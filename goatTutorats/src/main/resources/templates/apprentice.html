@@ -109,12 +109,14 @@
                                     </div>
                                 </div>
 
-                                <div class="row-information">
+                                <div th:if="${!addApprenticeForm}" class="row-information">
                                     <div class="column-information">
                                         <label for="apprentice.archived">
                                             Archivé(e) ?
                                         </label>
-                                        <input class="checkbox" type="checkbox" th:id="apprentice.archived" th:name="apprentice.archived" th:required="required" th:checked="${apprenticeAcademicYear.apprentice.archived}" th:disabled="disabled" />
+                                        <div class="div-checkbox">
+                                            <input class="checkbox" type="checkbox" th:id="apprentice.archived" th:name="apprentice.archived" th:required="required" th:checked="${apprenticeAcademicYear.apprentice.archived}" th:disabled="disabled" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
