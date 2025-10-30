@@ -1,8 +1,6 @@
 package com.example.goatTutorats.controllers;
 
-import com.example.goatTutorats.entities.AcademicYear;
-import com.example.goatTutorats.entities.Tutor;
-import com.example.goatTutorats.entities.Year;
+import com.example.goatTutorats.entities.*;
 import com.example.goatTutorats.enums.StudyLevel;
 import com.example.goatTutorats.exceptions.CustomEntityNotFoundException;
 import com.example.goatTutorats.services.AcademicYearService;
@@ -16,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -63,6 +62,7 @@ public class AcademicYearController {
         model.addAttribute("formAction", "/academicYear/update-apprentice-academic-year/" + id);
         model.addAttribute("formMethod", "PATCH");
         model.addAttribute("submitFormButtonName", "Mettre à jour");
+        model.addAttribute("addApprenticeForm", false);
 
         return "apprentice";
     }
@@ -77,9 +77,12 @@ public class AcademicYearController {
         model.addAttribute("formAction", "/academicYear/create-apprentice-academic-year");
         model.addAttribute("formMethod", "POST");
         model.addAttribute("submitFormButtonName", "Ajouter");
+        model.addAttribute("addApprenticeForm", true);
 
         // create empty apprentice academic year
         AcademicYear apprenticeAcademicYear = new AcademicYear();
+        apprenticeAcademicYear.setMissions(List.of(new Mission()));
+        apprenticeAcademicYear.setNotes(List.of(new Note()));
 
         // associate academic year to last year
         apprenticeAcademicYear.setYear(this.yearService.getLastYearOrCreateOne());
