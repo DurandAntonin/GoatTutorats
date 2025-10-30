@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * Data Transfer Object for Apprentice Research Criteria.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApprenticeResearchCriteriaDTO{
+public class ApprenticeResearchCriteriaDTO {
     String apprenticeName;
     String companyName;
     String missionKeywords;

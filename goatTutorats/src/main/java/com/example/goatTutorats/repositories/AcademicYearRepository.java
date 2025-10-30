@@ -9,7 +9,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Repository interface for accessing AcademicYear entities.
+ */
 public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID> {
+
+    /**
+     * Retrieves all non-archived academic years for apprentices associated with a specific academic year.
+     *
+     * @param yearId the unique identifier of the academic year
+     * @return a list of active (non-archived) apprentice academic year records
+     */
     @Query("SELECT ay " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +
@@ -18,6 +28,13 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID
             "AND y.id = :yearId")
     List<AcademicYear> findApprenticeAcademicYearNotArchivedByYear(@Param("yearId") UUID yearId);
 
+    /**
+     * Retrieves the list of academic year IDs associated with a specific apprentice and academic year.
+     *
+     * @param apprenticeId the unique identifier of the apprentice
+     * @param yearId the unique identifier of the academic year
+     * @return a list of matching academic year IDs
+     */
     @Query("SELECT DISTINCT ay.id " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +
@@ -27,6 +44,15 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID
     List<UUID> findAcademicYearByApprenticeAndYear(@Param("apprenticeId") UUID apprenticeId,
                                                                   @Param("yearId") UUID yearId);
 
+    /**
+     * Retrieves academic year records for apprentices supervised by a specific tutor and linked to a given academic year,
+     * excluding archived apprentices matching the specified study level.
+     *
+     * @param tutorId the unique identifier of the tutor
+     * @param studyLevel the study level used to filter out archived apprentices
+     * @param yearId the unique identifier of the academic year
+     * @return a list of academic year records matching the tutor and year criteria
+     */
     @Query("SELECT ay " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +
@@ -42,6 +68,16 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID
                                                                    @Param("studyLevel") StudyLevel studyLevel,
                                                                    @Param("yearId") UUID yearId);
 
+    /**
+     * Searches for academic year records of apprentices based on multiple optional criteria,
+     * including apprentice name, company name, mission keywords, and academic year.
+     *
+     * @param apprenticeName partial or full apprentice last name to filter by
+     * @param companyName partial or full company name to filter by
+     * @param missionKeywords keywords to match within missions
+     * @param academicYear the academic year to filter by; ignored if <= 0
+     * @return a list of academic year records matching the specified search criteria, ordered by year
+     */
     @Query("SELECT ay " +
             "FROM AcademicYear ay " +
             "LEFT JOIN ay.apprentice a " +

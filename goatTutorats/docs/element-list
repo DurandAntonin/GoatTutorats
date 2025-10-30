@@ -8,4 +8,3 @@ com.example.goatTutorats.exceptions
 com.example.goatTutorats.repositories
 com.example.goatTutorats.restControllers
 com.example.goatTutorats.services
-com.example.goatTutorats.utils

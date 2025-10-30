@@ -6,6 +6,9 @@ import lombok.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Entity representing a User Role.
+ */
 @Entity
 @Getter
 @Setter
@@ -13,11 +16,17 @@ import java.util.stream.Collectors;
 @Table(name = "userRole")
 public class UserRole {
 
+    /**
+     * Unique identifier for the UserRole.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    /**
+     * Name of the role.
+     */
     @Column(name = "roleName", nullable = false, unique = true)
     private String roleName;
 

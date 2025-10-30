@@ -21,17 +21,28 @@ import java.util.stream.Collectors;
 @Table(name = "user")
 public class User implements UserDetails {
 
+    /**
+     * Unique identifier for the user.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    /**
+     * Username of the user, must be unique.
+     */
     @Column(unique = true)
     private String username;
 
+    /**
+     * Password of the user.
+     */
     private String password;
 
-    // user has a list of roles
+    /**
+     * Roles assigned to the user for authorization purposes.
+     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",

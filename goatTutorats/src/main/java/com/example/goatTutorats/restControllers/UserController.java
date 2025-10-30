@@ -41,6 +41,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Get a user by his username.
+     * @param username the username of the user
+     * @return the user
+     */
     @Operation(summary = "Get a user by his username", description = "Get a user by his username")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User information",
@@ -59,6 +64,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Get a user by his id.
+     * @param userId the id of the user
+     * @return the user
+     */
     @Operation(summary = "Get a user by his id", description = "Get a user by his id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User information",
@@ -77,6 +87,10 @@ public class UserController {
         }
     }
 
+    /**
+     * Get all users.
+     * @return list of users
+     */
     @Operation(summary = "Get all users", description = "Get all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User information",
@@ -87,6 +101,12 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getAllUsers(),  HttpStatus.OK);
     }
 
+    /**
+     * Update user information.
+     * @param userId the id of the user
+     * @param userDTO the user data transfer object
+     * @return the updated user
+     */
     @Operation(summary = "Update user", description = "Update user information such as username and password")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User updated",
@@ -105,6 +125,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Create a new user.
+     * @param userDTO the user data transfer object
+     * @return the created user
+     */
     @Operation(summary = "Create a new user", description = "Add a new user to the system")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User created",
@@ -117,6 +142,11 @@ public class UserController {
         return new ResponseEntity<>(this.userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
+    /**
+     * Delete a user.
+     * @param userId the id of the user
+     * @return no content
+     */
     @Operation(summary = "Delete a user", description = "Delete a user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "User deleted successfully",

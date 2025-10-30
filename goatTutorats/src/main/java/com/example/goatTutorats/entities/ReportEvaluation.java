@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.UUID;
 
+/**
+ * Entity representing a Report Evaluation.
+ */
 @Entity
 @Table(name = "report_evaluation")
 @Getter
@@ -14,14 +17,29 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ReportEvaluation {
 
+    /**
+     * Unique identifier for the Report Evaluation.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    /**
+     * Thesis of the report.
+     */
     private String thesis;
+    /**
+     * Topic of the report.
+     */
     private String topic;
+    /**
+     * Final grade of the report.
+     */
     private Float finalGrade;
+    /**
+     * Comments on the report.
+     */
     private String comments;
 
     @Override

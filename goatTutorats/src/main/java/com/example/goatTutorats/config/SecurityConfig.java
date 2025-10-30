@@ -22,8 +22,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Custom user details service to load user-specific data.
+     */
     private final CustomUserDetailsService customUserDetailsService;
 
+    /**
+     * Constructor for SecurityConfig.
+     * @param customUserDetailsService Custom user details service.
+     */
     public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
@@ -57,8 +64,8 @@ public class SecurityConfig {
      * Configure logout format such as logout url and url when user is not connected.
      * Configure url access depending on user authenticated.
      * @param http Incoming http query.
-     * @return
-     * @throws Exception
+     * @return Security filter chain.
+     * @throws Exception If an error occurs while configuring security filter chain.
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

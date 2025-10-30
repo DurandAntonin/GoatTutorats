@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * This entity represents an Academic Year for an apprentice.
+ */
 @Entity
 @Table(name = "academic_year")
 @Getter
@@ -59,6 +62,9 @@ public class AcademicYear {
     @JoinColumn(name = "academic_year_id")
     private List<Note> notes;
 
+    /**
+     * Default constructor initializing lists and associated entities.
+     */
     public AcademicYear() {
         this.missions = new ArrayList<>();
         this.notes = new ArrayList<>();

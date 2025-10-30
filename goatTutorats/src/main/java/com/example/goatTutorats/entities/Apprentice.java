@@ -6,6 +6,9 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.util.UUID;
 
+/**
+ * Entity representing an Apprentice.
+ */
 @Entity
 @Table(name = "apprentice")
 @Getter

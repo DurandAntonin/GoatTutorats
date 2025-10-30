@@ -14,26 +14,50 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Service for managing AcademicYear entities.
+ */
 @Service
 public class AcademicYearService {
 
     private final AcademicYearRepository academicYearRepository;
     private final ApprenticeRepository apprenticeRepository;
 
+    /**
+     * Inject AcademicYear and Apprentice repositories.
+     * @param academicYearRepository AcademicYear repository
+     * @param apprenticeRepository Apprentice repository
+     */
     public AcademicYearService(AcademicYearRepository academicYearRepository, ApprenticeRepository apprenticeRepository)
     {
         this.academicYearRepository = academicYearRepository;
         this.apprenticeRepository = apprenticeRepository;
     }
 
+    /**
+     * Find academic year by its id.
+     * @param id the academic year id
+     * @return the academic year
+     */
     public AcademicYear findById(UUID id){
         return this.academicYearRepository.findById(id).orElseThrow(() -> new CustomEntityNotFoundException(id.toString()));
     }
 
+    /**
+     * Find academic year by apprentice id and year id.
+     * @param apprenticeId the apprentice id
+     * @param yearId the year id
+     * @return list of academic year ids
+     */
     public List<UUID> findAcademicYearByApprenticeYear(UUID apprenticeId, UUID yearId){
         return this.academicYearRepository.findAcademicYearByApprenticeAndYear(apprenticeId, yearId);
     }
 
+    /**
+     * Modify an existing academic year.
+     * @param idAcademicYear the academic year id
+     * @param academicYearModified the modified academic year
+     */
     @Transactional
     public void modifyAcademicYear(UUID idAcademicYear, AcademicYear academicYearModified)
     {
@@ -64,6 +88,12 @@ public class AcademicYearService {
         this.academicYearRepository.save(academicYearToModify);
     }
 
+    /**
+     * Add a new apprentice academic year and link it to its tutor.
+     * @param academicYearToAdd the academic year to add
+     * @param apprenticeTutor the tutor of the apprentice
+     * @return the saved academic year
+     */
     @Transactional
     public AcademicYear addApprenticeAcademicYear(AcademicYear academicYearToAdd, Tutor apprenticeTutor){
         // set academic year id to null
@@ -78,6 +108,12 @@ public class AcademicYearService {
         return this.academicYearRepository.save(academicYearToAdd);
     }
 
+    /**
+     * Create academic year for all apprentices for the next year.
+     * @param currentYear the current academic year
+     * @param nextYear the next academic year
+     * @param studyLevel the last study level
+     */
     @Transactional
     public void createAcademicYear(Year currentYear, Year nextYear, StudyLevel studyLevel){
         // archive all apprentices that are already in last study level

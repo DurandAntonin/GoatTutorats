@@ -8,6 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * Entity representing a Visit.
+ */
 @Entity
 @Table(name = "visit")
 @Getter
@@ -17,15 +20,28 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Visit {
 
+    /**
+     * Unique identifier for the Visit.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    /**
+     * Date of the visit.
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    /**
+     * Format of the visit (e.g., IN_PERSON, VIRTUAL).
+     */
     private VisitFormat format;
+
+    /**
+     * Comments or notes about the visit.
+     */
     private String comments;
 
     @Override

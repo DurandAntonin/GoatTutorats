@@ -10,9 +10,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * This service is used to manage years.
+ */
 @Service
 public class YearService {
 
+    /**
+     * Year repository.
+     */
     private final YearRepository yearRepository;
 
     /**
@@ -23,14 +29,27 @@ public class YearService {
         this.yearRepository = yearRepository;
     }
 
+    /**
+     * Get all years by descending order.
+     * @return list of years
+     */
     public List<Year> getAllYearsByDescendingOrder() {
         return yearRepository.getAllYearsByAscendingOrder();
     }
 
+    /**
+     * Get year by its id.
+     * @param yearId the year id
+     * @return the year
+     */
     public Year getYearById(UUID yearId) {
         return this.yearRepository.findById(yearId).orElseThrow(() -> new CustomEntityNotFoundException(yearId.toString()));
     }
 
+    /**
+     * Get last year or create one if none exists.
+     * @return the last year
+     */
     public Year getLastYearOrCreateOne(){
         // retrieve last year in db
         Optional<Year> lastExistingYear = this.yearRepository.getLastYear();
@@ -48,6 +67,10 @@ public class YearService {
         return newYear;
     }
 
+    /**
+     * Create the next year and save it in db.
+     * @return the created year
+     */
     public Year createYear(){
         // get last year in db
         Optional<Year> lastExistingYear = this.yearRepository.getLastYear();
