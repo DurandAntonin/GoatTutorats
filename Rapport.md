@@ -4,17 +4,29 @@ MASSINOND Matéo, DURAND Antonin et MENON Valentin
 
 ## Lancement et test de l'application 
 
-L'application se lance à l'aide de la classe Main 'GoatTutoratsApplication'. Le port est le 8081 et on peut y accèder via cette URL : 
+### Installation en local
+
+Pour lancer l'application en local, il faut avoir un client MySQL d'installer, ensuite on peut suivre ces étapes : 
+- Exécuter le script 'prepolutate.sql' dans le client MySQL.
+- Lancer l'application à l'aide de la classe Main 'GoatTutoratsApplication'.
+- Exécuter le script 'populate.sql' dans le client MySQL. 
+
+L'application est maintenant accessible avec cette URL : 
+
 ```
 http://localhost:8081/auth/get-login
 ``` 
 
+### Accès au site en ligne 
+
 L'application étant déployée, on peut aussi y accèder directement via cette URL : 
 ```
 https://goat-tutorats.techops.tf/auth/get-login
-``` 
 
-Ensuite, après avoir été redirigé sur la page de connexion, on peut utiliser ces identifiants : 
+``` 
+### Connexion 
+
+Après avoir été redirigé automatiquement sur la page de connexion, on peut utiliser ces identifiants : 
 ```
 Nom d'utilisateur : handre
 Mot de passe : azerty
