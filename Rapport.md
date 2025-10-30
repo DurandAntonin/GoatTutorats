@@ -6,12 +6,12 @@ MASSINOND Matéo, DURAND Antonin et MENON Valentin
 
 L'application se lance à l'aide de la classe Main 'GoatTutoratsApplication'. Le port est le 8081 et on peut y accèder via cette URL : 
 ```
-http://localhost:8081/apprentice/get-dashboard 
+http://localhost:8081/auth/get-login
 ``` 
 
 L'application étant déployée, on peut aussi y accèder directement via cette URL : 
 ```
-https://goat-tutorats.techops.tf/apprentice/get-dashboard 
+https://goat-tutorats.techops.tf/auth/get-login
 ``` 
 
 Ensuite, après avoir été redirigé sur la page de connexion, on peut utiliser ces identifiants : 
@@ -29,15 +29,15 @@ Nous nous sommes également servi de Docker et de Kubernetes pour le déploiemen
 ## Aspects importants de notre travail 
 
 - **Les rôles et utilisateurs sont modulaires** : un tuteur hérite d'une classe 'User' qui contient les attributs nécessaires à la connexion. De cette façon, il est aisé de rajouter un autre rôle dans l'application pusqu'il suffirait de le faire hériter de la classe 'User'. 
-- **POC d'un REST Controller** : pour avoir une API réutilisable ainsi que testable et documentée avec Swagger, il faut utiliser une API REST. Mais les controllers de ce type d'API ne peuvent pas renvoyer les pages pour Thymeleaf. Nous avons donc réalisé un POC d'API REST pour la classe de 'User' dans la classe 'UserController'. Cela permet de montrer la faisabilité des API REST dans notre contexte, malgré l'impossibilité de le mettre en oeuvre de façon propre.
+- **POC d'un REST Controller** : pour avoir une API réutilisable ainsi que testable et documentée avec Swagger, il faut utiliser une API REST. Mais les controllers de ce type d'API ne peuvent pas renvoyer les pages pour Thymeleaf. Nous avons donc réalisé un POC d'API REST pour la classe de 'User' dans la classe 'UserController'. Cela permet de montrer la faisabilité des API REST dans notre contexte, malgré l'impossibilité de le mettre en œuvre de façon propre.
 - **Notifications 'toast' et pop-up de confirmation** : afin d'obtenir une meilleure expérience utilisateur côté front, nous avons utilisé Bootstrap pour ajouter des notifications de confirmation de création et de modification d'un apprenti ('toast'). Seul le JS de Bootstrap est importé, afin de préserver notre CSS. De la même façon, il y aussi un pop-up de confirmation lors de la création d'une nouvelle année académique qui informe l'utilisateur que cette action est irréversible. 
-- **Composants Thymeleaf** : nous avons utilisés les fragments de Thymeleaf pour rendre la vue modulaire et facilement réutilisable. On peut aussi noter que le formulaire utilisé pour la création d'un apprenti et aussi utilisé pour la modification d'un apprenti. 
+- **Composants Thymeleaf** : nous avons utilisé les fragments de Thymeleaf pour rendre la vue modulaire et facilement réutilisable. On peut aussi noter que le formulaire utilisé pour la création d'un apprenti et aussi utilisé pour la modification d'un apprenti. 
 
 ## Difficultés 
 
-Lorsque nous avions créé les relations entre les entités de la base de données, celles-ci se faisaient dans les deux sens. C'est à dire que, par exemple, un apprenti était lié à une année académique et une année académique était lié à un apprenti. 
+Lorsque nous avions créé les relations entre les entités de la base de données, celles-ci se faisaient dans les deux sens. C'est-à-dire que, par exemple, un apprenti était lié à une année académique et une année académique était lié à un apprenti. 
 
-Cette façon de faire a posée problème au moment de créer l'endpoint servant à un mettre à jour un apprenti. En effet, lorsqu'on envoyait un apprenti mis à jour au backend on devait aussi envoyer son année académique correspondante qui elle même demandait un apprenti qui lui même demandait une année académique et ainsi de suite. Nous avions alors une sorte de boucle infinie. 
+Cette façon de faire a posé problème au moment de créer l'endpoint servant à mettre à jour un apprenti. En effet, lorsqu'on envoyait un apprenti mis à jour au backend, on devait aussi envoyer son année académique correspondante qui elle-même demandait un apprenti qui lui-même demandait une année académique et ainsi de suite. Nous avions alors une sorte de boucle infinie. 
 
 Nous avons résolu ce bug en supprimant les doubles relations entre nos entités. Une meilleure planification des entités de la base de données au début du projet aurait surêment permis d'éviter ce problème.
 
@@ -55,7 +55,7 @@ Nous avons résolu ce bug en supprimant les doubles relations entre nos entités
 
 ## Fonctionnalités manquantes 
 
-Nous avons eu le temps d'implémenter toutes les fonctionnalités de base du projet. Cependant, nous avions au départ prévu d'mplémenter la possibilité d'importer des apprentis depuis un fichier externe. Mais étant donné le temps limité dont nous disposions (la résolution des difficultés décrites précedemment a aussi pris beaucoup de temps), nous n'avons pas pu réaliser cette fonctionnalité. A la place, nous nous sommes concentrés sur l'amélioration de petits détails permettant d'améliorer l'expérience utilisateur. 
+Nous avons eu le temps d'implémenter toutes les fonctionnalités de base du projet. Cependant, nous avions au départ prévu d'implémenter la possibilité d'importer des apprentis depuis un fichier externe. Mais étant donné le temps limité dont nous disposions (la résolution des difficultés décrites précédemment a aussi pris beaucoup de temps), nous n'avons pas pu réaliser cette fonctionnalité. A la place, nous nous sommes concentrés sur l'amélioration de petits détails permettant d'améliorer l'expérience utilisateur. 
 
 ## Conformité aux principes SOLID 
 
