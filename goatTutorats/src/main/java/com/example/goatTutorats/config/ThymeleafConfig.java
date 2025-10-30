@@ -16,8 +16,8 @@ public class ThymeleafConfig {
     /**
      * Configure thymeleaf template engine.
      * Inject Time module in thymeleaf templates
-     * @param templateResolver
-     * @return
+     * @param templateResolver the template resolver to use, it's automatically configured by Spring Boot
+     * @return the template engine
      */
     @Bean
     public ISpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {

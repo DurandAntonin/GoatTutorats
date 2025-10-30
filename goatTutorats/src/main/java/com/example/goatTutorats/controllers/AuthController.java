@@ -8,11 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+/**
+ * Controller for authentication-related endpoints.
+ */
 @Controller
 @RequestMapping("auth")
 public class AuthController {
 
 
+    /**
+     * Retrieve login page.
+     * @param principal Current logged in user
+     * @param model Model to store information for html template
+     * @return Login page
+     */
     @GetMapping("/get-login-page")
     public String getLoginPage(Principal principal, Model model) {
         // redirect user if connected

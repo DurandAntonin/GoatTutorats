@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+/**
+ * Entity representing a Tutor, which is a specialized type of User.
+ * This entity extends the User class and is mapped to the "tutor" table in the database.
+ */
 @Entity
 @Getter
 @Setter

@@ -15,6 +15,10 @@ public class YearService {
 
     private final YearRepository yearRepository;
 
+    /**
+     * Inject Year repository.
+     * @param yearRepository Year repository
+     */
     public YearService(YearRepository yearRepository) {
         this.yearRepository = yearRepository;
     }

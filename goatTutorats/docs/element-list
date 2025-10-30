@@ -1,0 +1,11 @@
+com.example.goatTutorats
+com.example.goatTutorats.config
+com.example.goatTutorats.controllers
+com.example.goatTutorats.dtos
+com.example.goatTutorats.entities
+com.example.goatTutorats.enums
+com.example.goatTutorats.exceptions
+com.example.goatTutorats.repositories
+com.example.goatTutorats.restControllers
+com.example.goatTutorats.services
+com.example.goatTutorats.utils

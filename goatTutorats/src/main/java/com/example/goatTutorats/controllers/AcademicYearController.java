@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for managing academic years related to apprentices.
+ */
 @Controller
 @RequestMapping("academicYear")
 public class AcademicYearController {
@@ -28,6 +31,13 @@ public class AcademicYearController {
     private final YearService yearService;
     private final CigrefNomenclatureService cigrefNomenclatureService;
 
+    /**
+     * Inject services.
+     * @param academicYearService Academic year service
+     * @param tutorService Tutor service
+     * @param yearService Year service
+     * @param cigrefNomenclatureService Cigref nomenclature service
+     */
     public AcademicYearController(AcademicYearService academicYearService,  TutorService tutorService,  YearService yearService, CigrefNomenclatureService cigrefNomenclatureService) {
         this.academicYearService = academicYearService;
         this.tutorService = tutorService;
@@ -35,6 +45,14 @@ public class AcademicYearController {
         this.cigrefNomenclatureService = cigrefNomenclatureService;
     }
 
+    /**
+     * Retrieve apprentice academic year information page.
+     * @param id Academic year id
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @param redirectAttributes Redirect attributes to store flash messages
+     * @return Apprentice academic year information page
+     */
     @GetMapping("/get-apprentice-academic-year/{id}")
     public String getApprenticeAcademicYearInformation(@PathVariable UUID id, Principal principal, Model model, RedirectAttributes redirectAttributes) {
         // store those information in model to access in html templates
@@ -78,6 +96,12 @@ public class AcademicYearController {
         return "apprentice";
     }
 
+    /**
+     * Retrieve apprentice academic year creation page.
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @return Apprentice academic year creation page
+     */
     @GetMapping("/get-apprentice-academic-year-creation")
     public String getApprenticeAcademicYearCreationPage(Principal principal, Model model) {
         // store those information in model to access in html templates
@@ -109,6 +133,13 @@ public class AcademicYearController {
         return "apprentice";
     }
 
+    /**
+     * Update apprentice academic year information.
+     * @param id Academic year id
+     * @param apprenticeAcademicYear Apprentice academic year information
+     * @param redirectAttributes Redirect attributes to store flash messages
+     * @return Redirect to updated apprentice academic year information page
+     */
     @PatchMapping("/update-apprentice-academic-year/{id}")
     public String updateApprenticeAcademicYear(@PathVariable UUID id, @ModelAttribute AcademicYear apprenticeAcademicYear, RedirectAttributes redirectAttributes)
     {
@@ -127,6 +158,13 @@ public class AcademicYearController {
         return "redirect:/academicYear/get-apprentice-academic-year/" + id;
     }
 
+    /**
+     * Create new academic year for a new apprentice.
+     * @param apprenticeAcademicYear Apprentice academic year information
+     * @param principal Current logged in tutor
+     * @param redirectAttributes Redirect attributes to store flash messages
+     * @return Redirect to newly created apprentice academic year information page
+     */
     @PostMapping("/create-apprentice-academic-year")
     public String createApprenticeAcademicYear(@ModelAttribute AcademicYear apprenticeAcademicYear, Principal principal,RedirectAttributes redirectAttributes)
     {
@@ -150,6 +188,10 @@ public class AcademicYearController {
         return "redirect:/academicYear/get-apprentice-academic-year/" + newApprenticeAcademicYear.getId();
     }
 
+    /**
+     * Create new academic year for all apprentices in ING3.
+     * @return Redirect to tutor dashboard
+     */
     @PostMapping("/create-academic-year")
     public String createAcademicYear()
     {

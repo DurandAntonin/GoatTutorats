@@ -19,6 +19,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class is a REST controller for managing users.
+ */
 @CrossOrigin("*")
 @RestController
 @RequestMapping("user")
@@ -28,6 +31,11 @@ public class UserController {
     private final CustomUserDetailsService userDetailsService;
     private final UserService userService;
 
+    /**
+     * Constructor for UserController.
+     * @param userDetailsService user details service
+     * @param userService user service
+     */
     public UserController(CustomUserDetailsService userDetailsService, UserService userService) {
         this.userDetailsService = userDetailsService;
         this.userService = userService;

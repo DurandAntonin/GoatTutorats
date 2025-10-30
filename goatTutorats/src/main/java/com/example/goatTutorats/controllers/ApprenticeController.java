@@ -19,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.*;
 
+/**
+ * Controller for managing apprentices.
+ */
 @Controller
 @RequestMapping("apprentice")
 public class ApprenticeController {
@@ -27,12 +30,24 @@ public class ApprenticeController {
     private final ApprenticeService apprenticeService;
     private final YearService yearService;
 
+    /**
+     * Inject services.
+     * @param apprenticeService Apprentice service
+     * @param tutorService Tutor service
+     * @param yearService Year service
+     */
     public ApprenticeController(ApprenticeService apprenticeService,  TutorService tutorService,  YearService yearService) {
         this.apprenticeService = apprenticeService;
         this.tutorService = tutorService;
         this.yearService = yearService;
     }
 
+    /**
+     * Retrieve dashboard page for the last academic year.
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @return Dashboard page for the last academic year
+     */
     @GetMapping("/get-dashboard")
     public String dashboardForLastYear(Principal principal, Model model) {
         // retrieve connected tutor information
@@ -59,6 +74,14 @@ public class ApprenticeController {
         return "dashboard";
     }
 
+    /**
+     * Retrieve dashboard page for a particular academic year.
+     * @param selectedYear Selected academic year
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @param redirectAttributes Redirect attributes to store flash messages
+     * @return Dashboard page for a particular academic year
+     */
     @GetMapping("/get-dashboard-for-particular-year")
     public String dashboardForParticularYear(@ModelAttribute YearDTO selectedYear, Principal principal, Model model, RedirectAttributes redirectAttributes) {
         // retrieve connected tutor information
@@ -93,6 +116,12 @@ public class ApprenticeController {
         return "dashboard";
     }
 
+    /**
+     * Retrieve apprentice research page.
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @return Apprentice research page
+     */
     @GetMapping("/get-apprentice-research")
     public String apprenticeResearch(Principal principal, Model model) {
         // retrieve connected tutor information
@@ -112,6 +141,14 @@ public class ApprenticeController {
         return "apprentice-research";
     }
 
+    /**
+     * Retrieve apprentice research results page based on criteria.
+     * @param principal Current logged in tutor
+     * @param model Model to store information for html template
+     * @param researchCriteriaDTO Apprentice research criteria
+     * @param bindingResult Binding result to check for validation errors
+     * @return Apprentice research results page based on criteria
+     */
     @GetMapping("/get-apprentice-searched-by-criteria")
     public String getApprenticeResearch(Principal principal, Model model, @Valid @ModelAttribute ApprenticeResearchCriteriaDTO researchCriteriaDTO, BindingResult bindingResult) {
         String userName = principal.getName();

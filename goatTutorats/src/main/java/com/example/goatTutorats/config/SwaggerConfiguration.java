@@ -19,7 +19,7 @@ public class SwaggerConfiguration implements ApplicationListener<ApplicationPrep
 
     /**
      * Configure swagger like swagger endpoints.
-     * @param event
+     * @param event application prepared event.
      */
     @Override
     public void onApplicationEvent(final ApplicationPreparedEvent event) {
@@ -31,10 +31,18 @@ public class SwaggerConfiguration implements ApplicationListener<ApplicationPrep
                 .addFirst(new PropertiesPropertySource("programmatically", props));
     }
 
+    /**
+     * Define swagger ui path.
+     * @return swagger ui path.
+     */
     private String swaggerUIPath() {
         return String.format("%s/ui-doc", this.baseDocUrl);
     }
 
+    /**
+     * Define swagger doc path.
+     * @return swagger doc path.
+     */
     private String swaggerPath() {
         return String.format("%s/doc", this.baseDocUrl);
     }

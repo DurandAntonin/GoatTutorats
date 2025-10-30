@@ -9,6 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a user entity in the system.
+ * It implements the UserDetails interface from Spring Security
+ * to provide user authentication and authorization details.
+ */
 @Entity
 @Data
 @NoArgsConstructor
