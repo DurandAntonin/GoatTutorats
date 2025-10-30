@@ -17,6 +17,11 @@ L'application est maintenant accessible avec cette URL :
 http://localhost:8081/auth/get-login
 ``` 
 
+On peut également accèder à l'interface Swagger via cette URL : 
+```
+http://localhost:8081/docs/ui-doc
+``` 
+
 ### Accès au site en ligne 
 
 L'application étant déployée, on peut aussi y accèder directement via cette URL : 
@@ -24,6 +29,12 @@ L'application étant déployée, on peut aussi y accèder directement via cette 
 https://goat-tutorats.techops.tf/auth/get-login
 
 ``` 
+
+Et pour Swagger : 
+```
+https://goat-tutorats.techops.tf/docs/ui-doc
+```
+
 ### Connexion 
 
 Après avoir été redirigé automatiquement sur la page de connexion, on peut utiliser ces identifiants : 
@@ -44,6 +55,7 @@ Nous nous sommes également servi de Docker et de Kubernetes pour le déploiemen
 - **POC d'un REST Controller** : pour avoir une API réutilisable ainsi que testable et documentée avec Swagger, il faut utiliser une API REST. Mais les controllers de ce type d'API ne peuvent pas renvoyer les pages pour Thymeleaf. Nous avons donc réalisé un POC d'API REST pour la classe de 'User' dans la classe 'UserController'. Cela permet de montrer la faisabilité des API REST dans notre contexte, malgré l'impossibilité de le mettre en œuvre de façon propre.
 - **Notifications 'toast' et pop-up de confirmation** : afin d'obtenir une meilleure expérience utilisateur côté front, nous avons utilisé Bootstrap pour ajouter des notifications de confirmation de création et de modification d'un apprenti ('toast'). Seul le JS de Bootstrap est importé, afin de préserver notre CSS. De la même façon, il y aussi un pop-up de confirmation lors de la création d'une nouvelle année académique qui informe l'utilisateur que cette action est irréversible. 
 - **Composants Thymeleaf** : nous avons utilisé les fragments de Thymeleaf pour rendre la vue modulaire et facilement réutilisable. On peut aussi noter que le formulaire utilisé pour la création d'un apprenti et aussi utilisé pour la modification d'un apprenti. 
+- **Requête SQL native** : comme demandé par le sujet, nous avons réalisé une requête SQL native qui permet de connaitre le nombre d'apprentis au total, toutes années académiques confondus. Ce nombre est visible en bas de la page de recherche des apprentis. La requête est visible dans la fonction 'getTotalNumber()' de 'ApprenticeRepository'. L'avantage de ce type de requête est qu'on peut utiliser des fonctions relative au SGBD ou encore interroger des colonnes qui ne sont pas mappées dans une entité JPA. Par contre, on perd les avantages de JPQL : pas de gestion automatique des relations, pas de conversion vers des DTO/entités, pas de lazy loading... On pourrait aussi avoir des problèmes de migration de base de données si on utilise des fonctions dépendantes du SGBD. Enfin, la requête pourrait échouer si on modifie le modèle d'entité. 
 
 ## Difficultés 
 
