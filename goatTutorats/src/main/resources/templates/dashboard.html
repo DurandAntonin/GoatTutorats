@@ -18,8 +18,15 @@
 </header>
 
 <!-- section for academic year creation validation -->
-<div th:replace="~{fragments/confirmation-popup :: confirmation-popup(popupId='popup-add-academic-year', title='Ajouter une nouvelle année académique', content='Etes-vous sur de vouloir ajouter une nouvelle année académique. L\'action sera irréversible.', confirmAction='/academicYear/create-academic-year', confirmMethod='POST')}">
+<div th:replace="~{fragments/confirmation-popup :: confirmation-popup(
+    popupId='popup-add-academic-year',
+    title='Ajouter une nouvelle année académique',
+    content='Etes-vous sûr de vouloir ajouter une nouvelle année académique.<br>L\'action sera irréversible.<br>Cela archivera tous les apprentis qui sont en ING3 et changera d\'année pour les autres apprentis',
+    confirmAction='/academicYear/create-academic-year',
+    confirmMethod='POST'
+)}">
 </div>
+
 
 <!-- section for toast messages -->
 <div th:replace="~{fragments/toast :: toast-messages}"></div>

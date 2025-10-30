@@ -1,35 +1,18 @@
 services:
   mysql:
     image: mysql:9.5
-    container_name: mysql-goat
+    container_name: mysql-goat-tutorats
     environment:
       MYSQL_ROOT_PASSWORD: azerty
       MYSQL_DATABASE: Base_GoatTutorats
     ports:
       - "3306:3306"
-    networks:
-      - goat-network
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       retries: 10
-
-  app:
-    build:
-      context: ./goatTutorats
-      dockerfile: Dockerfile
-    container_name: spring-goat
-    depends_on:
-      - mysql
-    ports:
-      - "8081:8081"
-    networks:
-      - goat-network
-
-networks:
-  goat-network:
 
 volumes:
   mysql-data:
