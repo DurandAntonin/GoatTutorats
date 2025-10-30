@@ -83,25 +83,30 @@ function addNewMissionEntry(){
 
     // retrieve number of missions already present
     const numberOfRemarks = document.querySelectorAll('.apprentice-mission');
+    const index = numberOfRemarks.length - 1;
 
-    // create new inputs for this remark
-    const missionTargetJob = createHtmlElement(
-        'input',
-        ['row-length-95'],
-        [
-            {name: 'name', value: `missions[${numberOfRemarks.length-1}].targetJob`},
-            {name: 'required', value: true},
-        ]
-    );
-    missionTargetJob.type = 'text';
+    // --- SELECT targetJob (clone existing select) ---
+    const baseSelect = document.querySelector('.target-job-select');
+    let missionTargetJob;
 
+    if (baseSelect) {
+        missionTargetJob = baseSelect.cloneNode(true);
+        missionTargetJob.name = `missions[${index}].targetJob`;
+        missionTargetJob.value = ''; // reset selection
+    } else {
+        console.warn('No base .target-job-select found — cannot clone select');
+        missionTargetJob = document.createElement('select');
+        missionTargetJob.name = `missions[${index}].targetJob`;
+    }
+
+    // --- TEXTAREAS ---
     const missionKeywords = createHtmlElement(
         'textarea',
         ['row-length-95', 'textarea-row3'],
         [
-            {name: 'name', value: `missions[${numberOfRemarks.length-1}].keywords`},
-            {name: 'required', value: true},
-            {name: 'row', value: 5},
+            { name: 'name', value: `missions[${index}].keywords` },
+            { name: 'required', value: true },
+            { name: 'rows', value: 5 },
         ]
     );
 
@@ -109,13 +114,13 @@ function addNewMissionEntry(){
         'textarea',
         ['row-length-95', 'textarea-row3'],
         [
-            {name: 'name', value: `missions[${numberOfRemarks.length-1}].comments`},
-            {name: 'required', value: true},
-            {name: 'row', value: 5},
+            { name: 'name', value: `missions[${index}].comments` },
+            { name: 'required', value: true },
+            { name: 'rows', value: 5 },
         ]
     );
 
-    // create cells and save row
+    // --- Insert cells ---
     row.insertCell(0).appendChild(missionTargetJob);
     row.insertCell(1).appendChild(missionKeywords);
     row.insertCell(2).appendChild(missionComments);
