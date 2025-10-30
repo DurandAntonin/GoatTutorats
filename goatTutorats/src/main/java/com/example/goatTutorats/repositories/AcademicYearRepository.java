@@ -75,7 +75,7 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, UUID
      * @param apprenticeName partial or full apprentice last name to filter by
      * @param companyName partial or full company name to filter by
      * @param missionKeywords keywords to match within missions
-     * @param academicYear the academic year to filter by; ignored if <= 0
+     * @param academicYear the academic year to filter by; ignored if is less or equal to 0
      * @return a list of academic year records matching the specified search criteria, ordered by year
      */
     @Query("SELECT ay " +
